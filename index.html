@@ -195,19 +195,26 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .horizon{position:absolute;left:0;right:0;bottom:0;height:220px;pointer-events:none;z-index:4;background:radial-gradient(ellipse 70% 100% at 50% 100%,rgba(172,69,56,.22) 0%,transparent 70%),linear-gradient(to top,rgba(14,17,23,.62),transparent)}
 
 /* the welcome: who is reading, and what this morning has to answer */
-.welcome{position:absolute;inset:0;z-index:40;display:flex;align-items:center;padding:0 7vw;background:linear-gradient(90deg,rgba(14,17,23,.86) 0%,rgba(14,17,23,.62) 46%,rgba(14,17,23,.18) 100%);transition:opacity .7s var(--land-ease)}
+.welcome{position:absolute;inset:0;z-index:40;display:flex;align-items:safe center;overflow:auto;padding:24px 7vw;background:linear-gradient(90deg,rgba(14,17,23,.86) 0%,rgba(14,17,23,.62) 46%,rgba(14,17,23,.18) 100%);transition:opacity .7s var(--land-ease)}
 .welcome.out{opacity:0;pointer-events:none}
 .welcome .w{width:min(620px,100%);position:relative}
-.welcome .who{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+@media (min-width:1180px){.welcome .w{width:min(760px,100%)} .welcome .ways{grid-template-columns:repeat(4,1fr);gap:6px} .welcome .way{grid-template-columns:18px 1fr;gap:8px;padding:10px 10px} .welcome .way .wa{display:none} .welcome .way .wt small{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}}
+.welcome .who{display:flex;align-items:center;gap:14px;margin-bottom:18px}
 .welcome .av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:var(--font-dm-mono);font-size:14px;letter-spacing:.06em;background:var(--basalt-sea);box-shadow:0 0 0 1px rgba(237,240,242,.18),0 0 0 4px rgba(196,114,79,.35)}
 .welcome .nm{font-size:15px}
 .welcome .nm small{display:block;font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(237,240,242,.72);margin-top:3px}
-.welcome h1{font-weight:200;font-size:clamp(40px,5.4vw,72px);line-height:1.02;letter-spacing:-.02em;margin:10px 0 18px}
-.welcome .p{font-size:17px;line-height:1.6;color:rgba(237,240,242,.88);margin:0 0 24px;max-width:54ch}
+.welcome h1{font-weight:200;font-size:clamp(36px,4.6vw,60px);line-height:1.02;letter-spacing:-.02em;margin:8px 0 14px}
+.welcome .p{font-size:16px;line-height:1.55;color:rgba(237,240,242,.88);margin:0 0 14px;max-width:58ch}
+.wstakes{display:grid;grid-template-columns:repeat(3,1fr);gap:0;max-width:640px;margin:0 0 14px;border-top:1px solid var(--marine-line);border-bottom:1px solid var(--marine-line)}
+.wstakes>div{padding:9px 14px 9px 0} .wstakes>div+div{padding-left:14px;border-left:1px solid var(--marine-line)}
+.wstakes .n{font-family:var(--font-dm-mono);font-size:22px;letter-spacing:-.01em} .wstakes .n.warm{color:var(--anemone-lit)}
+.wstakes .l{font-size:12px;line-height:1.4;color:rgba(237,240,242,.72);margin-top:4px}
+.welcome .until{font-size:13px;line-height:1.5;color:rgba(237,240,242,.72);margin:0 0 14px;max-width:58ch}
+@media (max-width:600px){.wstakes{grid-template-columns:1fr} .wstakes>div+div{padding-left:0;border-left:0;border-top:1px solid var(--marine-line)}}
 .welcome .p b{font-weight:500;color:var(--spindrift)}
 .welcome .datum{height:1px;background:rgba(237,240,242,.4);margin:0 -48px 18px -7vw}
-.welcome .qs{list-style:none;margin:0 0 24px;padding:0;counter-reset:q}
-.welcome .qs li{counter-increment:q;display:grid;grid-template-columns:30px 1fr;gap:6px;font-size:15px;line-height:1.45;padding:7px 0;color:rgba(237,240,242,.9)}
+.welcome .qs{list-style:none;margin:0 0 16px;padding:0;counter-reset:q}
+.welcome .qs li{counter-increment:q;display:grid;grid-template-columns:30px 1fr;gap:6px;font-size:14.5px;line-height:1.4;padding:5px 0;color:rgba(237,240,242,.9)}
 .welcome .qs li::before{content:counter(q,decimal-leading-zero);font-family:var(--font-dm-mono);font-size:11px;color:var(--anemone-lit);padding-top:3px}
 .welcome .lbl{font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(237,240,242,.72);margin-bottom:8px}
 .welcome .go{display:flex;align-items:center;gap:18px}
@@ -445,7 +452,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .welcome .way .wa{width:15px;height:15px;color:rgba(237,240,242,.72);margin-top:3px;transition:transform var(--motion-base) var(--land-ease),color var(--motion-base)}
 .welcome .way:hover{border-color:var(--anemone-lit);background:rgba(196,114,79,.14)}
 .welcome .way:hover .wa{transform:translateX(3px);color:var(--spindrift)}
-.welcome .go{margin:4px 0 22px}
+.welcome .go{margin:4px 0 16px}
 .welcome .go .btn.primary{display:inline-flex;align-items:center;gap:10px}
 .welcome .go .btn .ico{width:14px;height:14px}
 .welcome.out .w{animation:pv-leave .45s var(--ease-exit) forwards}
@@ -1949,11 +1956,13 @@ function welcome(){
     {k:'best', i:'glass', t:'Compare with the best plan', d:fmt$(D.best.value - D.naive.value) + ' more than the plan on the board, with the same crews.'}
   ];
   $('#welcome-w').innerHTML =
-    '<div class="who"><div class="av" aria-hidden="true">' + USER.initials + '</div><div class="nm">' + esc(USER.name) + '<small>' + esc(USER.role) + ' · ' + esc(D.estate.name) + '</small></div></div>' +
+    '<div class="who"><div class="av" aria-hidden="true">' + USER.initials + '</div><div class="nm">' + esc(USER.name) + '<small>' + esc(USER.role) + ' · ' + esc(D.estate.name) + ' · ' + B.reduce((t, b) => t + b.acres, 0).toFixed(0) + ' acres, ' + B.length + ' blocks, two crews</small></div></div>' +
     '<div class="eyebrow">' + esc(dstr(TODAY)) + ' · ' + esc(D.estate.refresh) + ' · ' + esc(D.estate.place) + '</div>' +
     '<h1 id="w-h">Good morning, ' + esc(USER.first) + '.</h1>' +
     '<p class="p">' + cap(LIVE.length) + ' blocks are still on the vine and ' + words[ready] + ' of them are in their window. Rain arrives <b>' + DOWL[rainDay.getUTCDay()] + ' at 2 PM</b>. ' +
-      'Before the crews go out tonight you have to decide which blocks come in before the storm, and which can ride it out.</p>' +
+      'Before the crews go out tonight you have to decide which blocks come in before the storm, and which can ride it out. It is the decision that sets the vintage: every block at its best, with two crews and the tanks you have, before the weather takes it.</p>' +
+    '<div class="wstakes"><div><div class="n">' + fmtM(D.naive.value) + '</div><div class="l">the week as the board has it, picking by ripeness</div></div><div><div class="n warm">' + fmtM(D.best.value) + '</div><div class="l">the same week, the same crews, picked in the right order</div></div><div><div class="n">' + fmtK(D.best.value - D.naive.value) + '</div><div class="l">the difference, decided before 7 AM</div></div></div>' +
+    '<p class="until">Until now this morning took a lab sheet, a whiteboard, the forecast on a phone and forty texts. Today it is one screen, and the crews answer on it.</p>' +
     '<div class="datum"></div>' +
     '<div class="lbl">What this morning has to answer</div>' +
     '<ol class="qs">' +
