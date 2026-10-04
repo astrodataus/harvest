@@ -359,6 +359,27 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .task.done .box .ico{stroke-dashoffset:0}
 .task.done .tt{color:rgba(237,240,242,.75)}
 .task button:hover .box{border-color:var(--spindrift)}
+#overlay .flag{cursor:pointer;outline:none;pointer-events:auto}
+#overlay .flag .fr{fill:rgba(14,17,23,.42);stroke:var(--anemone-lit);stroke-width:2;transform-box:fill-box;transform-origin:center;animation:flagpulse 2.4s ease-in-out infinite}
+#overlay .flag .fc{fill:var(--anemone-lit);r:7} #overlay .flag .fk{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#overlay .flag.sent .fr{stroke:#9DB5C9;animation:none} #overlay .flag.sent .fc{fill:#9DB5C9}
+#overlay .flag.resolved .fr{stroke:var(--kelp-lit);stroke-dasharray:none;animation:none;fill:rgba(79,179,162,.1)} #overlay .flag.resolved .fc{fill:var(--kelp-lit)}
+#overlay .flag.hot .fr,#overlay .flag:focus-visible .fr{stroke-width:2.5;fill:rgba(227,151,111,.28)}
+@keyframes flagpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+@media (prefers-reduced-motion:reduce){#overlay .flag .fr{animation:none}}
+.ptip{position:absolute;z-index:14;width:300px;padding:10px 12px;font-size:12.5px;line-height:1.5;display:none;pointer-events:none}
+.ptip.on{display:block}
+.ptip .pth{display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(237,240,242,.8)} .ptip .pth b{color:var(--spindrift);font-weight:500} .ptip .pth .ico{width:14px;height:14px;color:var(--anemone-lit)}
+.ptip .ptb{margin-top:5px;color:rgba(237,240,242,.9)} .ptip .ptf{margin-top:6px;font-family:var(--font-dm-mono);font-size:11px;color:var(--anemone-lit)}
+.alert{margin:14px 0 4px;padding:10px 12px 10px;border:1px solid rgba(227,151,111,.5);border-radius:2px;background:rgba(196,114,79,.1)}
+.alert.sent{border-color:rgba(157,181,201,.5);background:rgba(157,181,201,.08)} .alert.resolved,.alert.moved{border-color:rgba(79,179,162,.5);background:rgba(45,122,110,.1)}
+.alert .ah{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font-size:13px} .alert .ah b{font-weight:500;color:var(--spindrift)} .alert .ah .ico{width:14px;height:14px;color:var(--anemone-lit);align-self:center}
+.alert.resolved .ah .ico,.alert.moved .ah .ico{color:var(--kelp-lit)} .alert.sent .ah .ico{color:#9DB5C9}
+.alert .ah .mono{font-family:var(--font-dm-mono);font-size:11px;color:rgba(237,240,242,.6)}
+.alert p{margin:6px 0 0;font-size:12.5px;line-height:1.5;color:rgba(237,240,242,.88)}
+.alert .act.tight{margin-top:10px} .alert .hint{margin-top:6px}
+.bell{font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(237,240,242,.55);padding:4px 9px;border:1px solid var(--marine-line);border-radius:2px;margin-right:14px;align-self:center}
+.bell.on{color:var(--anemone-lit);border-color:rgba(227,151,111,.6);background:rgba(196,114,79,.12)}
 .receipt{display:flex;gap:10px;align-items:flex-start;margin:14px 0 2px;padding:9px 11px;border:1px solid rgba(237,240,242,.18);border-radius:2px;font-size:12.5px;line-height:1.5;color:rgba(237,240,242,.85);background:rgba(237,240,242,.04)}
 .receipt .ico{width:16px;height:16px;flex:none;color:var(--anemone-lit);margin-top:2px} .receipt b{font-weight:500;color:var(--spindrift)}
 .receipt .rs{font-family:var(--font-dm-mono);font-size:11px;color:var(--kelp-lit)}
@@ -725,7 +746,7 @@ const FS = `#version 300 es
 precision highp float;
 in vec2 v; out vec4 o;
 uniform sampler2D A, Bt, M, BK, V;
-uniform float mixAB, storm, time, introMix, hoverId, selId, dimOthers, motion;
+uniform float mixAB, storm, time, introMix, hoverId, selId, dimOthers, motion, hotPatch, fixedMask;
 uniform vec2 res; uniform vec3 camr; // x, y, zoom-scale (pixels per image px)
 uniform vec2 img;
 float h21(vec2 p){ p = fract(p*vec2(123.34, 456.21)); p += dot(p, p+45.32); return fract(p.x*p.y); }
@@ -759,6 +780,16 @@ void main(){
     col = mix(col, col*t.rgb*1.7, t.a);
     if (abs(id-hoverId) < .5) col *= 1.12;
     if (selId > .5 && abs(id-selId) > .5) col *= 1. - dimOthers*.22;
+    // a patch that looks off: the canopy yellows and thins there, mottled, with a soft organic edge
+    float pid = floor(texture(M, uv).g*255. + .5);
+    if (pid > .5){
+      float fixedP = pid < 1.5 ? mod(fixedMask, 2.) : step(1.5, fixedMask);
+      float k = .35 + .65*smoothstep(.2, .75, fbm(uv*vec2(140., 78.) + pid*3.1));
+      vec3 dry = pid < 1.5 ? vec3(1.22, 1.0, .58) : vec3(1.06, .9, .7);
+      col = mix(col, col*dry, (.8 - fixedP*.55)*k);
+      col *= 1. - (.1 - fixedP*.07)*k;
+      if (abs(pid-hotPatch) < .5) col += vec3(.16, .10, .02)*(.5 + .5*sin(time*4.));
+    }
   } else if (selId > .5) col *= 1. - dimOthers*.3;
   // the intro flight lands exactly on the still
   if (introMix > 0.){
@@ -787,7 +818,7 @@ function initGL(){
     gl.useProgram(prog);
     const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
     const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-    ['A','Bt','M','BK','V','mixAB','storm','time','introMix','hoverId','selId','dimOthers','motion','res','camr','img'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
+    ['A','Bt','M','BK','V','mixAB','storm','time','introMix','hoverId','selId','dimOthers','motion','res','camr','img','hotPatch','fixedMask'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
     gl.uniform1i(U.A, 0); gl.uniform1i(U.Bt, 1); gl.uniform1i(U.M, 2); gl.uniform1i(U.BK, 3); gl.uniform1i(U.V, 4);
   } catch(e){ console.warn('WebGL unavailable, drawing flat', e); GLOK = false; }
 }
@@ -797,7 +828,11 @@ function buildMask(){
   const x = c.getContext('2d');
   B.forEach(b => { x.beginPath(); b.poly.forEach(([u,v],i) => i ? x.lineTo(u*W, v*H) : x.moveTo(u*W, v*H)); x.closePath(); x.fillStyle = 'rgb(' + b.idx + ',0,0)'; x.fill(); });
   const d = x.getImageData(0,0,W,H); for (let i = 0; i < d.data.length; i += 4){ if (d.data[i+3] < 128) d.data[i] = 0; d.data[i+1] = d.data[i+2] = 0; d.data[i+3] = 255; }
-  x.putImageData(d, 0, 0); return c;
+  x.putImageData(d, 0, 0);
+  // the patches go in the green channel, over the block ids
+  const e = c.getContext('2d'); e.globalCompositeOperation = 'lighter';
+  PATCHES.forEach(pt => { e.beginPath(); pt.poly.forEach(([u,v],i) => i ? e.lineTo(u*W, v*H) : e.moveTo(u*W, v*H)); e.closePath(); e.fillStyle = 'rgb(0,' + pt.n + ',0)'; e.fill(); });
+  return c;
 }
 const blockData = new Uint8Array(16*4);
 function writeBlockTex(){
@@ -818,7 +853,7 @@ function writeBlockTex(){
 }
 
 // ---------- state ----------
-let T = TODAY, hoverId = null, selId = null, introMix = 0, running = true, t0 = performance.now();
+let T = TODAY, hoverId = null, selId = null, introMix = 0, running = true, t0 = performance.now(), hotPatch = null;
 const imgs = {}; let ready = false;
 function load(src){ return new Promise((res, rej) => { const i = new Image(); i.decoding = 'async'; i.onload = () => res(i); i.onerror = rej; i.src = src; }); }
 
@@ -847,7 +882,7 @@ function draw(now){
     if (introMix > 0 && vidTex){ const vid = $('#intro'); gl.activeTexture(gl.TEXTURE4); gl.bindTexture(gl.TEXTURE_2D, vidTex);
       if (vid.readyState >= 2) gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, vid); }
     gl.uniform1f(U.mixAB, fr.m); gl.uniform1f(U.storm, st); gl.uniform1f(U.time, tsec); gl.uniform1f(U.introMix, introMix);
-    gl.uniform1f(U.hoverId, hoverId ? BY[hoverId].idx : 0); gl.uniform1f(U.selId, selId ? BY[selId].idx : 0); gl.uniform1f(U.dimOthers, selId ? 1 : 0);
+    gl.uniform1f(U.hoverId, hoverId ? BY[hoverId].idx : 0); gl.uniform1f(U.hotPatch, hotPatch ? PBY[hotPatch].n : 0); gl.uniform1f(U.fixedMask, (ALERT.p1.state === 'resolved' ? 1 : 0) + (ALERT.p2.state === 'resolved' ? 2 : 0)); gl.uniform1f(U.selId, selId ? BY[selId].idx : 0); gl.uniform1f(U.dimOthers, selId ? 1 : 0);
     gl.uniform1f(U.motion, RM || STILL ? 0 : 1);
     gl.uniform2f(U.res, cv.width, cv.height); gl.uniform3f(U.camr, cam.x, cam.y, coverScale()*cam.z*DPR); gl.uniform2f(U.img, IMG.w, IMG.h);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
@@ -892,13 +927,48 @@ function drawOverlay(){
       '<text class="nm" text-anchor="middle" y="-10" paint-order="stroke" stroke="rgba(14,17,23,.55)" stroke-width="3">' + esc(b.name) + '</text>' +
       '<text class="bx" text-anchor="middle" y="6" paint-order="stroke" stroke="rgba(14,17,23,.55)" stroke-width="3">' + esc(bx) + '</text>' + dayTag + '</g>';
   });
-  const focused = document.activeElement && document.activeElement.closest ? document.activeElement.closest('#overlay .lab') : null, fb = focused ? focused.dataset.b : null;
+  // the drone's flags: a ring at each patch, shown once you are close enough to see the patch itself, or when its block is open
+  PATCHES.forEach(pt => { const st = ALERT[pt.id].state; if (st === 'dismissed') return;
+    const near = cam.z >= 1.5 || selId === pt.block || hoverId === pt.block; if (!near) return;
+    const cx = pt.poly.reduce((a, q) => a + q[0], 0)/pt.poly.length, cy = pt.poly.reduce((a, q) => a + q[1], 0)/pt.poly.length; const [x, y] = toScreen(cx, cy);
+    h += '<g class="flag ' + st + (hotPatch === pt.id ? ' hot' : '') + '" data-p="' + pt.id + '" transform="translate(' + x.toFixed(1) + ',' + y.toFixed(1) + ')" tabindex="0" role="button" aria-label="' + esc(BY[pt.block].name + ': ' + (st === 'resolved' ? 'checked, ' + pt.reply.split(':')[0] + ' answered' : st === 'sent' ? 'someone is on the way' : 'something looks off, ' + pt.where)) + '">' +
+      '<circle r="13" class="fr"/><circle r="6" class="fc"/>' + (st === 'resolved' ? '<path d="M-3.5 .5l2.5 2.5 4.5-5" class="fk"/>' : st === 'sent' ? '<path d="M-3 0h6M1 -2.5l2.5 2.5-2.5 2.5" class="fk"/>' : '<path d="M0 -3.2v3.6M0 2.4v.6" class="fk"/>') + '</g>'; });
+  const focused = document.activeElement && document.activeElement.closest ? document.activeElement.closest('#overlay .lab, #overlay .flag') : null, fb = focused ? (focused.dataset.b || focused.dataset.p) : null;
   ov.innerHTML = h;
-  if (fb){ const again = ov.querySelector('.lab[data-b="' + fb + '"]'); if (again) again.focus({preventScroll: true}); }
+  if (fb){ const again = ov.querySelector('.lab[data-b="' + fb + '"], .flag[data-p="' + fb + '"]'); if (again) again.focus({preventScroll: true}); }
   const inW = LIVE.filter(b => ripeState(b, T) === 'ready').length;
   $('#land').setAttribute('aria-label', 'Aerial view of the Quillon Ridge estate on ' + dstr(Math.floor(T)) + ': ' + LIVE.length + ' blocks on the vine, ' + inW + ' in their window, ' + LIVE.filter(b => !SL[plan[b.id]].wet).length + ' planned before the rain.');
 }
-ov.addEventListener('pointerover', e => { const g = e.target.closest('[data-b]'); if (g) setHover(g.dataset.b); });
+ov.addEventListener('pointerover', e => { const f = e.target.closest('.flag'); if (f){ hotPatch = f.dataset.p; patchTip(f.dataset.p, e); drawOverlay(); return; } const g = e.target.closest('[data-b]'); if (g) setHover(g.dataset.b); });
+ov.addEventListener('pointerout', e => { const f = e.target.closest('.flag'); if (f && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.flag'))){ hotPatch = null; patchTip(null); drawOverlay(); } });
+ov.addEventListener('click', e => { const f = e.target.closest('.flag'); if (f){ e.stopPropagation(); openPatch(f.dataset.p); } });
+// the message at the flag: what the drone saw, and what to do about it
+function patchTip(id, e){
+  let t = $('#ptip'); if (!id){ if (t) t.classList.remove('on'); return; }
+  const pt = PBY[id], st = ALERT[id].state;
+  if (!t){ t = document.createElement('div'); t.id = 'ptip'; t.className = 'ptip glass'; $('#stage').appendChild(t); }
+  t.innerHTML = '<div class="pth">' + ico(pt.kind === 'water' ? 'drop' : 'flask') + '<b>' + esc(BY[pt.block].name) + '</b> · ' + pt.acres + ' ac · ' + esc(pt.where) + '</div><div class="ptb">' + esc(st === 'resolved' ? pt.reply : pt.note) + '</div><div class="ptf">' + (st === 'open' ? 'Click to investigate' : st === 'sent' ? 'Someone is on the way; word comes back in a few minutes' : 'Checked and answered') + '</div>';
+  const r = mapEl.getBoundingClientRect(); const x = Math.min(e.clientX - r.left + 18, VW - 320), y = Math.max(84, e.clientY - r.top - 20);
+  t.style.left = x + 'px'; t.style.top = y + 'px'; t.classList.add('on');
+}
+function openPatch(id){ const pt = PBY[id]; if (selId !== pt.block) select(pt.block); setTimeout(() => { const c = $('#alert-' + id); if (c) c.scrollIntoView({behavior: RM ? 'auto' : 'smooth', block: 'center'}); }, 500); }
+// the user sends someone; word comes back on the estate clock
+let PATCHT = {};
+function investigate(id){
+  const pt = PBY[id], a = ALERT[id]; if (a.state !== 'open') return;
+  a.state = 'sent'; a.at = clockNow(); log(pt.block, 'send', 'Asked ' + CREWS[pt.who].lead + ': ' + pt.ask);
+  toast(CREWS[pt.who].lead + ' is on the way to ' + BY[pt.block].name + '. Word comes back in a few minutes (simulated).');
+  refresh(); if (selId === pt.block) card(true);
+  PATCHT[id] = setTimeout(() => { a.state = 'resolved'; a.at = clockNow(); log(pt.block, 'ack', pt.reply + ' (simulated reply)'); toast(pt.reply.split(':')[0] + ' reports back on ' + BY[pt.block].name + '. Simulated reply.', {}); refresh(); if (selId === pt.block) card(true); }, RM ? 600 : 18000 + Math.random()*10000);
+}
+function dismissPatch(id){ const a = ALERT[id]; a.state = 'dismissed'; log(PBY[id].block, 'undo', 'Set aside the drone\u2019s flag on ' + BY[PBY[id].block].name); refresh(); if (selId === PBY[id].block) card(true); }
+function alertCard(b){
+  return PATCHES.filter(pt => pt.block === b.id && ALERT[pt.id].state !== 'dismissed').map(pt => { const a = ALERT[pt.id];
+    return '<div class="alert ' + a.state + '" id="alert-' + pt.id + '"><div class="ah">' + ico(pt.kind === 'water' ? 'drop' : 'flask') + '<b>' + (a.state === 'resolved' ? 'Checked' : a.state === 'sent' ? 'Someone is on the way' : 'Something looks off') + '</b><span class="mono">drone pass, Sat Oct 3 · ' + pt.acres + ' ac · ' + esc(pt.where) + '</span></div>' +
+      '<p>' + esc(a.state === 'resolved' ? pt.reply : pt.note) + '</p>' +
+      (a.state === 'open' ? '<div class="act tight"><button class="btn primary" type="button" data-investigate="' + pt.id + '">Send ' + esc(CREWS[pt.who].lead) + ' to look ' + ico('arrow') + '</button><button class="btn" type="button" data-dismiss="' + pt.id + '">Set aside</button></div>' :
+       a.state === 'sent' ? '<div class="hint">Asked ' + esc(a.at) + '. Word comes back in a few minutes (simulated).</div>' : '<div class="hint">Answered ' + esc(a.at) + '.</div>') + '</div>'; }).join('');
+}
 ov.addEventListener('pointerout', e => { const g = e.target.closest('[data-b]'); if (g && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('[data-b="' + g.dataset.b + '"]'))) setHover(null); });
 ov.addEventListener('click', e => { const g = e.target.closest('[data-b]'); if (g) select(g.dataset.b); });
 mapEl.addEventListener('click', e => { if (!e.target.closest('[data-b]') && selId) select(null); });
@@ -1201,7 +1271,7 @@ function transition(){
     setTimeout(() => { go(); if (vt && vt.skipTransition) try { vt.skipTransition(); } catch(e){} }, 900);
   } else go();
 }
-function refresh(){ board(); drawOverlay(); writeBlockTex(); ripen(); morning(); dumbbell(); fortnight(); if (selId) card(true); if (SENT) summary(); saveState(); }
+function refresh(){ board(); drawOverlay(); writeBlockTex(); ripen(); morning(); dumbbell(); fortnight(); if (selId) card(true); if (SENT) summary(); alertsBadge(); saveState(); }
 // the state worth sharing lives in the hash: the future in play, the plan, the block open and the date. The decisions stay on this machine.
 let RESTORING = false, saveT = 0;
 function saveState(){ clearTimeout(saveT); saveT = setTimeout(saveNow, 300); }
@@ -1325,6 +1395,21 @@ function stepBlock(d){ const ids = B.map(b => b.id); const i = ids.indexOf(selId
 const CREWS = {A: {lead: 'Rosa M.', pickers: 9}, B: {lead: 'Tomas R.', pickers: 9}};
 const DEC = {}; LIVE.forEach(b => DEC[b.id] = {step: 'read', state: 'open', pick: null, tasks: {}, seen: false});
 let SENT = null;
+// what Saturday's drone pass flagged: two patches that look off. Polygons in image coordinates, inside their blocks.
+const PATCHES = [
+  {id: 'p1', n: 1, block: 'B7', kind: 'water', acres: 0.4, where: 'south edge, rows 12 to 16',
+   poly: [[0.6054,0.5281],[0.6262,0.5067],[0.6567,0.4773],[0.6708,0.5203],[0.6327,0.577],[0.6054,0.5438]],
+   note: 'Canopy 4\u00b0C warmer than the rest of the block on Saturday\u2019s thermal pass, vigor 0.38 against 0.61. Reads like a dry zone: a dripline, or a valve.',
+   ask: 'Walk the south edge of Golden Slope: check the dripline on rows 12 to 16', who: 'A',
+   reply: 'Rosa M.: cracked dripline on row 14, water pooling at the valve. Fixed by noon; the vines will hold. Pick that zone first Wednesday, it is a day ahead.'},
+  {id: 'p2', n: 2, block: 'B13', kind: 'pest', acres: 0.3, where: 'north corner, by the creek',
+   poly: [[0.6394,0.8733],[0.6765,0.9175],[0.6813,0.9714],[0.6241,0.9714]],
+   note: 'Mottled canopy on the RGB pass, vigor 0.44 against 0.66 for the block, the same corner that had leafhoppers in August. Could be mites, could be mildew after the fog.',
+   ask: 'Pull leaf samples from the creek corner of Big Bench East and look under them', who: 'B',
+   reply: 'Tomas R.: spider mites on about twenty vines by the creek, nothing on the fruit yet. Sulfur dust this evening. Not a reason to move the pick.'}
+];
+const ALERT = {}; PATCHES.forEach(x => ALERT[x.id] = {state: 'open'});   // open, sent, resolved, dismissed
+const PBY = {}; PATCHES.forEach(x => PBY[x.id] = x);
 // the estate clock: 6:00 AM when the page opened, and a second a minute, so a morning passes while Annu works. Said so in the About.
 const OPENED0 = performance.now();
 const clockMin = () => 6*60 + 4 + Math.floor((performance.now() - OPENED0)/1000);
@@ -1420,7 +1505,7 @@ function card(quiet, swap){
     c.innerHTML = h; wireCard(b); return;
   }
   const d = DEC[b.id];
-  h += steps(b) + '<div class="stepbody" id="stepbody">' + stepBody(b) + '</div>';
+  h += alertCard(b) + steps(b) + '<div class="stepbody" id="stepbody">' + stepBody(b) + '</div>';
   c.innerHTML = h;
   if (swap && !RM){ c.classList.remove('swap'); void c.offsetWidth; c.classList.add('swap'); }
   wireCard(b);
@@ -1535,6 +1620,8 @@ function wireCard(b){
   c.querySelectorAll('[data-open]').forEach(t => t.onclick = () => select(t.dataset.open));
   c.querySelectorAll('[data-home]').forEach(t => t.onclick = () => select(null));
   c.querySelectorAll('[data-sendnow]').forEach(t => t.onclick = () => sendPlan());
+  c.querySelectorAll('[data-investigate]').forEach(t => t.onclick = () => investigate(t.dataset.investigate));
+  c.querySelectorAll('[data-dismiss]').forEach(t => t.onclick = () => dismissPatch(t.dataset.dismiss));
 }
 function decide(id, sid){
   const b = BY[id], d = DEC[id];
@@ -1567,6 +1654,7 @@ function morningState(){
   const wetB = LIVE.filter(b => !isDry(plan[b.id])), wetReady = wetB.filter(b => isReady(b.id)).length;
   const gap = Math.max(0, D.best.value - planValue(plan));
   const items = [
+    {k: 'flags', t: 'Look into the ' + PATCHES.length + ' patches the drone flagged', n: PATCHES.filter(x => ALERT[x.id].state === 'resolved' || ALERT[x.id].state === 'dismissed').length, of: PATCHES.length},
     {k: 'read', t: 'Read where every hanging block is', n: read, of: LIVE.length},
     {k: 'dry', t: 'Give the dry days to the right blocks, and prepare them', n: dryReady, of: dryB.length},
     {k: 'wet', t: 'Settle which blocks ride out the storm', n: wetReady, of: wetB.length},
@@ -1595,6 +1683,7 @@ function morning(){
 }
 function morningGo(k){
   if (k === 'send'){ sendPlan(); return; }
+  if (k === 'flags'){ const nx = PATCHES.find(x => ALERT[x.id].state === 'open' || ALERT[x.id].state === 'sent'); if (nx) openPatch(nx.id); else toast('Both patches are answered.'); return; }
   if (k === 'gap'){ setPlanAsk(D.best.plan, 'Moved to the best plan the crews allow'); return; }
   let pool = LIVE;
   if (k === 'read') pool = LIVE.filter(b => !DEC[b.id].seen);
@@ -1606,7 +1695,43 @@ function morningGo(k){
 
 // ---------- sending the plan, and what the week looks like once it is set ----------
 const OPENED = performance.now();
-let ACKT = [];
+let ACKT = [], CAPX = {};
+// Tomas has a complication: half of Crew B is at a wedding on Sat 17. If anything on that day no longer fits, it is Annu's problem now.
+function issueFor(){
+  const sid = 'sat2', s = SL[sid]; if (!s) return null;
+  const onDay = LIVE.filter(b => plan[b.id] === sid), tons = onDay.reduce((t, b) => t + b.tons, 0);
+  return {sid, cap: 11, was: s.cap, onDay, tons, bites: tons > 11 + 1e-9};
+}
+function applyIssue(){
+  const is = SENT && SENT.issue; if (!is) return;
+  if (!CAPX[is.sid]) CAPX[is.sid] = SL[is.sid].cap; SL[is.sid].cap = is.cap;
+}
+function liftIssue(){ Object.keys(CAPX).forEach(k => { if (SL[k]) SL[k].cap = CAPX[k]; }); CAPX = {}; }
+function askForHands(){
+  const is = SENT && SENT.issue; if (!is || is.state !== 'open') return;
+  is.state = 'asked'; is.askedAt = clockNow(); log(null, 'send', 'Asked ' + CREWS.B.lead + ' to find hands for ' + sLabel(SL[is.sid]));
+  toast('Asked ' + CREWS.B.lead + ' to find hands for ' + sLabel(SL[is.sid]) + '. (simulated)'); refresh();
+  ACKT.push(setTimeout(() => { if (!SENT || !SENT.issue) return; is.state = 'resolved'; is.at = clockNow(); SL[is.sid].cap = is.was; delete CAPX[is.sid];
+    log(null, 'ack', CREWS.B.lead + ': found six from the Delgado crew for after the ceremony, so ' + sLabel(SL[is.sid]) + ' is 22 t after all (simulated reply)');
+    toast(CREWS.B.lead + ' found hands: ' + sLabel(SL[is.sid]) + ' is 22 t again. Simulated reply.'); refresh(); }, RM ? 600 : 16000 + Math.random()*8000));
+}
+function moveForIssue(){
+  const is = SENT && SENT.issue; if (!is) return;
+  const big = is.onDay.slice().sort((a, b) => b.tons - a.tons)[0]; if (!big) return;
+  const u = used(plan); const to = SLOTS.filter(x => x.id !== is.sid && u[x.id] + big.tons <= x.cap + 1e-9).sort((a, b) => big.value[b.id] - big.value[a.id])[0];
+  if (!to){ toast('No other day has room for ' + big.name + '.'); return; }
+  if (assign(big.id, to.id)){ is.state = 'moved'; is.at = clockNow(); log(big.id, 'decide', big.name + ' moved to ' + sLabel(to) + ' because ' + sLabel(SL[is.sid]) + ' is short of hands'); refresh(); }
+}
+function issueCard(){
+  const is = SENT && SENT.issue; if (!is) return '';
+  const day = sLabel(SL[is.sid]);
+  return '<div class="alert issue ' + is.state + '" id="issue"><div class="ah">' + ico('crew') + '<b>' + (is.state === 'resolved' ? 'Hands found for ' + esc(day) : is.state === 'moved' ? 'Moved off ' + esc(day) : is.state === 'asked' ? 'Asked for hands' : 'Crew B is short on ' + esc(day)) + '</b><span class="mono">' + esc(CREWS.B.lead) + ' · ' + esc(is.replyAt || '') + '</span></div>' +
+    '<p>' + esc(CREWS.B.lead) + ': \u201cConfirmed, except Saturday the 17th: half my crew is at the Delgado wedding. Call it 11 t that day, not 22.\u201d' + (is.bites ? ' ' + esc(listing2(is.onDay.map(b => b.name + ' (' + b.tons.toFixed(1) + ' t)'))) + (is.onDay.length > 1 ? ' are' : ' is') + ' on that day: ' + is.tons.toFixed(1) + ' t no longer fit' + (is.onDay.length > 1 ? '' : 's') + '.' : ' Nothing heavy sits on that day, so the plan holds.') + '</p>' +
+    (is.state === 'open' && is.bites ? '<div class="act tight"><button class="btn primary" type="button" id="issue-ask">Ask Tomas for hands ' + ico('arrow') + '</button><button class="btn" type="button" id="issue-move">Move ' + esc(is.onDay.slice().sort((a, b) => b.tons - a.tons)[0].name) + ' to another day</button></div>' :
+     is.state === 'asked' ? '<div class="hint">Asked ' + esc(is.askedAt) + '. Tomas is on the phone (simulated).</div>' :
+     is.state === 'resolved' ? '<div class="hint">' + esc(CREWS.B.lead) + ' found six from the Delgado crew for after the ceremony: ' + esc(day) + ' is 22 t again. ' + esc(is.at) + '.</div>' :
+     is.state === 'moved' ? '<div class="hint">Moved ' + esc(is.at) + '. ' + esc(day) + ' stays at 11 t; the plan fits again.</div>' : '') + '</div>';
+}
 // which lead has confirmed a block's day: a block is confirmed once every lead on it has replied
 function ackFor(b){ if (!SENT) return null; const c = crewFor(b, plan[b.id]); const leads = c.key === 'AB' ? ['A', 'B'] : [c.key]; return leads.every(k => SENT.acks[k]) ? leads.map(k => CREWS[k].lead).join(' and ') : null; }
 function sendPlan(){
@@ -1621,7 +1746,11 @@ function sendPlan(){
   [['A', RM ? 400 : 14000 + Math.random()*8000], ['B', RM ? 800 : 26000 + Math.random()*12000]].forEach(([k, ms]) => ACKT.push(setTimeout(() => {
     if (!SENT) return; SENT.acks[k] = true; SENT.ackAt[k] = clockNow();
     const mine = LIVE.filter(b => { const c = crewFor(b, plan[b.id]).key; return c === k || c === 'AB'; });
-    log(null, 'ack', CREWS[k].lead + ' confirmed ' + mine.length + ' days: ' + listing2(mine.slice(0, 3).map(b => b.name + ' ' + sLabel(SL[plan[b.id]]))) + (mine.length > 3 ? ' and ' + (mine.length - 3) + ' more' : '') + ' (simulated reply)');
+    if (k === 'B'){ // Tomas confirms, with a problem
+      const is = issueFor(); if (is){ is.state = is.bites ? 'open' : 'noted'; is.replyAt = SENT.ackAt.B; SENT.issue = is; applyIssue();
+        log(null, 'ack', CREWS.B.lead + ' confirmed, except ' + sLabel(SL[is.sid]) + ': half of Crew B at the Delgado wedding, 11 t that day' + (is.bites ? '. ' + listing2(is.onDay.map(b => b.name)) + ' no longer fit' + (is.onDay.length > 1 ? '' : 's') : '') + ' (simulated reply)');
+        toast(CREWS.B.lead + ': \u201cConfirmed, except Sat 17: half my crew is at a wedding. Call it 11 t.\u201d' + (is.bites ? ' That needs an answer.' : '') + ' Simulated reply.', {}); refresh(); return; } }
+    log(null, 'ack', CREWS[k].lead + ' confirmed ' + mine.length + ' days: ' + listing2(mine.slice(0, 3).map(b => b.name + ' ' + sLabel(SL[plan[b.id]]))) + (mine.length > 3 ? ' and ' + (mine.length - 3) + ' more' : '') + (ALERT.p1.state === 'resolved' ? '. The dripline on Golden Slope is holding' : '') + ' (simulated reply)');
     toast(CREWS[k].lead + ' confirmed the plan, ' + SENT.ackAt[k] + '. Simulated reply.'); summary(); board(); morning(); if (selId) card(true);
   }, ms)));
 }
@@ -1646,7 +1775,7 @@ function summary(){
     '<h1>' + (allSet ? 'The week is set.' : 'Sent, with ' + open.length + ' block' + (open.length > 1 ? 's' : '') + ' still open.') + '</h1>' +
     '<div class="stakes"><div><div class="n warm">' + fmt$(v) + '</div><div class="l">the week, as sent</div></div><div><div class="n">' + (dv >= 0 ? '+' : '') + fmtK(dv) + '</div><div class="l">since this morning\u2019s board</div></div><div><div class="n">' + fmtK(risk) + '</div><div class="l">what the rain takes from the wet picks</div></div></div>' +
     '<div class="yield"><div class="yl">' + ico('barrel') + '<span><b>' + tDry.toFixed(1) + ' t in before the rain</b>, about ' + fmtN(tDry*PER_TON.barrels) + ' barrels and ' + fmtN(bottlesOf(tDry)) + ' bottles. Each barrel below is two.</span></div>' + barrelsRow(tDry, 2) + '</div>' +
-    '<div class="acks">' + ['A', 'B'].map(k => '<span class="ack' + (SENT.acks[k] ? ' ok' : '') + '">' + ico(SENT.acks[k] ? 'check' : 'send') + esc(CREWS[k].lead) + ' <small>' + (SENT.acks[k] ? 'confirmed ' + esc(SENT.ackAt[k]) : 'awaiting reply') + '</small></span>').join('') + '<small class="demo">replies simulated</small></div>' +
+    issueCard() + '<div class="acks">' + ['A', 'B'].map(k => '<span class="ack' + (SENT.acks[k] ? ' ok' : '') + '">' + ico(SENT.acks[k] ? 'check' : 'send') + esc(CREWS[k].lead) + ' <small>' + (SENT.acks[k] ? 'confirmed ' + esc(SENT.ackAt[k]) : 'awaiting reply') + '</small></span>').join('') + '<small class="demo">replies simulated</small></div>' +
     '<div class="lbl2">Before the rain<span class="cnt">status</span></div><ul class="sched">' + dry.map(b => statusRow(b)).join('') + '</ul>' +
     (wet.length ? '<div class="lbl2">After the storm<span class="cnt">status</span></div><ul class="sched">' + wet.map(b => statusRow(b)).join('') + '</ul>' : '') +
     '<div id="log"></div>' +
@@ -1655,7 +1784,8 @@ function summary(){
     '<div class="act">' + (open.length ? '<button class="btn primary" type="button" data-open="' + open[0].id + '">Finish ' + esc(open[0].name) + ' ' + ico('arrow') + '</button>' : '') + '<button class="btn" type="button" id="sm-undo">Unsend</button></div>' +
     '<div class="hint">The clock runs fast in this demo: a second a minute.</div>';
   el.querySelector('#sm-back').onclick = () => showView('estate');
-  el.querySelector('#sm-undo').onclick = () => { ACKT.forEach(clearTimeout); log(null, 'unsend', 'Plan unsent'); SENT = null; showView('estate'); morning(); board(); toast('Unsent. The crew leads see nothing yet.'); };
+  el.querySelector('#sm-undo').onclick = () => { ACKT.forEach(clearTimeout); liftIssue(); log(null, 'unsend', 'Plan unsent'); SENT = null; showView('estate'); morning(); board(); alertsBadge(); toast('Unsent. The crew leads see nothing yet.'); };
+  const ia = $('#issue-ask'); if (ia) ia.onclick = askForHands; const im = $('#issue-move'); if (im) im.onclick = moveForIssue;
   renderLog();
   el.querySelectorAll('[data-open]').forEach(t => t.onclick = () => select(t.dataset.open));
 }
@@ -1667,6 +1797,10 @@ function keyHTML(){
   return '<div class="kg"><b>Ripeness</b>' + ['green','near','ready','past'].map(st => '<span>' + halo(st) + stateGlyph(st) + esc(STATE_WORD[st]) + '</span>').join('') + '<span>' + halo('picked') + stateGlyph('picked') + 'Picked, in tank</span></div>' +
     '<div class="kg"><b>Its day</b><span>' + tag('open') + 'to decide</span><span>' + tag('decided') + 'decided</span><span>' + tag('ready') + 'ready</span><span><i class="sw warm"></i>before the rain</span><span><i class="sw cool"></i>after</span></div>';
 }
+document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('#bell'); if (!b) return;
+  const nx = PATCHES.find(x => ALERT[x.id].state === 'open'); if (nx){ openPatch(nx.id); return; }
+  if (SENT && SENT.issue && SENT.issue.state === 'open'){ if (selId) select(null); showView('summary'); setTimeout(() => { const c = $('#issue'); if (c) c.scrollIntoView({behavior: RM ? 'auto' : 'smooth', block: 'center'}); }, 400); return; }
+  toast('Nothing needs an answer right now.'); });
 (function(){ const sb = $('#still'); const paint = () => { sb.setAttribute('aria-pressed', STILL); sb.textContent = STILL ? 'Land moves' : 'Still land'; sb.title = STILL ? 'Let the clouds and the rain move again' : 'Stop the clouds and the rain moving'; };
   paint(); sb.onclick = () => { STILL = !STILL; try { localStorage.setItem('qr-still', STILL ? '1' : '0'); } catch(e){} paint(); toast(STILL ? 'The land holds still.' : 'The land moves again.'); }; })();
 (function(){ const k = $('#key'), t = $('#key-t'); let open = true; try { open = localStorage.getItem('qr-key') !== 'closed'; } catch(e){}
@@ -1778,7 +1912,8 @@ $('#play').onclick = () => { if (playing){ stopPlay(); return; } playSeason(T0, 
 
 // ---------- boot ----------
 const USER = {name: 'Annu K.', initials: 'AK', first: 'Annu', role: 'Director of Winegrowing'};
-function when(){ $('#when').innerHTML = '<div class="wt"><b>' + esc(dstr(TODAY)) + '</b> · ' + esc(D.estate.refresh) + ' refresh<br>' + esc(D.estate.place) + ' · ' + B.length + ' blocks · ' + B.reduce((s,b) => s + b.acres, 0).toFixed(1) + ' acres</div><div class="user"><i>' + USER.initials + '</i>' + esc(USER.name) + '</div>'; }
+function alertsBadge(){ const n = PATCHES.filter(x => ALERT[x.id].state === 'open').length + (SENT && SENT.issue && SENT.issue.state === 'open' ? 1 : 0); const b = $('#bell'); if (b){ b.textContent = n ? n + (n > 1 ? ' alerts' : ' alert') : 'no alerts'; b.classList.toggle('on', n > 0); } }
+function when(){ $('#when').innerHTML = '<button type="button" class="bell" id="bell" title="Open the next alert"></button><div class="wt"><b>' + esc(dstr(TODAY)) + '</b> · ' + esc(D.estate.refresh) + ' refresh<br>' + esc(D.estate.place) + ' · ' + B.length + ' blocks · ' + B.reduce((s,b) => s + b.acres, 0).toFixed(1) + ' acres</div><div class="user"><i>' + USER.initials + '</i>' + esc(USER.name) + '</div>';  alertsBadge(); }
 function revealUI(){ $$('.reveal').forEach((el, i) => setTimeout(() => el.classList.add('in'), RM ? 0 : i*140)); }
 async function boot(){
   if (GLOK) initGL();
@@ -1859,7 +1994,7 @@ function intro(opts){
   skip.onclick = () => { v.pause(); ov.style.transition = 'opacity .5s'; ov.style.opacity = 1; finish(); };
   v.play().catch(() => { clearTimeout(fail); ov.style.opacity = 1; finish(); });
 }
-window.__harvest = {state: () => ({T, plan: Object.assign({}, plan), value: planValue(plan), selId, ready, gl: GLOK, cam: {x: cam.x, y: cam.y, z: cam.z}, dec: JSON.parse(JSON.stringify(DEC)), sent: SENT, morning: morningState().frac}), setPlan, assign, select, setT, decide, tick, sendPlan, tasksFor: id => tasksFor(BY[id]).map(t => t.k), stateCol: () => [STATE_COL.green, STATE_COL.near, STATE_COL.ready, STATE_COL.past], switchScenario, scenario: () => SC.k, slots: () => SLOTS.map(x => x.id), undo, history: () => HIST.length, blocksTable: () => { blocksTable(); showView('blocks'); }, BY, D};
+window.__harvest = {state: () => ({T, plan: Object.assign({}, plan), value: planValue(plan), selId, ready, gl: GLOK, cam: {x: cam.x, y: cam.y, z: cam.z}, dec: JSON.parse(JSON.stringify(DEC)), sent: SENT, morning: morningState().frac}), setPlan, assign, select, setT, decide, tick, sendPlan, tasksFor: id => tasksFor(BY[id]).map(t => t.k), stateCol: () => [STATE_COL.green, STATE_COL.near, STATE_COL.ready, STATE_COL.past], switchScenario, scenario: () => SC.k, slots: () => SLOTS.map(x => x.id), undo, history: () => HIST.length, alerts: () => JSON.parse(JSON.stringify(ALERT)), investigate, askForHands, issue: () => SENT && SENT.issue ? {state: SENT.issue.state, cap: SL[SENT.issue.sid].cap} : null, blocksTable: () => { blocksTable(); showView('blocks'); }, BY, D};
 boot();
 })();
 </script>
