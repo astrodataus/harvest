@@ -204,6 +204,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .welcome .nm{font-size:15px}
 .welcome .nm small{display:block;font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(237,240,242,.72);margin-top:3px}
 .welcome h1{font-weight:200;font-size:clamp(36px,4.6vw,60px);line-height:1.02;letter-spacing:-.02em;margin:8px 0 14px}
+.welcome .core{font-size:19px;line-height:1.45;font-weight:300;color:var(--spindrift);margin:0 0 12px;max-width:52ch}
+.welcome .core .lbl3{display:block;font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--anemone-lit);margin-bottom:4px}
 .welcome .p{font-size:16px;line-height:1.55;color:rgba(237,240,242,.88);margin:0 0 14px;max-width:58ch}
 .wstakes{display:grid;grid-template-columns:repeat(3,1fr);gap:0;max-width:640px;margin:0 0 14px;border-top:1px solid var(--marine-line);border-bottom:1px solid var(--marine-line)}
 .wstakes>div{padding:9px 14px 9px 0} .wstakes>div+div{padding-left:14px;border-left:1px solid var(--marine-line)}
@@ -225,6 +227,17 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .welcome.in .w>*:nth-child(2){animation-delay:.12s}.welcome.in .w>*:nth-child(3){animation-delay:.24s}.welcome.in .w>*:nth-child(4){animation-delay:.36s}
 .welcome.in .w>*:nth-child(5){animation-delay:.48s}.welcome.in .w>*:nth-child(6){animation-delay:.6s}.welcome.in .w>*:nth-child(7){animation-delay:.72s}.welcome.in .w>*:nth-child(8){animation-delay:.84s}.welcome.in .w>*:nth-child(9){animation-delay:.96s}
 .mast .when{display:flex;align-items:center;gap:18px}
+.mast{padding-bottom:22px} /* the box holds the rail, which the reveal's clip would otherwise cut */
+.vrail{position:absolute;left:0;top:41px;display:flex;align-items:center;gap:0;pointer-events:auto;font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.vrail i{width:9px;height:1px;background:rgba(237,240,242,.25)}
+.vrail .vst{position:relative;padding:1px 6px;color:rgba(237,240,242,.5);border:1px solid transparent;border-radius:2px;letter-spacing:.08em;text-transform:uppercase;line-height:1.3}
+.vrail .vst:hover,.vrail .vst:focus-visible{color:rgba(237,240,242,.85)}
+.vrail .vst.on{color:var(--spindrift);border:1px solid rgba(227,151,111,.6);background:rgba(196,114,79,.14)}
+.vrail .vtip{position:absolute;left:0;top:calc(100% + 6px);width:240px;padding:9px 11px;font-family:var(--font-outfit);font-size:12.5px;line-height:1.45;letter-spacing:0;text-transform:none;color:rgba(237,240,242,.9);text-align:left;display:none;z-index:30;pointer-events:none}
+.vrail .vtip{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);display:block;padding:0}
+.vtipbox{position:absolute;z-index:31;width:250px;padding:9px 11px;font-size:12.5px;line-height:1.45;color:rgba(237,240,242,.9);display:none;pointer-events:none}
+.vtipbox.on{display:block} .vtipbox b{display:block;font-family:var(--font-dm-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:400;color:var(--anemone-lit);margin-bottom:3px}
+@media (max-width:980px){.vrail{display:none}}
 .mast .user{display:flex;align-items:center;gap:10px;padding-left:18px;border-left:1px solid var(--marine-line);font-family:var(--font-outfit);font-size:13px;letter-spacing:0;text-transform:none;color:var(--spindrift)}
 .mast .user i{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-family:var(--font-dm-mono);font-size:11px;background:var(--basalt-sea);box-shadow:0 0 0 1px rgba(237,240,242,.2),0 0 0 3px rgba(196,114,79,.35)}
 @media (max-width:980px){.welcome{position:fixed;align-items:flex-start;overflow:auto;padding:28px 18px;background:rgba(14,17,23,.84)}.welcome .datum{margin-left:-18px;margin-right:-18px}.welcome .p{font-size:15.5px}}
@@ -404,6 +417,62 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .alert p{margin:6px 0 0;font-size:12.5px;line-height:1.5;color:rgba(237,240,242,.88)}
 .alert .act.tight{margin-top:10px} .pv-block .alert .act{position:static;background:none;padding:0;margin:10px 0 0} .alert .hint{margin-top:6px}
 .bell{font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(237,240,242,.55);padding:4px 9px;border:1px solid var(--marine-line);border-radius:2px;margin-right:14px;align-self:center}
+.closeup{position:absolute;inset:0;z-index:35;display:flex;flex-direction:column;padding:22px 32px 26px;background:rgba(10,12,16,.97);opacity:0;animation:cu-in .5s var(--ease-enter) forwards}
+@keyframes cu-in{to{opacity:1}}
+.cu-top{display:flex;align-items:center;gap:16px;margin-bottom:14px} .cu-top .mono{font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(237,240,242,.72)}
+.cu-alt{color:#8FD6C8!important;min-width:80px} .cu-x{margin-left:auto;font-size:22px;line-height:1;color:rgba(237,240,242,.7)} .cu-x:hover{color:var(--spindrift)}
+.cu-body{flex:1;display:flex;gap:22px;min-height:0;align-items:center}
+.cu-media{position:relative;flex:1;aspect-ratio:16/9;max-height:100%;max-width:calc((100vh - 120px)*16/9);border:1px solid rgba(237,240,242,.18);overflow:hidden;background:#000}
+.cu-media canvas,.cu-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cu-skip{position:absolute;right:12px;bottom:12px;font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(237,240,242,.85);padding:6px 10px;background:rgba(14,17,23,.6);border:1px solid rgba(237,240,242,.3)}
+.cu-tag{position:absolute;display:flex;flex-direction:column;gap:2px;padding:7px 10px 7px 26px;background:rgba(14,17,23,.78);border:1px solid rgba(242,160,122,.7);font-size:12.5px;color:rgba(237,240,242,.9);opacity:0;transform:translateY(6px);transition:opacity .6s,transform .6s;pointer-events:none}
+.cu-tag b{font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:400;color:#F2A07A}
+.cu-tag i{position:absolute;left:9px;top:12px;width:8px;height:8px;border-radius:50%;background:#F2A07A;box-shadow:0 0 0 4px rgba(242,160,122,.25)}
+.cu-tag.t1{left:13%;top:30%} .cu-tag.t2{left:56%;top:70%}
+.closeup.landed .cu-tag{opacity:1;transform:none} .closeup.landed .cu-tag.t2{transition-delay:.35s}
+.cu-side{width:340px;flex:none;padding:16px 18px;align-self:center;max-height:100%;overflow:auto}
+.cu-side .lbl2{margin:0 0 8px} .cu-p{font-size:13.5px;line-height:1.5;color:rgba(237,240,242,.88);margin:0 0 12px} .cu-p.dim{color:rgba(237,240,242,.6)} .cu-p b{font-weight:500;color:var(--spindrift)}
+.cu-ch{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.cu-opt{display:flex;flex-direction:column;gap:4px;text-align:left;padding:11px 12px;border:1px solid rgba(237,240,242,.25);border-radius:2px;background:rgba(237,240,242,.04)}
+.cu-opt:hover{border-color:rgba(242,160,122,.75);background:rgba(196,114,79,.12)} .cu-opt b{font-weight:500;font-size:14px;color:var(--spindrift)} .cu-opt span{font-size:12.5px;line-height:1.45;color:rgba(237,240,242,.8)}
+.cu-opt em{font-style:normal;font-family:var(--font-dm-mono)} .cu-opt em.up{color:#8FD6C8} .cu-opt em.down{color:#F2A07A}
+.cu-opt.off{opacity:.55;cursor:default}
+.cu-open{display:grid;grid-template-columns:18px 1fr 14px;gap:9px;align-items:center;text-align:left;margin:2px 0 4px;padding:9px 11px;border:1px solid rgba(143,214,200,.55);border-radius:2px;background:rgba(45,122,110,.14);font-size:12px;color:rgba(237,240,242,.8)}
+.cu-open b{display:block;font-weight:500;font-size:13px;color:var(--spindrift)} .cu-open .ico{width:16px;height:16px;color:#8FD6C8} .cu-open:hover{border-color:#8FD6C8}
+.cu-link{display:inline-flex;align-items:center;gap:6px;margin-top:6px} .cu-link .ico{width:14px;height:14px}
+@media (max-width:980px){.closeup{position:fixed;z-index:80;overflow-y:auto;padding:14px 16px 20px} .cu-body{flex:none;flex-direction:column;align-items:stretch;gap:14px} .cu-side{width:auto;max-height:none;overflow:visible;padding:14px} .cu-media{max-width:none;flex:none;width:100%} .cu-top{flex-wrap:wrap;gap:6px 12px} .cu-top .mono{font-size:10.5px}}
+@media (max-width:600px){.cu-tag{padding:5px 8px 5px 22px;font-size:0;gap:0} .cu-tag b{font-size:10px} .cu-tag i{left:8px;top:9px;width:7px;height:7px} .cu-tag.t1{left:6%;top:24%} .cu-tag.t2{left:52%;top:72%} .cu-skip{font-size:10px;padding:5px 8px}}
+@media (prefers-reduced-motion:reduce){.closeup{animation:none;opacity:1} .cu-tag{transition:none}}
+.dronebtn{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(237,240,242,.8);padding:4px 9px;border:1px solid var(--marine-line);border-radius:2px;margin-right:8px;align-self:center}
+.dronebtn .ico{width:14px;height:14px} .dronebtn:hover{color:var(--spindrift);border-color:rgba(143,214,200,.6)}
+#stage.droning .story,#stage.droning .board,#stage.droning .key,#stage.droning .season,#stage.droning #zoomout,#stage.droning #overlay,#stage.droning .toast{filter:opacity(.03);pointer-events:none}
+#stage .story,#stage .board,#stage .key,#stage .season,#overlay{transition:filter .6s}
+.dronebtn,.bell{white-space:nowrap}
+@media (max-width:980px){.dronebtn span{display:none} .dronebtn{padding:5px 7px;margin-right:6px} .dronebtn .ico{width:15px;height:15px}}
+.dhud{position:absolute;z-index:16;transform:translateX(-50%);width:min(420px,calc(100% - 40px));padding:12px 14px}
+.dhud .dh{display:grid;grid-template-columns:18px 1fr;column-gap:8px;align-items:center} .dhud .dh .ico{width:16px;height:16px;color:#8FD6C8;grid-row:span 2}
+.dhud .dh b{font-weight:500;font-size:14px} .dhud .mono{grid-column:2;font-family:var(--font-dm-mono);font-size:10.5px;letter-spacing:.06em;color:rgba(237,240,242,.7)}
+.dhud .dbar{height:3px;background:rgba(237,240,242,.14);margin:10px 0 6px} .dhud .dbar i{display:block;height:100%;background:#8FD6C8;box-shadow:0 0 8px rgba(143,214,200,.8)}
+.dhud .dn{font-size:12.5px;color:rgba(237,240,242,.85)} .dhud .dn b{color:var(--anemone-lit);font-weight:500}
+.dramp{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;margin-top:8px;font-family:var(--font-dm-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(237,240,242,.65)}
+.dramp>span:first-child{grid-row:span 2;align-self:center} .dramp i{height:6px;border-radius:1px;background:linear-gradient(90deg,#C7382A,#EDB84D,#2E8F70)}
+.dramp>span:nth-of-type(2),.dramp>span:nth-of-type(3){grid-row:2;font-size:9.5px} .dramp>span:nth-of-type(2){grid-column:2;justify-self:start} .dramp>span:nth-of-type(3){grid-column:2;justify-self:end}
+.dhud .act{margin-top:10px}
+.dronebug{position:absolute;left:0;top:0;z-index:15;width:0;height:0;pointer-events:none}
+.dronebug .ico{position:absolute;left:-13px;top:-13px;width:26px;height:26px;color:#fff;filter:drop-shadow(0 0 6px rgba(143,214,200,.9))}
+.dronebug .cone{position:absolute;left:-30px;top:-30px;width:60px;height:60px;border-radius:50%;border:1px solid rgba(143,214,200,.55);animation:dping 1.2s ease-out infinite}
+@keyframes dping{0%{transform:scale(.4);opacity:1}100%{transform:scale(1.4);opacity:0}}
+#dmarks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+#dmarks .dmark{pointer-events:auto;cursor:pointer}
+#dmarks .dr1{fill:none;stroke:rgba(237,240,242,.75);stroke-width:1.2;stroke-dasharray:3 4;animation:dspin 6s linear infinite;transform-box:fill-box;transform-origin:center}
+#dmarks .dr2{fill:rgba(237,240,242,.12);stroke:#fff;stroke-width:1.6}
+#dmarks .new .dr1{stroke:#F2A07A;stroke-width:1.8} #dmarks .new .dr2{stroke:#F2A07A;fill:rgba(242,160,122,.25)}
+#dmarks rect{fill:rgba(14,17,23,.82);stroke:rgba(237,240,242,.3)} #dmarks .new rect{stroke:rgba(242,160,122,.8)}
+#dmarks .dl1{font-family:var(--font-dm-mono);font-size:10.5px;letter-spacing:.08em;fill:#EDF0F2} #dmarks .new .dl1{fill:#F2A07A}
+#dmarks .dl2{font-family:var(--font-outfit);font-size:12px;fill:rgba(237,240,242,.85)}
+#dmarks .dmark{animation:wag-register .5s var(--ease-enter) both}
+@keyframes dspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.dronebug .cone,#dmarks .dr1,#dmarks .dmark{animation:none}}
 .bell.on{color:var(--anemone-lit);border-color:rgba(227,151,111,.6);background:rgba(196,114,79,.12)}
 @keyframes bellpulse{0%,100%{transform:none;box-shadow:0 0 0 0 rgba(227,151,111,0)}18%{transform:scale(1.1);box-shadow:0 0 0 6px rgba(227,151,111,.22)}40%{transform:none;box-shadow:0 0 0 0 rgba(227,151,111,0)}58%{transform:scale(1.06);box-shadow:0 0 0 4px rgba(227,151,111,.16)}}
 .bell.pulse{animation:bellpulse 1.4s var(--ease-enter) 1}
@@ -597,6 +666,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
   <header class="mast reveal">
     <div class="mark"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><path d="M8.5 4h15l-.9 8.6a6.7 6.7 0 0 1-13.2 0z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M16 19.4V27M11.5 28h9" stroke="currentColor" stroke-width="1.3" fill="none"/><g fill="#E3976F"><circle cx="13" cy="8.4" r="1.6"/><circle cx="16.2" cy="8.4" r="1.6"/><circle cx="19.4" cy="8.4" r="1.6"/><circle cx="14.6" cy="11.3" r="1.6"/><circle cx="17.8" cy="11.3" r="1.6"/><circle cx="16.2" cy="14.2" r="1.6"/></g><path d="M16.2 6.6V4.9c.8-1 2.2-1.2 3.2-.5" fill="none" stroke="#E3976F" stroke-width="1"/></svg><span class="estate">Kristi Ridge</span><span class="app">Harvest</span></div>
+    <nav class="vrail" id="vrail" aria-label="The vintage, from vineyard to release. Harvest is this app."></nav>
     <div class="when" id="when"></div>
   </header>
 
@@ -620,7 +690,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 <script>
 window.__ESTATE__ = {"estate":{"name":"Kristi Ridge","place":"Napa Valley","asOf":"2026-10-05","refresh":"6:00 AM","stormIn":3.5,"note":"Kristi Ridge is an invented estate and every figure is synthetic, seeded once."},"slots":[{"id":"mon","day":"2026-10-05","label":"Mon 5","cap":22,"wet":false},{"id":"tue","day":"2026-10-06","label":"Tue 6","cap":22,"wet":false},{"id":"wed","day":"2026-10-07","label":"Wed 7","cap":22,"wet":false},{"id":"thu","day":"2026-10-08","label":"Thu 8, until noon","cap":11,"wet":false},{"id":"tue2","day":"2026-10-13","label":"Tue 13","cap":22,"wet":true},{"id":"wed2","day":"2026-10-14","label":"Wed 14","cap":22,"wet":true},{"id":"thu2","day":"2026-10-15","label":"Thu 15","cap":22,"wet":true},{"id":"fri2","day":"2026-10-16","label":"Fri 16","cap":22,"wet":true},{"id":"sat2","day":"2026-10-17","label":"Sat 17","cap":22,"wet":true},{"id":"mon3","day":"2026-10-19","label":"Mon 19","cap":22,"wet":true},{"id":"tue3","day":"2026-10-20","label":"Tue 20","cap":22,"wet":true},{"id":"wed3","day":"2026-10-21","label":"Wed 21","cap":22,"wet":true}],"forecast":[{"d":"2026-10-05","sky":"Sun","hi":84,"pop":0,"rain":0.0},{"d":"2026-10-06","sky":"Sun","hi":86,"pop":0,"rain":0.0},{"d":"2026-10-07","sky":"Haze","hi":79,"pop":10,"rain":0.0},{"d":"2026-10-08","sky":"Rain from 2 PM","hi":66,"pop":90,"rain":0.62},{"d":"2026-10-09","sky":"Rain","hi":58,"pop":95,"rain":1.14},{"d":"2026-10-10","sky":"Showers","hi":61,"pop":60,"rain":0.21},{"d":"2026-10-11","sky":"Clearing","hi":68,"pop":10,"rain":0.0},{"d":"2026-10-12","sky":"Sun, ground wet","hi":72,"pop":0,"rain":0.0},{"d":"2026-10-13","sky":"Sun","hi":75,"pop":0,"rain":0.0},{"d":"2026-10-14","sky":"Sun","hi":77,"pop":0,"rain":0.0},{"d":"2026-10-15","sky":"Sun","hi":78,"pop":0,"rain":0.0},{"d":"2026-10-16","sky":"Sun","hi":80,"pop":0,"rain":0.0},{"d":"2026-10-17","sky":"Sun","hi":79,"pop":0,"rain":0.0},{"d":"2026-10-18","sky":"Haze","hi":76,"pop":5,"rain":0.0},{"d":"2026-10-19","sky":"Sun","hi":77,"pop":0,"rain":0.0},{"d":"2026-10-20","sky":"Sun","hi":78,"pop":0,"rain":0.0},{"d":"2026-10-21","sky":"Sun","hi":77,"pop":0,"rain":0.0}],"blocks":[{"id":"B1","name":"Upper Creek","varietal":"Merlot","short":"Merlot","planted":2009,"acres":3.17,"tons":11.9,"price":5600,"window":[24.2,25.4],"rainLoss":0.28,"best":"2026-10-06","picked":null,"brixToday":24.6,"samples":[{"d":"2026-08-03","brix":6.7,"ta":14.19,"ph":3.08,"seeds":0},{"d":"2026-08-07","brix":7.0,"ta":14.12,"ph":3.05,"seeds":0},{"d":"2026-08-11","brix":6.7,"ta":13.92,"ph":3.08,"seeds":0},{"d":"2026-08-14","brix":7.3,"ta":13.87,"ph":3.09,"seeds":0},{"d":"2026-08-18","brix":7.6,"ta":13.86,"ph":3.09,"seeds":0},{"d":"2026-08-21","brix":7.5,"ta":13.75,"ph":3.1,"seeds":0},{"d":"2026-08-25","brix":8.6,"ta":13.61,"ph":3.13,"seeds":0},{"d":"2026-08-28","brix":9.4,"ta":13.04,"ph":3.14,"seeds":0},{"d":"2026-09-01","brix":10.3,"ta":12.86,"ph":3.14,"seeds":1},{"d":"2026-09-05","brix":11.5,"ta":12.57,"ph":3.2,"seeds":1},{"d":"2026-09-09","brix":13.8,"ta":11.72,"ph":3.23,"seeds":2},{"d":"2026-09-12","brix":15.1,"ta":11.38,"ph":3.25,"seeds":3},{"d":"2026-09-16","brix":16.7,"ta":10.96,"ph":3.29,"seeds":6},{"d":"2026-09-19","brix":18.7,"ta":10.38,"ph":3.33,"seeds":10},{"d":"2026-09-23","brix":20.5,"ta":9.46,"ph":3.38,"seeds":18},{"d":"2026-09-27","brix":22.2,"ta":8.74,"ph":3.47,"seeds":30},{"d":"2026-10-01","brix":23.3,"ta":8.19,"ph":3.51,"seeds":46},{"d":"2026-10-05","brix":24.5,"ta":7.4,"ph":3.52,"seeds":62}],"curve0":"2026-07-01","curve":[6.51,6.51,6.51,6.51,6.51,6.52,6.52,6.52,6.52,6.52,6.53,6.53,6.53,6.53,6.54,6.54,6.55,6.55,6.56,6.56,6.57,6.58,6.58,6.59,6.6,6.61,6.62,6.64,6.65,6.67,6.69,6.7,6.73,6.75,6.78,6.8,6.84,6.87,6.91,6.95,7.0,7.05,7.11,7.17,7.24,7.31,7.39,7.48,7.58,7.69,7.8,7.93,8.07,8.22,8.39,8.57,8.76,8.98,9.2,9.45,9.71,9.99,10.29,10.61,10.96,11.32,11.7,12.1,12.52,12.95,13.41,13.88,14.36,14.86,15.36,15.88,16.39,16.91,17.43,17.95,18.46,18.97,19.46,19.94,20.41,20.86,21.29,21.71,22.11,22.49,22.84,23.18,23.5,23.8,24.07,24.33,24.58,24.8,25.01,25.2,25.38,25.54,25.69,25.83,25.95,26.07,26.18,26.27,26.36,26.44,26.51,26.58,26.64,26.7,26.75,26.79,26.83,26.87,26.91,26.94,26.97,26.99,27.01,27.04,27.05,27.07,27.09],"poly":[[0.2544,0.0],[0.5015,0.0],[0.3743,0.2083],[0.3612,0.2318],[0.2689,0.1237],[0.2507,0.0781]],"value":{"mon":73571,"tue":74637,"wed":73837,"thu":71438,"tue2":36278,"wed2":35078,"thu2":33879,"fri2":32679,"sat2":31480,"mon3":29080,"tue3":27881,"wed3":26681}},{"id":"B2","name":"North Gate","varietal":"Sauvignon Blanc","short":"Sauv Blanc","planted":2014,"acres":2.24,"tons":11.3,"price":4300,"window":[22.5,23.8],"rainLoss":0.2,"best":"2026-09-04","picked":"2026-09-04","brixToday":23.1,"samples":[{"d":"2026-08-03","brix":11.3,"ta":12.63,"ph":3.18,"seeds":1},{"d":"2026-08-06","brix":12.8,"ta":12.23,"ph":3.22,"seeds":2},{"d":"2026-08-10","brix":14.0,"ta":11.43,"ph":3.24,"seeds":3},{"d":"2026-08-14","brix":15.8,"ta":11.12,"ph":3.25,"seeds":6},{"d":"2026-08-17","brix":17.1,"ta":10.2,"ph":3.32,"seeds":9},{"d":"2026-08-21","brix":18.9,"ta":9.57,"ph":3.37,"seeds":16},{"d":"2026-08-24","brix":19.6,"ta":9.12,"ph":3.42,"seeds":24},{"d":"2026-08-27","brix":20.8,"ta":8.7,"ph":3.44,"seeds":34},{"d":"2026-08-31","brix":22.2,"ta":7.91,"ph":3.52,"seeds":50},{"d":"2026-09-04","brix":23.1,"ta":7.33,"ph":3.55,"seeds":66}],"curve0":"2026-07-01","curve":[6.88,6.92,6.95,6.99,7.04,7.08,7.14,7.19,7.25,7.32,7.39,7.46,7.55,7.64,7.73,7.84,7.95,8.07,8.2,8.34,8.49,8.65,8.82,9.0,9.2,9.41,9.63,9.86,10.11,10.38,10.65,10.94,11.25,11.57,11.9,12.25,12.61,12.98,13.36,13.75,14.15,14.56,14.98,15.4,15.82,16.25,16.67,17.1,17.52,17.93,18.35,18.75,19.14,19.53,19.9,20.27,20.62,20.95,21.28,21.59,21.88,22.16,22.43,22.68,22.92,23.15,23.36,23.56,23.75,23.92,24.09,24.24,24.38,24.52,24.64,24.76,24.86,24.96,25.05,25.14,25.22,25.29,25.35,25.42,25.47,25.53,25.57,25.62,25.66,25.7,25.73,25.76,25.79,25.82,25.85,25.87,25.89,25.91,25.93,25.94,25.96,25.97,25.99,26.0,26.01,26.02,26.03,26.03,26.04,26.05,26.06,26.06,26.07,26.07,26.08,26.08,26.08,26.09,26.09,26.09,26.1,26.1,26.1,26.1,26.1,26.11,26.11],"poly":[[0.5342,0.0195],[0.6468,0.0716],[0.6395,0.2214],[0.6105,0.2669],[0.4797,0.1107]],"value":{"mon":24295,"tue":24295,"wed":24295,"thu":24295,"tue2":19436,"wed2":19436,"thu2":19436,"fri2":19436,"sat2":19436,"mon3":19436,"tue3":19436,"wed3":19436}},{"id":"B3","name":"Oak Saddle","varietal":"Malbec","short":"Malbec","planted":2012,"acres":2.73,"tons":9.1,"price":6900,"window":[24.4,25.6],"rainLoss":0.24,"best":"2026-10-07","picked":null,"brixToday":24.5,"samples":[{"d":"2026-08-03","brix":6.8,"ta":14.13,"ph":3.06,"seeds":0},{"d":"2026-08-06","brix":6.7,"ta":14.29,"ph":3.04,"seeds":0},{"d":"2026-08-10","brix":6.8,"ta":14.18,"ph":3.07,"seeds":0},{"d":"2026-08-13","brix":6.8,"ta":13.97,"ph":3.07,"seeds":0},{"d":"2026-08-17","brix":6.8,"ta":13.85,"ph":3.1,"seeds":0},{"d":"2026-08-21","brix":7.9,"ta":13.6,"ph":3.11,"seeds":0},{"d":"2026-08-24","brix":8.0,"ta":13.59,"ph":3.12,"seeds":0},{"d":"2026-08-27","brix":8.3,"ta":13.31,"ph":3.11,"seeds":0},{"d":"2026-08-31","brix":9.6,"ta":13.05,"ph":3.13,"seeds":0},{"d":"2026-09-04","brix":10.7,"ta":12.78,"ph":3.13,"seeds":1},{"d":"2026-09-07","brix":11.6,"ta":12.29,"ph":3.2,"seeds":1},{"d":"2026-09-11","brix":13.3,"ta":11.8,"ph":3.23,"seeds":2},{"d":"2026-09-14","brix":14.7,"ta":11.35,"ph":3.25,"seeds":4},{"d":"2026-09-18","brix":17.2,"ta":10.87,"ph":3.3,"seeds":8},{"d":"2026-09-22","brix":19.6,"ta":10.0,"ph":3.38,"seeds":14},{"d":"2026-09-25","brix":20.8,"ta":9.34,"ph":3.39,"seeds":21},{"d":"2026-09-29","brix":22.2,"ta":8.64,"ph":3.44,"seeds":34},{"d":"2026-10-02","brix":23.5,"ta":8.15,"ph":3.47,"seeds":46},{"d":"2026-10-05","brix":24.8,"ta":7.9,"ph":3.51,"seeds":58}],"curve0":"2026-07-01","curve":[6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.52,6.52,6.52,6.52,6.52,6.53,6.53,6.53,6.54,6.54,6.54,6.55,6.55,6.56,6.57,6.57,6.58,6.59,6.6,6.61,6.62,6.64,6.65,6.67,6.69,6.71,6.73,6.75,6.78,6.81,6.84,6.88,6.92,6.97,7.02,7.07,7.13,7.2,7.27,7.35,7.44,7.54,7.64,7.76,7.89,8.03,8.18,8.34,8.53,8.72,8.94,9.17,9.42,9.68,9.97,10.28,10.61,10.97,11.34,11.73,12.15,12.58,13.04,13.51,14.0,14.51,15.03,15.55,16.09,16.63,17.17,17.71,18.25,18.78,19.3,19.81,20.31,20.79,21.25,21.7,22.12,22.53,22.91,23.27,23.61,23.93,24.23,24.5,24.76,25.0,25.22,25.42,25.61,25.79,25.94,26.09,26.22,26.34,26.45,26.55,26.65,26.73,26.81,26.87,26.94,26.99,27.05,27.09,27.14,27.17,27.21,27.24,27.27,27.29,27.32,27.34,27.36,27.37],"poly":[[0.3852,0.2409],[0.4688,0.1237],[0.5923,0.2734],[0.5523,0.3255],[0.5015,0.3906],[0.3852,0.2799]],"value":{"mon":66306,"tue":69320,"wed":70325,"thu":69571,"tue2":37274,"wed2":36081,"thu2":34888,"fri2":33695,"sat2":32502,"mon3":30116,"tue3":28923,"wed3":27730}},{"id":"B4","name":"Forest Bench","varietal":"Sauvignon Blanc","short":"Sauv Blanc","planted":2016,"acres":3.81,"tons":18.4,"price":4300,"window":[22.5,23.8],"rainLoss":0.2,"best":"2026-09-06","picked":"2026-09-06","brixToday":23.1,"samples":[{"d":"2026-08-03","brix":9.9,"ta":12.66,"ph":3.15,"seeds":1},{"d":"2026-08-06","brix":10.3,"ta":12.58,"ph":3.14,"seeds":1},{"d":"2026-08-10","brix":12.0,"ta":12.25,"ph":3.21,"seeds":2},{"d":"2026-08-14","brix":13.8,"ta":11.45,"ph":3.23,"seeds":4},{"d":"2026-08-17","brix":15.5,"ta":11.18,"ph":3.26,"seeds":6},{"d":"2026-08-20","brix":16.5,"ta":10.31,"ph":3.31,"seeds":10},{"d":"2026-08-24","brix":18.7,"ta":9.74,"ph":3.33,"seeds":18},{"d":"2026-08-28","brix":20.1,"ta":9.18,"ph":3.38,"seeds":30},{"d":"2026-09-01","brix":21.8,"ta":8.54,"ph":3.48,"seeds":46},{"d":"2026-09-04","brix":22.3,"ta":8.01,"ph":3.52,"seeds":58}],"curve0":"2026-07-01","curve":[6.62,6.63,6.64,6.66,6.68,6.7,6.72,6.74,6.77,6.79,6.83,6.86,6.9,6.94,6.99,7.04,7.1,7.16,7.23,7.31,7.39,7.48,7.58,7.69,7.82,7.95,8.09,8.25,8.42,8.61,8.81,9.03,9.27,9.53,9.8,10.09,10.4,10.74,11.09,11.46,11.85,12.26,12.69,13.13,13.59,14.06,14.54,15.03,15.53,16.03,16.53,17.02,17.52,18.0,18.48,18.94,19.39,19.83,20.25,20.65,21.03,21.39,21.73,22.06,22.36,22.64,22.9,23.15,23.38,23.59,23.78,23.96,24.13,24.28,24.42,24.54,24.66,24.77,24.86,24.95,25.03,25.1,25.17,25.23,25.28,25.33,25.38,25.42,25.45,25.49,25.52,25.54,25.57,25.59,25.61,25.63,25.65,25.66,25.67,25.69,25.7,25.71,25.71,25.72,25.73,25.74,25.74,25.75,25.75,25.76,25.76,25.76,25.77,25.77,25.77,25.77,25.78,25.78,25.78,25.78,25.78,25.78,25.79,25.79,25.79,25.79,25.79],"poly":[[0.218,0.1888],[0.2762,0.1562],[0.3597,0.2539],[0.3125,0.5013],[0.1853,0.4818],[0.2108,0.3255]],"value":{"mon":39560,"tue":39560,"wed":39560,"thu":39560,"tue2":31648,"wed2":31648,"thu2":31648,"fri2":31648,"sat2":31648,"mon3":31648,"tue3":31648,"wed3":31648}},{"id":"B5","name":"Long Meadow","varietal":"Cabernet Sauvignon","short":"Cab","planted":2004,"acres":6.43,"tons":21.4,"price":9200,"window":[25.2,26.6],"rainLoss":0.07,"best":"2026-10-14","picked":null,"brixToday":23.3,"samples":[{"d":"2026-08-03","brix":6.8,"ta":14.18,"ph":3.07,"seeds":0},{"d":"2026-08-06","brix":6.8,"ta":14.36,"ph":3.06,"seeds":0},{"d":"2026-08-09","brix":6.7,"ta":14.39,"ph":3.07,"seeds":0},{"d":"2026-08-12","brix":7.0,"ta":14.34,"ph":3.06,"seeds":0},{"d":"2026-08-15","brix":6.6,"ta":14.22,"ph":3.08,"seeds":0},{"d":"2026-08-18","brix":7.0,"ta":13.96,"ph":3.1,"seeds":0},{"d":"2026-08-22","brix":7.6,"ta":13.92,"ph":3.07,"seeds":0},{"d":"2026-08-26","brix":7.9,"ta":13.76,"ph":3.11,"seeds":0},{"d":"2026-08-29","brix":8.3,"ta":13.57,"ph":3.11,"seeds":0},{"d":"2026-09-02","brix":9.0,"ta":13.35,"ph":3.1,"seeds":0},{"d":"2026-09-05","brix":9.8,"ta":12.94,"ph":3.14,"seeds":0},{"d":"2026-09-08","brix":10.5,"ta":12.91,"ph":3.16,"seeds":0},{"d":"2026-09-12","brix":11.8,"ta":12.46,"ph":3.18,"seeds":1},{"d":"2026-09-16","brix":13.8,"ta":11.75,"ph":3.23,"seeds":2},{"d":"2026-09-20","brix":16.2,"ta":11.36,"ph":3.25,"seeds":3},{"d":"2026-09-23","brix":17.5,"ta":10.84,"ph":3.3,"seeds":6},{"d":"2026-09-26","brix":18.7,"ta":10.07,"ph":3.32,"seeds":9},{"d":"2026-09-29","brix":20.6,"ta":9.5,"ph":3.36,"seeds":14},{"d":"2026-10-02","brix":21.9,"ta":9.05,"ph":3.39,"seeds":21},{"d":"2026-10-05","brix":23.5,"ta":8.45,"ph":3.45,"seeds":30}],"curve0":"2026-07-01","curve":[6.5,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.52,6.52,6.52,6.52,6.52,6.53,6.53,6.53,6.54,6.54,6.54,6.55,6.55,6.56,6.57,6.57,6.58,6.59,6.6,6.61,6.62,6.63,6.65,6.66,6.68,6.7,6.72,6.74,6.76,6.79,6.82,6.86,6.89,6.93,6.98,7.03,7.08,7.14,7.2,7.28,7.36,7.44,7.54,7.64,7.75,7.88,8.01,8.16,8.32,8.49,8.68,8.89,9.11,9.35,9.61,9.88,10.18,10.5,10.83,11.19,11.57,11.97,12.39,12.83,13.29,13.77,14.26,14.77,15.29,15.82,16.36,16.9,17.44,17.99,18.53,19.06,19.59,20.11,20.61,21.1,21.57,22.02,22.46,22.87,23.27,23.64,23.99,24.32,24.64,24.93,25.2,25.45,25.68,25.9,26.1,26.29,26.46,26.61,26.76,26.89,27.01,27.12,27.22,27.31,27.4,27.47,27.54,27.61,27.66,27.72,27.76,27.81,27.85,27.88,27.91],"poly":[[0.149,0.5013],[0.3052,0.5182],[0.2616,0.8333],[0.1817,0.9115],[0.0945,0.9896],[0.0872,0.7812]],"value":{"mon":155790,"tue":158153,"wed":160515,"thu":162878,"tue2":202141,"wed2":200127,"thu2":191338,"fri2":178155,"sat2":160577,"mon3":147593,"tue3":143015,"wed3":138438}},{"id":"B6","name":"Creekbed","varietal":"Cabernet Franc","short":"Cab Franc","planted":2011,"acres":3.76,"tons":12.2,"price":8400,"window":[24.6,25.8],"rainLoss":0.13,"best":"2026-10-08","picked":null,"brixToday":24.6,"samples":[{"d":"2026-08-03","brix":6.8,"ta":13.94,"ph":3.07,"seeds":0},{"d":"2026-08-06","brix":7.0,"ta":14.33,"ph":3.06,"seeds":0},{"d":"2026-08-09","brix":7.5,"ta":14.17,"ph":3.06,"seeds":0},{"d":"2026-08-12","brix":7.8,"ta":13.86,"ph":3.06,"seeds":0},{"d":"2026-08-16","brix":8.3,"ta":13.97,"ph":3.09,"seeds":0},{"d":"2026-08-19","brix":8.3,"ta":13.6,"ph":3.1,"seeds":0},{"d":"2026-08-22","brix":8.9,"ta":13.5,"ph":3.09,"seeds":0},{"d":"2026-08-25","brix":9.7,"ta":13.16,"ph":3.11,"seeds":0},{"d":"2026-08-29","brix":10.4,"ta":13.07,"ph":3.15,"seeds":0},{"d":"2026-09-01","brix":11.5,"ta":12.77,"ph":3.15,"seeds":0},{"d":"2026-09-05","brix":13.0,"ta":12.2,"ph":3.2,"seeds":1},{"d":"2026-09-09","brix":14.7,"ta":11.46,"ph":3.24,"seeds":2},{"d":"2026-09-13","brix":16.5,"ta":11.0,"ph":3.26,"seeds":3},{"d":"2026-09-17","brix":18.2,"ta":10.37,"ph":3.34,"seeds":6},{"d":"2026-09-21","brix":19.9,"ta":9.45,"ph":3.37,"seeds":10},{"d":"2026-09-24","brix":21.4,"ta":9.17,"ph":3.44,"seeds":16},{"d":"2026-09-28","brix":22.5,"ta":8.2,"ph":3.46,"seeds":27},{"d":"2026-10-01","brix":23.3,"ta":7.66,"ph":3.5,"seeds":38},{"d":"2026-10-04","brix":24.1,"ta":7.41,"ph":3.57,"seeds":50}],"curve0":"2026-07-01","curve":[6.53,6.53,6.53,6.54,6.54,6.54,6.55,6.55,6.56,6.56,6.57,6.58,6.58,6.59,6.6,6.61,6.62,6.63,6.64,6.65,6.66,6.68,6.7,6.71,6.73,6.75,6.78,6.8,6.83,6.86,6.89,6.93,6.96,7.0,7.05,7.1,7.15,7.21,7.27,7.34,7.41,7.49,7.58,7.67,7.77,7.88,8.0,8.12,8.26,8.41,8.56,8.73,8.91,9.11,9.31,9.53,9.77,10.02,10.28,10.56,10.85,11.16,11.49,11.83,12.19,12.56,12.94,13.34,13.75,14.17,14.6,15.04,15.49,15.94,16.4,16.86,17.32,17.78,18.24,18.69,19.14,19.58,20.01,20.42,20.83,21.23,21.61,21.97,22.33,22.66,22.98,23.29,23.58,23.85,24.11,24.36,24.59,24.81,25.01,25.2,25.38,25.54,25.7,25.84,25.97,26.1,26.21,26.32,26.42,26.51,26.59,26.67,26.74,26.81,26.87,26.93,26.98,27.03,27.07,27.11,27.15,27.18,27.21,27.24,27.27,27.29,27.32],"poly":[[0.3779,0.2995],[0.4651,0.4362],[0.4288,0.5208],[0.4179,0.651],[0.407,0.7031],[0.2943,0.7292],[0.3198,0.5208],[0.3561,0.3646]],"value":{"mon":100020,"tue":108219,"wed":113138,"thu":114778,"tue2":71869,"wed2":69640,"thu2":67411,"fri2":65182,"sat2":62953,"mon3":58495,"tue3":56266,"wed3":54037}},{"id":"B7","name":"Golden Slope","varietal":"Merlot","short":"Merlot","planted":2007,"acres":3.51,"tons":12.8,"price":5600,"window":[24.2,25.4],"rainLoss":0.28,"best":"2026-10-07","picked":null,"brixToday":24.3,"samples":[{"d":"2026-08-03","brix":6.7,"ta":14.23,"ph":3.06,"seeds":0},{"d":"2026-08-07","brix":7.1,"ta":14.31,"ph":3.06,"seeds":0},{"d":"2026-08-10","brix":6.7,"ta":14.18,"ph":3.06,"seeds":0},{"d":"2026-08-14","brix":6.8,"ta":14.01,"ph":3.07,"seeds":0},{"d":"2026-08-18","brix":7.4,"ta":13.7,"ph":3.1,"seeds":0},{"d":"2026-08-22","brix":7.8,"ta":13.79,"ph":3.11,"seeds":0},{"d":"2026-08-25","brix":8.1,"ta":13.48,"ph":3.09,"seeds":0},{"d":"2026-08-28","brix":8.5,"ta":13.26,"ph":3.13,"seeds":0},{"d":"2026-08-31","brix":9.2,"ta":13.25,"ph":3.13,"seeds":0},{"d":"2026-09-03","brix":10.3,"ta":12.86,"ph":3.12,"seeds":1},{"d":"2026-09-06","brix":11.2,"ta":12.54,"ph":3.15,"seeds":1},{"d":"2026-09-10","brix":12.7,"ta":12.13,"ph":3.21,"seeds":2},{"d":"2026-09-14","brix":14.7,"ta":11.59,"ph":3.21,"seeds":4},{"d":"2026-09-17","brix":16.1,"ta":11.06,"ph":3.28,"seeds":6},{"d":"2026-09-20","brix":17.6,"ta":10.48,"ph":3.32,"seeds":10},{"d":"2026-09-24","brix":19.8,"ta":9.84,"ph":3.36,"seeds":18},{"d":"2026-09-28","brix":21.7,"ta":9.03,"ph":3.4,"seeds":30},{"d":"2026-10-01","brix":22.9,"ta":8.48,"ph":3.46,"seeds":42},{"d":"2026-10-05","brix":24.4,"ta":7.8,"ph":3.5,"seeds":58}],"curve0":"2026-07-01","curve":[6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.52,6.52,6.52,6.52,6.52,6.53,6.53,6.53,6.53,6.54,6.54,6.55,6.55,6.56,6.56,6.57,6.58,6.58,6.59,6.6,6.61,6.63,6.64,6.65,6.67,6.69,6.71,6.73,6.75,6.78,6.81,6.84,6.88,6.92,6.96,7.01,7.06,7.12,7.18,7.25,7.33,7.41,7.5,7.6,7.71,7.83,7.96,8.11,8.26,8.43,8.62,8.82,9.04,9.27,9.52,9.79,10.08,10.39,10.72,11.08,11.45,11.84,12.25,12.69,13.14,13.61,14.09,14.59,15.1,15.62,16.15,16.68,17.21,17.75,18.28,18.8,19.32,19.83,20.32,20.8,21.26,21.7,22.13,22.53,22.92,23.28,23.63,23.95,24.25,24.54,24.8,25.05,25.27,25.48,25.68,25.86,26.02,26.17,26.31,26.44,26.56,26.66,26.76,26.85,26.93,27.0,27.07,27.13,27.19,27.24,27.28,27.32,27.36,27.4,27.43,27.46,27.48,27.5,27.53],"poly":[[0.5414,0.4492],[0.6105,0.3776],[0.7122,0.2799],[0.7594,0.4232],[0.6323,0.612],[0.5414,0.5013]],"value":{"mon":75694,"tue":79135,"wed":80282,"thu":79421,"tue2":40312,"wed2":39021,"thu2":37731,"fri2":36441,"sat2":35151,"mon3":32570,"tue3":31280,"wed3":29990}},{"id":"B8","name":"High Terrace","varietal":"Cabernet Sauvignon","short":"Cab","planted":2001,"acres":5.74,"tons":19.8,"price":9200,"window":[25.2,26.6],"rainLoss":0.07,"best":"2026-10-09","picked":null,"brixToday":24.9,"samples":[{"d":"2026-08-03","brix":6.7,"ta":14.14,"ph":3.07,"seeds":0},{"d":"2026-08-06","brix":6.8,"ta":14.35,"ph":3.06,"seeds":0},{"d":"2026-08-09","brix":6.8,"ta":14.18,"ph":3.06,"seeds":0},{"d":"2026-08-12","brix":7.2,"ta":13.96,"ph":3.11,"seeds":0},{"d":"2026-08-16","brix":7.5,"ta":13.95,"ph":3.08,"seeds":0},{"d":"2026-08-19","brix":7.8,"ta":13.85,"ph":3.06,"seeds":0},{"d":"2026-08-22","brix":7.8,"ta":13.74,"ph":3.11,"seeds":0},{"d":"2026-08-26","brix":8.5,"ta":13.33,"ph":3.13,"seeds":0},{"d":"2026-08-29","brix":9.3,"ta":13.21,"ph":3.12,"seeds":0},{"d":"2026-09-01","brix":9.8,"ta":13.25,"ph":3.15,"seeds":0},{"d":"2026-09-05","brix":11.1,"ta":12.43,"ph":3.16,"seeds":1},{"d":"2026-09-09","brix":12.9,"ta":12.09,"ph":3.2,"seeds":1},{"d":"2026-09-12","brix":14.4,"ta":11.78,"ph":3.22,"seeds":2},{"d":"2026-09-16","brix":16.2,"ta":10.94,"ph":3.24,"seeds":4},{"d":"2026-09-20","brix":18.4,"ta":10.31,"ph":3.32,"seeds":8},{"d":"2026-09-23","brix":19.9,"ta":9.91,"ph":3.36,"seeds":12},{"d":"2026-09-26","brix":21.6,"ta":9.3,"ph":3.41,"seeds":18},{"d":"2026-09-30","brix":23.3,"ta":8.66,"ph":3.45,"seeds":30},{"d":"2026-10-03","brix":24.3,"ta":8.15,"ph":3.49,"seeds":42}],"curve0":"2026-07-01","curve":[6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.52,6.52,6.52,6.52,6.52,6.53,6.53,6.53,6.53,6.54,6.54,6.55,6.55,6.56,6.56,6.57,6.58,6.59,6.6,6.61,6.62,6.63,6.64,6.66,6.67,6.69,6.71,6.73,6.76,6.78,6.81,6.85,6.88,6.92,6.97,7.01,7.07,7.13,7.19,7.26,7.34,7.42,7.52,7.62,7.73,7.85,7.98,8.13,8.29,8.46,8.64,8.85,9.07,9.3,9.56,9.83,10.12,10.44,10.77,11.13,11.5,11.9,12.32,12.76,13.21,13.69,14.18,14.69,15.21,15.74,16.27,16.82,17.36,17.91,18.45,18.99,19.52,20.04,20.55,21.04,21.52,21.98,22.41,22.83,23.23,23.61,23.97,24.3,24.62,24.91,25.19,25.44,25.68,25.9,26.1,26.29,26.46,26.62,26.77,26.9,27.02,27.14,27.24,27.33,27.42,27.49,27.57,27.63,27.69,27.74,27.79,27.83,27.87,27.91,27.94,27.97,28.0,28.02,28.05,28.07],"poly":[[0.7304,0.0977],[0.9084,0.0807],[0.9702,0.2474],[0.9702,0.4167],[0.7594,0.332],[0.7267,0.2604]],"value":{"mon":157386,"tue":177788,"wed":192361,"thu":201105,"tue2":140793,"wed2":136558,"thu2":132323,"fri2":128088,"sat2":123852,"mon3":115382,"tue3":111147,"wed3":106911}},{"id":"B9","name":"Winery Hill","varietal":"Cabernet Sauvignon","short":"Cab","planted":2006,"acres":3.44,"tons":12.2,"price":9200,"window":[25.2,26.6],"rainLoss":0.07,"best":"2026-10-11","picked":null,"brixToday":24.3,"samples":[{"d":"2026-08-03","brix":7.0,"ta":14.26,"ph":3.06,"seeds":0},{"d":"2026-08-07","brix":6.8,"ta":14.27,"ph":3.07,"seeds":0},{"d":"2026-08-11","brix":7.6,"ta":13.97,"ph":3.06,"seeds":0},{"d":"2026-08-14","brix":7.5,"ta":13.93,"ph":3.1,"seeds":0},{"d":"2026-08-17","brix":7.8,"ta":14.0,"ph":3.1,"seeds":0},{"d":"2026-08-20","brix":8.1,"ta":13.78,"ph":3.1,"seeds":0},{"d":"2026-08-23","brix":8.4,"ta":13.83,"ph":3.12,"seeds":0},{"d":"2026-08-27","brix":9.1,"ta":13.62,"ph":3.1,"seeds":0},{"d":"2026-08-31","brix":9.9,"ta":13.27,"ph":3.13,"seeds":0},{"d":"2026-09-03","brix":10.7,"ta":13.04,"ph":3.15,"seeds":0},{"d":"2026-09-06","brix":11.9,"ta":12.6,"ph":3.17,"seeds":1},{"d":"2026-09-09","brix":12.9,"ta":12.3,"ph":3.17,"seeds":1},{"d":"2026-09-13","brix":14.5,"ta":11.72,"ph":3.27,"seeds":2},{"d":"2026-09-17","brix":16.6,"ta":11.25,"ph":3.23,"seeds":3},{"d":"2026-09-21","brix":18.4,"ta":10.5,"ph":3.32,"seeds":6},{"d":"2026-09-24","brix":20.0,"ta":10.09,"ph":3.36,"seeds":10},{"d":"2026-09-28","brix":21.5,"ta":9.47,"ph":3.4,"seeds":18},{"d":"2026-10-01","brix":22.8,"ta":8.48,"ph":3.43,"seeds":27},{"d":"2026-10-05","brix":24.3,"ta":8.01,"ph":3.48,"seeds":42}],"curve0":"2026-07-01","curve":[6.52,6.52,6.53,6.53,6.53,6.53,6.54,6.54,6.54,6.55,6.55,6.56,6.56,6.57,6.57,6.58,6.59,6.6,6.6,6.61,6.62,6.63,6.65,6.66,6.67,6.69,6.71,6.72,6.74,6.77,6.79,6.82,6.84,6.87,6.91,6.94,6.98,7.02,7.07,7.12,7.17,7.23,7.29,7.36,7.44,7.52,7.6,7.7,7.8,7.91,8.02,8.15,8.29,8.43,8.59,8.76,8.94,9.13,9.34,9.56,9.79,10.04,10.3,10.58,10.88,11.19,11.51,11.85,12.21,12.59,12.97,13.38,13.79,14.22,14.66,15.11,15.57,16.04,16.52,17.0,17.48,17.96,18.44,18.92,19.39,19.86,20.32,20.78,21.22,21.65,22.06,22.47,22.86,23.23,23.59,23.94,24.26,24.57,24.87,25.15,25.42,25.66,25.9,26.12,26.33,26.52,26.7,26.87,27.03,27.18,27.31,27.44,27.56,27.67,27.77,27.87,27.95,28.03,28.11,28.18,28.24,28.3,28.35,28.4,28.45,28.49,28.53],"poly":[[0.7667,0.3581],[0.9629,0.4362],[0.952,0.5729],[0.9448,0.6901],[0.8576,0.651],[0.8212,0.5469]],"value":{"mon":92856,"tue":94202,"wed":96975,"thu":109546,"tue2":101565,"wed2":91544,"thu2":86751,"fri2":84142,"sat2":81532,"mon3":76313,"tue3":73703,"wed3":71094}},{"id":"B10","name":"Lantern Row","varietal":"Petit Verdot","short":"Petit Verdot","planted":2013,"acres":3.25,"tons":10.1,"price":7900,"window":[25.0,26.4],"rainLoss":0.05,"best":"2026-10-16","picked":null,"brixToday":21.8,"samples":[{"d":"2026-08-03","brix":6.8,"ta":14.31,"ph":3.1,"seeds":0},{"d":"2026-08-06","brix":6.6,"ta":14.17,"ph":3.05,"seeds":0},{"d":"2026-08-10","brix":7.0,"ta":14.42,"ph":3.05,"seeds":0},{"d":"2026-08-13","brix":7.1,"ta":14.13,"ph":3.11,"seeds":0},{"d":"2026-08-16","brix":6.7,"ta":14.21,"ph":3.09,"seeds":0},{"d":"2026-08-19","brix":7.1,"ta":13.99,"ph":3.08,"seeds":0},{"d":"2026-08-22","brix":7.1,"ta":13.81,"ph":3.09,"seeds":0},{"d":"2026-08-26","brix":7.5,"ta":13.91,"ph":3.08,"seeds":0},{"d":"2026-08-29","brix":7.9,"ta":13.9,"ph":3.1,"seeds":0},{"d":"2026-09-01","brix":8.6,"ta":13.58,"ph":3.09,"seeds":0},{"d":"2026-09-04","brix":8.6,"ta":13.49,"ph":3.1,"seeds":0},{"d":"2026-09-08","brix":9.7,"ta":13.3,"ph":3.13,"seeds":0},{"d":"2026-09-12","brix":10.8,"ta":12.79,"ph":3.18,"seeds":1},{"d":"2026-09-15","brix":12.0,"ta":12.6,"ph":3.19,"seeds":1},{"d":"2026-09-19","brix":13.5,"ta":12.12,"ph":3.2,"seeds":2},{"d":"2026-09-22","brix":15.0,"ta":11.45,"ph":3.24,"seeds":3},{"d":"2026-09-26","brix":17.3,"ta":10.98,"ph":3.27,"seeds":6},{"d":"2026-09-29","brix":18.9,"ta":10.41,"ph":3.33,"seeds":10},{"d":"2026-10-03","brix":20.4,"ta":9.94,"ph":3.35,"seeds":18}],"curve0":"2026-07-01","curve":[6.5,6.5,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.52,6.52,6.52,6.52,6.52,6.53,6.53,6.53,6.53,6.54,6.54,6.55,6.55,6.55,6.56,6.57,6.57,6.58,6.59,6.6,6.61,6.62,6.63,6.64,6.66,6.67,6.69,6.71,6.73,6.76,6.78,6.81,6.84,6.88,6.91,6.95,7.0,7.05,7.1,7.16,7.23,7.3,7.38,7.47,7.56,7.66,7.77,7.89,8.03,8.17,8.33,8.5,8.68,8.88,9.09,9.32,9.57,9.84,10.12,10.43,10.75,11.09,11.46,11.84,12.24,12.67,13.11,13.57,14.04,14.53,15.04,15.55,16.08,16.61,17.14,17.68,18.22,18.75,19.28,19.81,20.32,20.82,21.3,21.77,22.23,22.66,23.08,23.48,23.85,24.21,24.55,24.86,25.16,25.44,25.7,25.94,26.17,26.38,26.57,26.75,26.91,27.07,27.21,27.34,27.45,27.56,27.66,27.75,27.84,27.91,27.98,28.05,28.1,28.16],"poly":[[0.6432,0.625],[0.7631,0.4427],[0.8321,0.638],[0.7994,0.7292],[0.7703,0.7943],[0.6831,0.7031]],"value":{"mon":61222,"tue":62180,"wed":63137,"thu":64095,"tue2":73981,"wed2":80045,"thu2":83684,"fri2":82850,"sat2":79212,"mon3":66477,"tue3":62997,"wed3":61102}},{"id":"B11","name":"Big Bench West","varietal":"Cabernet Sauvignon","short":"Cab","planted":1998,"acres":6.05,"tons":20.8,"price":9200,"window":[25.2,26.6],"rainLoss":0.07,"best":"2026-10-10","picked":null,"brixToday":24.4,"samples":[{"d":"2026-08-03","brix":6.2,"ta":14.44,"ph":3.07,"seeds":0},{"d":"2026-08-06","brix":6.3,"ta":14.33,"ph":3.08,"seeds":0},{"d":"2026-08-10","brix":7.1,"ta":14.29,"ph":3.05,"seeds":0},{"d":"2026-08-13","brix":7.0,"ta":14.11,"ph":3.08,"seeds":0},{"d":"2026-08-16","brix":7.5,"ta":13.87,"ph":3.06,"seeds":0},{"d":"2026-08-20","brix":7.1,"ta":13.94,"ph":3.09,"seeds":0},{"d":"2026-08-23","brix":7.8,"ta":13.94,"ph":3.1,"seeds":0},{"d":"2026-08-27","brix":8.5,"ta":13.66,"ph":3.12,"seeds":0},{"d":"2026-08-30","brix":8.7,"ta":13.39,"ph":3.13,"seeds":0},{"d":"2026-09-02","brix":9.5,"ta":13.27,"ph":3.12,"seeds":0},{"d":"2026-09-06","brix":10.6,"ta":12.93,"ph":3.18,"seeds":1},{"d":"2026-09-10","brix":12.2,"ta":12.4,"ph":3.19,"seeds":1},{"d":"2026-09-14","brix":14.0,"ta":11.76,"ph":3.22,"seeds":2},{"d":"2026-09-17","brix":15.4,"ta":11.44,"ph":3.27,"seeds":4},{"d":"2026-09-21","brix":17.8,"ta":10.75,"ph":3.31,"seeds":8},{"d":"2026-09-25","brix":19.9,"ta":10.07,"ph":3.37,"seeds":14},{"d":"2026-09-29","brix":21.7,"ta":9.14,"ph":3.37,"seeds":24},{"d":"2026-10-03","brix":23.4,"ta":8.39,"ph":3.45,"seeds":38}],"curve0":"2026-07-01","curve":[6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.51,6.52,6.52,6.52,6.52,6.52,6.53,6.53,6.53,6.53,6.54,6.54,6.55,6.55,6.56,6.56,6.57,6.58,6.58,6.59,6.6,6.61,6.63,6.64,6.65,6.67,6.69,6.71,6.73,6.75,6.78,6.81,6.84,6.87,6.91,6.95,7.0,7.05,7.11,7.17,7.24,7.31,7.39,7.48,7.58,7.69,7.8,7.93,8.07,8.22,8.39,8.57,8.76,8.97,9.2,9.45,9.71,9.99,10.3,10.62,10.97,11.33,11.72,12.13,12.56,13.01,13.48,13.96,14.47,14.98,15.51,16.05,16.6,17.15,17.71,18.26,18.81,19.36,19.9,20.42,20.94,21.44,21.92,22.38,22.83,23.25,23.66,24.04,24.4,24.74,25.06,25.36,25.64,25.9,26.14,26.37,26.57,26.76,26.94,27.1,27.25,27.39,27.51,27.63,27.73,27.83,27.92,27.99,28.07,28.13,28.19,28.25,28.3,28.34,28.39,28.42,28.46,28.49,28.52],"poly":[[0.5124,0.5273],[0.6323,0.6732],[0.5814,1.0],[0.3852,1.0],[0.407,0.9115],[0.4651,0.7812],[0.5015,0.612]],"value":{"mon":160607,"tue":165335,"wed":186767,"thu":202076,"tue2":156075,"wed2":147904,"thu2":143455,"fri2":139006,"sat2":134557,"mon3":125658,"tue3":121209,"wed3":116760}},{"id":"B13","name":"Big Bench East","varietal":"Cabernet Sauvignon","short":"Cab","planted":1998,"acres":3.81,"tons":13.4,"price":9200,"window":[25.2,26.6],"rainLoss":0.07,"best":"2026-10-12","picked":null,"brixToday":24.4,"samples":[{"d":"2026-08-03","brix":6.8,"ta":13.96,"ph":3.07,"seeds":0},{"d":"2026-08-07","brix":7.2,"ta":14.34,"ph":3.09,"seeds":0},{"d":"2026-08-11","brix":7.5,"ta":13.97,"ph":3.09,"seeds":0},{"d":"2026-08-14","brix":7.7,"ta":13.91,"ph":3.08,"seeds":0},{"d":"2026-08-17","brix":8.3,"ta":13.91,"ph":3.08,"seeds":0},{"d":"2026-08-21","brix":8.8,"ta":13.78,"ph":3.1,"seeds":0},{"d":"2026-08-25","brix":9.4,"ta":13.47,"ph":3.11,"seeds":0},{"d":"2026-08-28","brix":10.2,"ta":13.29,"ph":3.16,"seeds":0},{"d":"2026-09-01","brix":11.5,"ta":12.98,"ph":3.16,"seeds":0},{"d":"2026-09-05","brix":12.6,"ta":12.39,"ph":3.18,"seeds":0},{"d":"2026-09-08","brix":13.8,"ta":11.98,"ph":3.23,"seeds":1},{"d":"2026-09-11","brix":14.6,"ta":11.68,"ph":3.24,"seeds":1},{"d":"2026-09-15","brix":16.8,"ta":11.05,"ph":3.3,"seeds":2},{"d":"2026-09-19","brix":18.4,"ta":10.38,"ph":3.34,"seeds":4},{"d":"2026-09-23","brix":19.9,"ta":9.47,"ph":3.38,"seeds":8},{"d":"2026-09-26","brix":21.4,"ta":9.04,"ph":3.44,"seeds":12},{"d":"2026-09-29","brix":22.6,"ta":8.48,"ph":3.46,"seeds":18},{"d":"2026-10-02","brix":23.5,"ta":7.93,"ph":3.53,"seeds":27}],"curve0":"2026-07-01","curve":[6.54,6.54,6.55,6.55,6.55,6.56,6.56,6.57,6.57,6.58,6.59,6.6,6.6,6.61,6.62,6.63,6.64,6.66,6.67,6.68,6.7,6.71,6.73,6.75,6.77,6.8,6.82,6.85,6.88,6.91,6.94,6.98,7.02,7.06,7.11,7.16,7.21,7.27,7.33,7.4,7.47,7.55,7.64,7.73,7.82,7.93,8.04,8.16,8.29,8.43,8.58,8.74,8.91,9.09,9.28,9.48,9.7,9.93,10.17,10.43,10.7,10.98,11.28,11.59,11.91,12.25,12.6,12.97,13.34,13.73,14.13,14.54,14.96,15.39,15.82,16.26,16.7,17.14,17.59,18.03,18.47,18.91,19.35,19.78,20.2,20.61,21.01,21.4,21.78,22.15,22.51,22.85,23.18,23.49,23.8,24.08,24.36,24.62,24.86,25.09,25.31,25.52,25.72,25.9,26.07,26.23,26.38,26.53,26.66,26.78,26.9,27.0,27.1,27.2,27.28,27.36,27.44,27.51,27.57,27.63,27.69,27.74,27.78,27.83,27.87,27.91,27.94],"poly":[[0.6323,0.6732],[0.7558,0.8203],[0.7718,1.0],[0.5814,1.0]],"value":{"mon":100510,"tue":101989,"wed":103468,"thu":106514,"tue2":119810,"wed2":111555,"thu2":100548,"fri2":95284,"sat2":92418,"mon3":86685,"tue3":83819,"wed3":80953}},{"id":"B12","name":"East Fence","varietal":"Chardonnay","short":"Chardonnay","planted":2015,"acres":1.06,"tons":4.9,"price":4800,"window":[23.0,24.2],"rainLoss":0.22,"best":"2026-09-09","picked":"2026-09-09","brixToday":23.6,"samples":[{"d":"2026-08-03","brix":11.2,"ta":12.84,"ph":3.18,"seeds":0},{"d":"2026-08-06","brix":12.3,"ta":12.44,"ph":3.21,"seeds":1},{"d":"2026-08-09","brix":13.6,"ta":11.56,"ph":3.22,"seeds":1},{"d":"2026-08-13","brix":15.1,"ta":11.25,"ph":3.27,"seeds":2},{"d":"2026-08-17","brix":16.5,"ta":10.82,"ph":3.32,"seeds":4},{"d":"2026-08-20","brix":17.7,"ta":10.2,"ph":3.36,"seeds":6},{"d":"2026-08-24","brix":18.9,"ta":9.55,"ph":3.38,"seeds":12},{"d":"2026-08-28","brix":20.8,"ta":8.79,"ph":3.44,"seeds":21},{"d":"2026-08-31","brix":21.5,"ta":8.06,"ph":3.47,"seeds":30},{"d":"2026-09-03","brix":22.0,"ta":7.73,"ph":3.51,"seeds":42},{"d":"2026-09-07","brix":22.8,"ta":6.99,"ph":3.6,"seeds":58}],"curve0":"2026-07-01","curve":[6.95,6.98,7.02,7.07,7.11,7.16,7.22,7.27,7.34,7.4,7.47,7.55,7.63,7.72,7.82,7.92,8.03,8.15,8.27,8.41,8.55,8.71,8.87,9.04,9.22,9.42,9.62,9.84,10.07,10.31,10.57,10.83,11.11,11.4,11.7,12.02,12.34,12.68,13.03,13.38,13.75,14.12,14.5,14.88,15.27,15.67,16.06,16.46,16.86,17.25,17.64,18.03,18.42,18.79,19.16,19.52,19.87,20.22,20.55,20.87,21.18,21.47,21.76,22.03,22.29,22.54,22.77,23.0,23.21,23.41,23.6,23.78,23.95,24.1,24.25,24.39,24.52,24.64,24.76,24.86,24.96,25.06,25.14,25.22,25.3,25.37,25.43,25.49,25.55,25.6,25.65,25.69,25.73,25.77,25.81,25.84,25.87,25.9,25.92,25.95,25.97,25.99,26.01,26.03,26.04,26.06,26.07,26.08,26.1,26.11,26.12,26.13,26.14,26.14,26.15,26.16,26.16,26.17,26.17,26.18,26.18,26.19,26.19,26.2,26.2,26.2,26.21],"poly":[[0.9738,0.4557],[1.0,0.4297],[1.0,0.9115],[0.9775,0.9115]],"value":{"mon":11760,"tue":11760,"wed":11760,"thu":11760,"tue2":9173,"wed2":9173,"thu2":9173,"fri2":9173,"sat2":9173,"mon3":9173,"tue3":9173,"wed3":9173}}],"best":{"plan":{"B1":"fri2","B3":"thu","B5":"wed2","B6":"tue","B7":"mon","B8":"wed","B9":"sat2","B10":"fri2","B11":"thu2","B13":"tue2"},"value":1106298},"naive":{"plan":{"B1":"tue","B7":"wed","B3":"wed","B6":"mon","B8":"tue2","B11":"wed2","B9":"thu2","B13":"fri2","B5":"sat2","B10":"mon3"},"value":1023050},"wait":{"plan":{"B1":"fri2","B3":"mon3","B5":"wed2","B6":"tue3","B7":"wed3","B8":"sat2","B9":"mon3","B10":"fri2","B11":"thu2","B13":"tue2"},"value":895458},"scenarios":[{"k":"thu","label":"As forecast","sub":"Rain Thu 2 PM to Sat","odds":0.8,"stormIn":3.5,"stormEnd":"2026-10-11","rainTotal":1.97,"slots":[{"id":"mon","day":"2026-10-05","label":"Mon 5","cap":22,"wet":false},{"id":"tue","day":"2026-10-06","label":"Tue 6","cap":22,"wet":false},{"id":"wed","day":"2026-10-07","label":"Wed 7","cap":22,"wet":false},{"id":"thu","day":"2026-10-08","label":"Thu 8, until noon","cap":11,"wet":false},{"id":"tue2","day":"2026-10-13","label":"Tue 13","cap":22,"wet":true},{"id":"wed2","day":"2026-10-14","label":"Wed 14","cap":22,"wet":true},{"id":"thu2","day":"2026-10-15","label":"Thu 15","cap":22,"wet":true},{"id":"fri2","day":"2026-10-16","label":"Fri 16","cap":22,"wet":true},{"id":"sat2","day":"2026-10-17","label":"Sat 17","cap":22,"wet":true},{"id":"mon3","day":"2026-10-19","label":"Mon 19","cap":22,"wet":true},{"id":"tue3","day":"2026-10-20","label":"Tue 20","cap":22,"wet":true},{"id":"wed3","day":"2026-10-21","label":"Wed 21","cap":22,"wet":true}],"forecast":[{"d":"2026-10-05","sky":"Sun","hi":84,"pop":0,"rain":0.0},{"d":"2026-10-06","sky":"Sun","hi":86,"pop":0,"rain":0.0},{"d":"2026-10-07","sky":"Haze","hi":79,"pop":10,"rain":0.0},{"d":"2026-10-08","sky":"Rain from 2 PM","hi":66,"pop":90,"rain":0.62},{"d":"2026-10-09","sky":"Rain","hi":58,"pop":95,"rain":1.14},{"d":"2026-10-10","sky":"Showers","hi":61,"pop":60,"rain":0.21},{"d":"2026-10-11","sky":"Clearing","hi":68,"pop":10,"rain":0.0},{"d":"2026-10-12","sky":"Sun, ground wet","hi":72,"pop":0,"rain":0.0},{"d":"2026-10-13","sky":"Sun","hi":75,"pop":0,"rain":0.0},{"d":"2026-10-14","sky":"Sun","hi":77,"pop":0,"rain":0.0},{"d":"2026-10-15","sky":"Sun","hi":78,"pop":0,"rain":0.0},{"d":"2026-10-16","sky":"Sun","hi":80,"pop":0,"rain":0.0},{"d":"2026-10-17","sky":"Sun","hi":79,"pop":0,"rain":0.0},{"d":"2026-10-18","sky":"Haze","hi":76,"pop":5,"rain":0.0},{"d":"2026-10-19","sky":"Sun","hi":77,"pop":0,"rain":0.0},{"d":"2026-10-20","sky":"Sun","hi":78,"pop":0,"rain":0.0},{"d":"2026-10-21","sky":"Sun","hi":77,"pop":0,"rain":0.0}],"values":{"B1":{"mon":73571,"tue":74637,"wed":73837,"thu":71438,"tue2":36278,"wed2":35078,"thu2":33879,"fri2":32679,"sat2":31480,"mon3":29080,"tue3":27881,"wed3":26681},"B3":{"mon":66306,"tue":69320,"wed":70325,"thu":69571,"tue2":37274,"wed2":36081,"thu2":34888,"fri2":33695,"sat2":32502,"mon3":30116,"tue3":28923,"wed3":27730},"B5":{"mon":155790,"tue":158153,"wed":160515,"thu":162878,"tue2":202141,"wed2":200127,"thu2":191338,"fri2":178155,"sat2":160577,"mon3":147593,"tue3":143015,"wed3":138438},"B6":{"mon":100020,"tue":108219,"wed":113138,"thu":114778,"tue2":71869,"wed2":69640,"thu2":67411,"fri2":65182,"sat2":62953,"mon3":58495,"tue3":56266,"wed3":54037},"B7":{"mon":75694,"tue":79135,"wed":80282,"thu":79421,"tue2":40312,"wed2":39021,"thu2":37731,"fri2":36441,"sat2":35151,"mon3":32570,"tue3":31280,"wed3":29990},"B8":{"mon":157386,"tue":177788,"wed":192361,"thu":201105,"tue2":140793,"wed2":136558,"thu2":132323,"fri2":128088,"sat2":123852,"mon3":115382,"tue3":111147,"wed3":106911},"B9":{"mon":92856,"tue":94202,"wed":96975,"thu":109546,"tue2":101565,"wed2":91544,"thu2":86751,"fri2":84142,"sat2":81532,"mon3":76313,"tue3":73703,"wed3":71094},"B10":{"mon":61222,"tue":62180,"wed":63137,"thu":64095,"tue2":73981,"wed2":80045,"thu2":83684,"fri2":82850,"sat2":79212,"mon3":66477,"tue3":62997,"wed3":61102},"B11":{"mon":160607,"tue":165335,"wed":186767,"thu":202076,"tue2":156075,"wed2":147904,"thu2":143455,"fri2":139006,"sat2":134557,"mon3":125658,"tue3":121209,"wed3":116760},"B13":{"mon":100510,"tue":101989,"wed":103468,"thu":106514,"tue2":119810,"wed2":111555,"thu2":100548,"fri2":95284,"sat2":92418,"mon3":86685,"tue3":83819,"wed3":80953}},"best":{"plan":{"B1":"fri2","B3":"thu","B5":"wed2","B6":"tue","B7":"mon","B8":"wed","B9":"sat2","B10":"fri2","B11":"thu2","B13":"tue2"},"value":1106298},"naive":{"plan":{"B1":"tue","B7":"wed","B3":"wed","B6":"mon","B8":"tue2","B11":"wed2","B9":"thu2","B13":"fri2","B5":"sat2","B10":"mon3"},"value":1023050},"wait":{"plan":{"B1":"fri2","B3":"mon3","B5":"wed2","B6":"tue3","B7":"wed3","B8":"sat2","B9":"mon3","B10":"fri2","B11":"thu2","B13":"tue2"},"value":895458}},{"k":"fri","label":"Slides a day","sub":"Rain Fri 2 PM to Sun","odds":0.15,"stormIn":4.5,"stormEnd":"2026-10-12","rainTotal":1.97,"slots":[{"id":"mon","day":"2026-10-05","label":"Mon 5","cap":22,"wet":false},{"id":"tue","day":"2026-10-06","label":"Tue 6","cap":22,"wet":false},{"id":"wed","day":"2026-10-07","label":"Wed 7","cap":22,"wet":false},{"id":"thu","day":"2026-10-08","label":"Thu 8","cap":22,"wet":false},{"id":"fri1","day":"2026-10-09","label":"Fri 9, until noon","cap":11,"wet":false},{"id":"wed2","day":"2026-10-14","label":"Wed 14","cap":22,"wet":true},{"id":"thu2","day":"2026-10-15","label":"Thu 15","cap":22,"wet":true},{"id":"fri2","day":"2026-10-16","label":"Fri 16","cap":22,"wet":true},{"id":"sat2","day":"2026-10-17","label":"Sat 17","cap":22,"wet":true},{"id":"mon3","day":"2026-10-19","label":"Mon 19","cap":22,"wet":true},{"id":"tue3","day":"2026-10-20","label":"Tue 20","cap":22,"wet":true},{"id":"wed3","day":"2026-10-21","label":"Wed 21","cap":22,"wet":true},{"id":"thu3","day":"2026-10-22","label":"Thu 22","cap":22,"wet":true}],"forecast":[{"d":"2026-10-05","sky":"Sun","hi":84,"pop":0,"rain":0.0},{"d":"2026-10-06","sky":"Sun","hi":86,"pop":0,"rain":0.0},{"d":"2026-10-07","sky":"Sun","hi":82,"pop":0,"rain":0.0},{"d":"2026-10-08","sky":"Haze","hi":79,"pop":10,"rain":0.0},{"d":"2026-10-09","sky":"Rain from 2 PM","hi":66,"pop":90,"rain":0.62},{"d":"2026-10-10","sky":"Rain","hi":58,"pop":95,"rain":1.14},{"d":"2026-10-11","sky":"Showers","hi":61,"pop":60,"rain":0.21},{"d":"2026-10-12","sky":"Clearing","hi":68,"pop":10,"rain":0.0},{"d":"2026-10-13","sky":"Sun, ground wet","hi":72,"pop":0,"rain":0.0},{"d":"2026-10-14","sky":"Sun","hi":75,"pop":0,"rain":0.0},{"d":"2026-10-15","sky":"Sun","hi":77,"pop":0,"rain":0.0},{"d":"2026-10-16","sky":"Sun","hi":78,"pop":0,"rain":0.0},{"d":"2026-10-17","sky":"Sun","hi":80,"pop":0,"rain":0.0},{"d":"2026-10-18","sky":"Haze","hi":76,"pop":5,"rain":0.0},{"d":"2026-10-19","sky":"Sun","hi":77,"pop":0,"rain":0.0},{"d":"2026-10-20","sky":"Sun","hi":78,"pop":0,"rain":0.0},{"d":"2026-10-21","sky":"Sun","hi":77,"pop":0,"rain":0.0},{"d":"2026-10-22","sky":"Sun","hi":76,"pop":0,"rain":0.0}],"values":{"B1":{"mon":73571,"tue":74637,"wed":73837,"thu":71438,"fri1":67440,"wed2":35078,"thu2":33879,"fri2":32679,"sat2":31480,"mon3":29080,"tue3":27881,"wed3":26681,"thu3":25482},"B3":{"mon":66306,"tue":69320,"wed":70325,"thu":69571,"fri1":67311,"wed2":36081,"thu2":34888,"fri2":33695,"sat2":32502,"mon3":30116,"tue3":28923,"wed3":27730,"thu3":26537},"B5":{"mon":155790,"tue":158153,"wed":160515,"thu":162878,"fri1":165240,"wed2":200127,"thu2":191338,"fri2":178155,"sat2":160577,"mon3":147593,"tue3":143015,"wed3":138438,"thu3":133861},"B6":{"mon":100020,"tue":108219,"wed":113138,"thu":114778,"fri1":113548,"wed2":69640,"thu2":67411,"fri2":65182,"sat2":62953,"mon3":58495,"tue3":56266,"wed3":54037,"thu3":51808},"B7":{"mon":75694,"tue":79135,"wed":80282,"thu":79421,"fri1":76841,"wed2":39021,"thu2":37731,"fri2":36441,"sat2":35151,"mon3":32570,"tue3":31280,"wed3":29990,"thu3":28699},"B8":{"mon":157386,"tue":177788,"wed":192361,"thu":201105,"fri1":204019,"wed2":136558,"thu2":132323,"fri2":128088,"sat2":123852,"mon3":115382,"tue3":111147,"wed3":106911,"thu3":102676},"B9":{"mon":92856,"tue":94202,"wed":96975,"thu":109546,"fri1":118525,"wed2":91544,"thu2":86751,"fri2":84142,"sat2":81532,"mon3":76313,"tue3":73703,"wed3":71094,"thu3":68484},"B10":{"mon":61222,"tue":62180,"wed":63137,"thu":64095,"fri1":65052,"wed2":80045,"thu2":83684,"fri2":82850,"sat2":79212,"mon3":66477,"tue3":62997,"wed3":61102,"thu3":59207},"B11":{"mon":160607,"tue":165335,"wed":186767,"thu":202076,"fri1":211261,"wed2":147904,"thu2":143455,"fri2":139006,"sat2":134557,"mon3":125658,"tue3":121209,"wed3":116760,"thu3":112311},"B13":{"mon":100510,"tue":101989,"wed":103468,"thu":106514,"fri1":120321,"wed2":111555,"thu2":100548,"fri2":95284,"sat2":92418,"mon3":86685,"tue3":83819,"wed3":80953,"thu3":78087}},"best":{"plan":{"B1":"fri2","B3":"tue","B5":"thu2","B6":"tue","B7":"mon","B8":"wed","B9":"sat2","B10":"fri2","B11":"thu","B13":"wed2"},"value":1147624},"naive":{"plan":{"B1":"tue","B7":"wed","B3":"wed","B6":"thu","B8":"mon","B11":"wed2","B9":"thu2","B13":"fri2","B5":"sat2","B10":"mon3"},"value":1054401},"wait":{"plan":{"B1":"fri2","B3":"fri1","B5":"wed2","B6":"wed3","B7":"thu3","B8":"sat2","B9":"tue3","B10":"fri2","B11":"thu2","B13":"mon3"},"value":893398}},{"k":"miss","label":"Misses","sub":"Dry through the week","odds":0.05,"stormIn":null,"stormEnd":null,"rainTotal":0.0,"slots":[{"id":"mon","day":"2026-10-05","label":"Mon 5","cap":22,"wet":false},{"id":"tue","day":"2026-10-06","label":"Tue 6","cap":22,"wet":false},{"id":"wed","day":"2026-10-07","label":"Wed 7","cap":22,"wet":false},{"id":"thu","day":"2026-10-08","label":"Thu 8","cap":22,"wet":false},{"id":"fri1","day":"2026-10-09","label":"Fri 9","cap":22,"wet":false},{"id":"sat1","day":"2026-10-10","label":"Sat 10","cap":22,"wet":false},{"id":"mon2","day":"2026-10-12","label":"Mon 12","cap":22,"wet":false},{"id":"tue2","day":"2026-10-13","label":"Tue 13","cap":22,"wet":false},{"id":"wed2","day":"2026-10-14","label":"Wed 14","cap":22,"wet":false},{"id":"thu2","day":"2026-10-15","label":"Thu 15","cap":22,"wet":false},{"id":"fri2","day":"2026-10-16","label":"Fri 16","cap":22,"wet":false},{"id":"sat2","day":"2026-10-17","label":"Sat 17","cap":22,"wet":false}],"forecast":[{"d":"2026-10-05","sky":"Sun","hi":84,"pop":0,"rain":0.0},{"d":"2026-10-06","sky":"Sun","hi":86,"pop":0,"rain":0.0},{"d":"2026-10-07","sky":"Haze","hi":79,"pop":10,"rain":0.0},{"d":"2026-10-08","sky":"Cloud","hi":72,"pop":20,"rain":0.0},{"d":"2026-10-09","sky":"Cloud","hi":70,"pop":20,"rain":0.0},{"d":"2026-10-10","sky":"Haze","hi":74,"pop":10,"rain":0.0},{"d":"2026-10-11","sky":"Sun","hi":76,"pop":0,"rain":0.0},{"d":"2026-10-12","sky":"Sun","hi":77,"pop":0,"rain":0.0},{"d":"2026-10-13","sky":"Sun","hi":75,"pop":0,"rain":0.0},{"d":"2026-10-14","sky":"Sun","hi":77,"pop":0,"rain":0.0},{"d":"2026-10-15","sky":"Sun","hi":78,"pop":0,"rain":0.0},{"d":"2026-10-16","sky":"Sun","hi":80,"pop":0,"rain":0.0},{"d":"2026-10-17","sky":"Sun","hi":79,"pop":0,"rain":0.0},{"d":"2026-10-18","sky":"Haze","hi":76,"pop":5,"rain":0.0},{"d":"2026-10-19","sky":"Sun","hi":77,"pop":0,"rain":0.0},{"d":"2026-10-20","sky":"Sun","hi":78,"pop":0,"rain":0.0},{"d":"2026-10-21","sky":"Sun","hi":77,"pop":0,"rain":0.0}],"values":{"B1":{"mon":73571,"tue":74637,"wed":73837,"thu":71438,"fri1":67440,"sat1":61842,"mon2":54551,"tue2":52885,"wed2":51219,"thu2":49553,"fri2":47887,"sat2":46221},"B3":{"mon":66306,"tue":69320,"wed":70325,"thu":69571,"fri1":67311,"sat1":63543,"mon2":52969,"tue2":51399,"wed2":49829,"thu2":48259,"fri2":46690,"sat2":45120},"B5":{"mon":155790,"tue":158153,"wed":160515,"thu":162878,"fri1":165240,"sat1":170104,"mon2":207905,"tue2":217356,"wed2":220506,"thu2":218143,"fri2":211055,"sat2":199243},"B6":{"mon":100020,"tue":108219,"wed":113138,"thu":114778,"fri1":113548,"sat1":109859,"mon2":95101,"tue2":86451,"wed2":83889,"thu2":81327,"fri2":78765,"sat2":76203},"B7":{"mon":75694,"tue":79135,"wed":80282,"thu":79421,"fri1":76841,"sat1":72540,"mon2":60468,"tue2":58676,"wed2":56884,"thu2":55092,"fri2":53300,"sat2":51508},"B8":{"mon":157386,"tue":177788,"wed":192361,"thu":201105,"fri1":204019,"sat1":201833,"mon2":184346,"tue2":169044,"wed2":153668,"thu2":149114,"fri2":144560,"sat2":140006},"B9":{"mon":92856,"tue":94202,"wed":96975,"thu":109546,"fri1":118525,"sat1":123913,"mon2":124362,"tue2":120321,"wed2":113587,"thu2":104159,"fri2":94684,"sat2":91878},"B10":{"mon":61222,"tue":62180,"wed":63137,"thu":64095,"fri1":65052,"sat1":66010,"mon2":68939,"tue2":77875,"wed2":84258,"thu2":88088,"fri2":89365,"sat2":88407},"B11":{"mon":160607,"tue":165335,"wed":186767,"thu":202076,"fri1":211261,"sat1":214323,"mon2":205138,"tue2":193656,"wed2":177582,"thu2":161429,"fri2":156645,"sat2":151861},"B13":{"mon":100510,"tue":101989,"wed":103468,"thu":106514,"fri1":120321,"sat1":130184,"mon2":138074,"tue2":136594,"wed2":132156,"thu2":124759,"fri2":114404,"sat2":103997}},"best":{"plan":{"B1":"tue","B3":"wed","B5":"wed2","B6":"thu","B7":"wed","B8":"fri1","B9":"mon2","B10":"fri2","B11":"sat1","B13":"tue2"},"value":1329191},"naive":{"plan":{"B1":"tue","B7":"wed","B3":"wed","B6":"thu","B8":"fri1","B11":"sat1","B9":"mon2","B13":"tue2","B5":"wed2","B10":"fri2"},"value":1329191},"wait":{"plan":{"B1":"fri2","B3":"fri1","B5":"thu2","B6":"fri1","B7":"sat2","B8":"sat1","B9":"tue2","B10":"fri2","B11":"mon2","B13":"wed2"},"value":1247210}}],"dilution":{"depth":0.8,"build":2.5,"recover":4.0}};
-window.__ASSETS__ = {"f1": "media/f1-budbreak.webp", "f2": "media/f2-midsummer.webp", "f3": "media/f3-veraison.webp", "f4": "media/f4-harvest.webp", "f5": "media/f5-storm.webp", "f6": "media/f6-autumn.webp", "intro": "media/intro.mp4", "introWebm": "media/intro.webm"};
+window.__ASSETS__ = {"f1": "media/f1-budbreak.webp", "f2": "media/f2-midsummer.webp", "f3": "media/f3-veraison.webp", "f4": "media/f4-harvest.webp", "f5": "media/f5-storm.webp", "f6": "media/f6-autumn.webp", "intro": "media/intro.mp4", "introWebm": "media/intro.webm", "zoom": "media/zoom.mp4", "zoomWebm": "media/zoom.webm", "zoomEnd": "media/zoom-end.jpg", "zoomFrames": {"base": "media/zoom/", "n": 121, "fps": 12}};
 window.__MODE__ = 'web';
 </script>
 <script>
@@ -661,6 +731,8 @@ const ICON = {
   plus: '<path d="M12 5v14M5 12h14"/>', minus: '<path d="M5 12h14"/>',
   home: '<path d="M5 9V5h4M15 5h4v4M19 15v4h-4M9 19H5v-4"/>',
   send: '<path d="M4 12 20 4l-4 16-4-7z"/><path d="M12 13l8-9"/>',
+  leaf: '<path d="M5 19c0-8 5-13.5 14-14-.3 9-5.8 14-14 14z"/><path d="M5 19c3.2-4.2 6.4-7 10-9.4"/>',
+  drone: '<circle cx="5.5" cy="6" r="2.6"/><circle cx="18.5" cy="6" r="2.6"/><circle cx="5.5" cy="18" r="2.6"/><circle cx="18.5" cy="18" r="2.6"/><path d="M7.4 7.9l2.8 2.8M16.6 7.9l-2.8 2.8M7.4 16.1l2.8-2.8M16.6 16.1l-2.8-2.8"/><rect x="9.8" y="9.8" width="4.4" height="4.4" rx="1"/>',
   seal: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5.6" stroke-dasharray="1.6 1.8"/>'
 };
 const ico = (n, c) => '<svg class="ico' + (c ? ' ' + c : '') + '" viewBox="0 0 24 24" aria-hidden="true">' + ICON[n] + '</svg>';
@@ -778,7 +850,7 @@ const FS = `#version 300 es
 precision highp float;
 in vec2 v; out vec4 o;
 uniform sampler2D A, Bt, M, BK, V;
-uniform float mixAB, storm, time, introMix, hoverId, selId, dimOthers, motion, hotPatch, fixedMask;
+uniform float mixAB, storm, time, introMix, hoverId, selId, dimOthers, motion, hotPatch, fixedMask, scan, vigor;
 uniform vec2 res; uniform vec3 camr; // x, y, zoom-scale (pixels per image px)
 uniform vec2 img;
 float h21(vec2 p){ p = fract(p*vec2(123.34, 456.21)); p += dot(p, p+45.32); return fract(p.x*p.y); }
@@ -815,14 +887,29 @@ void main(){
     // a patch that looks off: the canopy yellows and thins there, mottled, with a soft organic edge
     float pid = floor(texture(M, uv).g*255. + .5);
     if (pid > .5){
-      float fixedP = pid < 1.5 ? mod(fixedMask, 2.) : step(1.5, fixedMask);
+      float fixedP = mod(floor(fixedMask/exp2(pid - 1.) + .001), 2.);
       float k = .35 + .65*smoothstep(.2, .75, fbm(uv*vec2(140., 78.) + pid*3.1));
-      vec3 dry = pid < 1.5 ? vec3(1.22, 1.0, .58) : vec3(1.06, .9, .7);
+      vec3 dry = pid < 1.5 ? vec3(1.22, 1.0, .58) : pid < 2.5 ? vec3(1.06, .9, .7) : vec3(1.2, .8, .84);
       col = mix(col, col*dry, (.8 - fixedP*.55)*k);
       col *= 1. - (.1 - fixedP*.07)*k;
       if (abs(pid-hotPatch) < .5) col += vec3(.16, .10, .02)*(.5 + .5*sin(time*4.));
     }
   } else if (selId > .5) col *= 1. - dimOthers*.3;
+  // the drone's eye: a vigor map behind the scan band, low vigor warm, high vigor green
+  if (vigor > 0. && edge >= 0.){
+    vec3 raw = mix(ca, cb, mixAB);
+    float vi = (raw.g - raw.r)/(raw.g + raw.r + .02) + .5*(raw.g - raw.b)/(raw.g + raw.b + .02);
+    float pidv = floor(texture(M, uv).g*255. + .5); float idv = floor(texture(M, uv).r*255. + .5);
+    vi = clamp(vi*2.6 + .64, 0., 1.);
+    if (pidv > .5) vi *= .25 + .45*(1. - smoothstep(.2, .75, fbm(uv*vec2(140., 78.) + pidv*3.1)));
+    vec3 ramp = vi < .5 ? mix(vec3(.78,.22,.16), vec3(.93,.72,.3), vi*2.) : mix(vec3(.93,.72,.3), vec3(.18,.56,.44), (vi - .5)*2.);
+    if (idv < .5) ramp = mix(ramp, vec3(lum*.6), .7);
+    float behind = smoothstep(scan + .002, scan - .01, uv.x);
+    col = mix(col, ramp*(.75 + .35*lum), vigor*behind);
+    float band = exp(-pow((uv.x - scan)*140., 2.));
+    col += vec3(.45, .95, .9)*band*.55*step(-.02, scan)*step(scan, 1.02);
+    col += vec3(.2, .5, .48)*step(abs(fract(uv.y*180.) - .5), .04)*.06*vigor*behind;
+  }
   // the intro flight lands exactly on the still
   if (introMix > 0.){
     vec2 vv = vec2((uv.x - .0039)/.9923, uv.y);
@@ -850,7 +937,7 @@ function initGL(){
     gl.useProgram(prog);
     const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
     const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-    ['A','Bt','M','BK','V','mixAB','storm','time','introMix','hoverId','selId','dimOthers','motion','res','camr','img','hotPatch','fixedMask'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
+    ['A','Bt','M','BK','V','mixAB','storm','time','introMix','hoverId','selId','dimOthers','motion','res','camr','img','hotPatch','fixedMask','scan','vigor'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
     gl.uniform1i(U.A, 0); gl.uniform1i(U.Bt, 1); gl.uniform1i(U.M, 2); gl.uniform1i(U.BK, 3); gl.uniform1i(U.V, 4);
   } catch(e){ console.warn('WebGL unavailable, drawing flat', e); GLOK = false; }
 }
@@ -885,6 +972,7 @@ function writeBlockTex(){
 }
 
 // ---------- state ----------
+const DRONE = {state: 'idle', scan: -1, vigor: 0, t0: 0, dur: 9000, found: [], vT: 0};
 let T = TODAY, hoverId = null, selId = null, introMix = 0, running = true, t0 = performance.now(), hotPatch = null;
 const imgs = {}; let ready = false;
 function load(src){ return new Promise((res, rej) => { const i = new Image(); i.decoding = 'async'; if (/^https?:/.test(src)) i.crossOrigin = 'anonymous'; i.onload = () => res(i); i.onerror = rej; i.src = src; }); }
@@ -915,7 +1003,7 @@ function draw(now){
     if (introMix > 0 && vidTex){ const vid = $('#intro'); gl.activeTexture(gl.TEXTURE4); gl.bindTexture(gl.TEXTURE_2D, vidTex);
       if (vid.readyState >= 2) gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, vid); }
     gl.uniform1f(U.mixAB, fr.m); gl.uniform1f(U.storm, st); gl.uniform1f(U.time, tsec); gl.uniform1f(U.introMix, introMix);
-    gl.uniform1f(U.hoverId, hoverId ? BY[hoverId].idx : 0); gl.uniform1f(U.hotPatch, hotPatch ? PBY[hotPatch].n : 0); gl.uniform1f(U.fixedMask, (ALERT.p1.state === 'resolved' ? 1 : 0) + (ALERT.p2.state === 'resolved' ? 2 : 0)); gl.uniform1f(U.selId, selId ? BY[selId].idx : 0); gl.uniform1f(U.dimOthers, selId ? 1 : 0);
+    gl.uniform1f(U.hoverId, hoverId ? BY[hoverId].idx : 0); gl.uniform1f(U.hotPatch, hotPatch ? PBY[hotPatch].n : 0); gl.uniform1f(U.fixedMask, PATCHES.reduce((m, x) => m + (ALERT[x.id].state === 'resolved' ? Math.pow(2, x.n - 1) : 0), 0)); gl.uniform1f(U.scan, DRONE.scan); gl.uniform1f(U.vigor, DRONE.vigor); gl.uniform1f(U.selId, selId ? BY[selId].idx : 0); gl.uniform1f(U.dimOthers, selId ? 1 : 0);
     gl.uniform1f(U.motion, RM || STILL ? 0 : 1);
     gl.uniform2f(U.res, cv.width, cv.height); gl.uniform3f(U.camr, cam.x, cam.y, coverScale()*cam.z*DPR); gl.uniform2f(U.img, IMG.w, IMG.h);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
@@ -925,7 +1013,8 @@ function draw(now){
     flat2d.globalAlpha = 1; if (imgs[fr.a]) flat2d.drawImage(imgs[fr.a], x, y, w, h);
     if (fr.m > 0 && imgs[fr.b]){ flat2d.globalAlpha = fr.m; flat2d.drawImage(imgs[fr.b], x, y, w, h); flat2d.globalAlpha = 1; }
   }
-  if (moving) drawOverlay();
+  droneTick(now);
+  if (moving){ drawOverlay(); if (DRONE.state === 'flying' || DRONE.state === 'done') droneMarks(); }
   if (running) requestAnimationFrame(draw);
 }
 
@@ -949,7 +1038,7 @@ function drawOverlay(){
   B.forEach(b => {
     const [cx, cy] = centroid(b); let [x, y] = toScreen(cx, cy);
     if (x < -40 || y < -20 || x > VW + 40 || y > VH + 20) return;
-    if (wide()){ if (y < 96) return; y = Math.min(y, VH - 182); } // a label under the masthead is noise, not a label
+    if (wide()){ if (y < 112) return; y = Math.min(y, VH - 182); } // a label under the masthead is noise, not a label
     const st = ripeState(b, T), col = STATE_COL[st];
     const bx = st === 'picked' ? 'Picked ' + dshort(b.pickedT) : brixShown(b, T).toFixed(1) + ' Brix';
     let dayTag = '';
@@ -992,13 +1081,18 @@ function patchTip(id, e){
   let t = $('#ptip'); if (!id){ if (t) t.classList.remove('on'); return; }
   const pt = PBY[id], a = ALERT[id], st = a.state;
   if (!t){ t = document.createElement('div'); t.id = 'ptip'; t.className = 'ptip glass'; $('#stage').appendChild(t); }
-  t.innerHTML = '<div class="pth">' + ico(pt.kind === 'water' ? 'drop' : 'flask') + '<b>' + esc(BY[pt.block].name) + '</b> · ' + pt.acres + ' ac · ' + esc(pt.where) + '</div><div class="ptb">' + esc(st === 'resolved' ? (a.replyText || pt.reply) : st === 'question' ? a.question : pt.note) + '</div><div class="ptf">' + (st === 'open' ? 'Click to ask ' + CREWS[pt.who].lead : st === 'sent' ? 'Asked; word comes back in a few minutes' : st === 'question' ? CREWS[pt.who].lead + ' has a question. Click to answer' : 'Checked and answered. Click for the thread') + '</div>';
+  t.innerHTML = '<div class="pth">' + ico(KIND_ICO[pt.kind]) + '<b>' + esc(BY[pt.block].name) + '</b> · ' + pt.acres + ' ac · ' + esc(pt.where) + '</div><div class="ptb">' + esc(st === 'resolved' ? (a.replyText || pt.reply) : st === 'question' ? a.question : pt.note) + '</div><div class="ptf">' + (st === 'open' ? 'Click to ask ' + CREWS[pt.who].lead : st === 'sent' ? 'Asked; word comes back in a few minutes' : st === 'question' ? CREWS[pt.who].lead + ' has a question. Click to answer' : 'Checked and answered. Click for the thread') + '</div>';
   const r = mapEl.getBoundingClientRect(); const x = Math.min(e.clientX - r.left + 18, VW - 320), y = Math.max(84, e.clientY - r.top - 20);
   t.style.left = x + 'px'; t.style.top = y + 'px'; t.classList.add('on');
 }
 function openPatch(id){ const pt = PBY[id]; patchTip(null); if (selId !== pt.block) select(pt.block); thread(id); }
 // the canned requests, in Annu's voice, and what each one sets in motion
 const ASKS = {
+  virus: [
+    {k: 'walk', t: 'Walk rows 3 to 5 and tag every vine that shows it', who: 'B'},
+    {k: 'sample', t: 'Pull petioles from those vines for a virus test', who: 'B'},
+    {k: 'zone', t: 'Pick those vines into their own bins on pick day', who: 'B'}
+  ],
   water: [
     {k: 'walk', t: 'Walk rows 12 to 16 and fix what you find', who: 'A'},
     {k: 'sample', t: 'Pull a leaf and soil sample first, then call me', who: 'A'},
@@ -1011,11 +1105,15 @@ const ASKS = {
   ]
 };
 const REPLY2 = {
+  virus: {walk: null, sample: null, zone: 'Tomas R.: will do. Fourteen vines tagged on rows 3 to 5, red leaves with green veins, classic leafroll. Their fruit goes to the press on its own.'},
   water: {walk: null, sample: null, zone: 'Rosa M.: noted. South zone first on Wednesday. I walked it anyway: cracked dripline on row 14, fixed. Cluster count says 12.4 t for the block, not 12.8.'},
   pest: {walk: null, sample: null, zone: 'Tomas R.: fine, creek corner last. It is spider mites, about twenty vines, nothing on the fruit yet.'}
 };
 // some asks come back as a question; the answer is one tap
 const QUESTIONS = {
+  p3: {sample: {q: 'Tomas R.: I can pull petioles, but the virus panel takes about ten days and Long Meadow is picked before then. Tag the vines now, pick them on their own, and test after harvest?',
+    answers: [{k: 'tag', t: 'Yes: tag them, pick them on their own, test after', reply: 'Tomas R.: done. Fourteen vines tagged with orange flagging on rows 3 to 5; their fruit goes in its own bins, and the petioles go to the lab after the pick.'},
+              {k: 'wait', t: 'Hold those vines until the lab answers', reply: 'Tomas R.: holding them. The rest of Long Meadow goes on its day; the tagged vines wait for the lab, which may leave them hanging into the rain.'}]}},
   p1: {sample: {q: 'Rosa M.: I can pull the samples, but the lab is crushing all week and will not read soil before Thursday, so Wednesday would be a pick without an answer. I can walk it now and fix what I find, or hold off until after the rain. Your call.',
     answers: [{k: 'walk', t: 'Walk it now and fix what you find', reply: null, tons: 12.4},
               {k: 'hold', t: 'Hold off. Pick that zone first Wednesday', reply: 'Rosa M.: holding. South zone first on Wednesday, and I will check the dripline once the canopy dries.'}]}},
@@ -1039,8 +1137,9 @@ function thread(id){
   TOPEN = id; const pt = PBY[id], a = ALERT[id], b = BY[pt.block], lead = CREWS[pt.who].lead;
   let m = $('#pmodal'); if (!m){ m = document.createElement('div'); m.id = 'pmodal'; m.className = 'pmodal glass'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'false'); $('#stage').appendChild(m); }
   const msg = (who, text, at, cls) => '<div class="msg ' + (cls || '') + '"><div class="mw">' + esc(who) + (at ? ' <span>' + esc(at) + '</span>' : '') + '</div><div class="mt">' + esc(text) + '</div></div>';
-  let h = '<div class="pmh">' + ico(pt.kind === 'water' ? 'drop' : 'flask') + '<div><b>' + esc(b.name) + '</b> · ' + pt.acres + ' ac · ' + esc(pt.where) + '</div><button type="button" class="pmx" id="pm-x" aria-label="Close">\u00d7</button></div><div class="pmthread">';
-  h += msg('Drone pass, Sat Oct 3', pt.note, '', 'drone');
+  let h = '<div class="pmh">' + ico(KIND_ICO[pt.kind]) + '<div><b>' + esc(b.name) + '</b> · ' + pt.acres + ' ac · ' + esc(pt.where) + '</div><button type="button" class="pmx" id="pm-x" aria-label="Close">\u00d7</button></div><div class="pmthread">';
+  h += msg(pt.isNew ? 'Drone pass, this morning 6:12 AM' : 'Drone pass, Sat Oct 3', pt.note, '', 'drone');
+  if (id === CU.p && (A.zoom || A.zoomFrames)) h += '<button type="button" class="cu-open" id="pm-close">' + ico('drone') + '<span><b>See it up close</b>send the drone down to the leaves' + (a.decision ? ' \u00b7 decided' : '') + '</span>' + ico('arrow') + '</button>';
   if (a.state === 'open'){
     h += '<div class="pmask"><div class="lbl2">Ask ' + esc(lead) + '</div>' + ASKS[pt.kind].map(x => '<button type="button" class="askbtn" data-ask="' + x.k + '">' + esc(x.t) + ico('send') + '</button>').join('') + '<button type="button" class="link" id="pm-aside">Set aside for now</button></div>';
   } else {
@@ -1050,7 +1149,8 @@ function thread(id){
     if (a.state === 'resolved'){ const rv = REVISED[pt.block]; if (rv && rv.who === lead) h += '<div class="numchip">' + ico('bin') + '<div><b>' + esc(b.name) + ' ' + rv.from.toFixed(1) + ' t \u2192 ' + rv.to.toFixed(1) + ' t</b><span>its day on the board, the best plan and this week moved with it: ' + (rv.dv < 0 ? '\u2212' : '+') + fmt$(Math.abs(rv.dv)) + '</span></div></div>';
       h += '<div class="pmask"><div class="lbl2">Reply</div>' + (a.followed ? '<div class="hint">' + esc(a.followed) + '</div>' :
         '<button type="button" class="askbtn" data-follow="thanks">Thanks. Logged, and the crew knows.' + ico('send') + '</button>' +
-        (pt.kind === 'water' ? '<button type="button" class="askbtn" data-follow="zone">Add to Wednesday\u2019s pick: south zone first' + ico('send') + '</button>' : '<button type="button" class="askbtn" data-follow="lab">Send the lab result to the winemaker' + ico('send') + '</button>')) + '</div>'; }
+        (pt.kind === 'water' ? '<button type="button" class="askbtn" data-follow="zone">Add to Wednesday\u2019s pick: south zone first' + ico('send') + '</button>' :
+         pt.kind === 'virus' ? '<button type="button" class="askbtn" data-follow="bins">Add to the pick: the tagged vines into their own bins' + ico('send') + '</button>' : '<button type="button" class="askbtn" data-follow="lab">Send the lab result to the winemaker' + ico('send') + '</button>')) + '</div>'; }
   }
   h += '</div>';
   m.innerHTML = h; m.classList.add('on'); placeModal(m); if (a.state !== 'open') m.scrollTop = m.scrollHeight;
@@ -1059,12 +1159,14 @@ function thread(id){
   m.querySelectorAll('[data-ask]').forEach(bn => bn.onclick = () => investigate(id, bn.dataset.ask));
   m.querySelectorAll('[data-answer]').forEach(bn => bn.onclick = () => answer(id, bn.dataset.answer));
   m.querySelectorAll('[data-follow]').forEach(bn => bn.onclick = () => followUp(id, bn.dataset.follow));
+  const cuo = $('#pm-close'); if (cuo) cuo.onclick = () => closeUp(id);
 }
 function closeThread(){ const m = $('#pmodal'); if (m) m.classList.remove('on'); TOPEN = null; }
 function placeModal(m){ if (!wide()){ m.style.left = ''; m.style.top = ''; m.style.width = ''; return; } const g = uiGap(); const w = Math.min(380, g.R - g.L - 48); m.style.width = w + 'px'; m.style.left = ((g.L + g.R)/2 - w/2) + 'px'; m.style.top = (g.T + 12) + 'px'; }
 function followUp(id, k){
   const pt = PBY[id], a = ALERT[id], b = BY[pt.block];
   if (k === 'zone'){ a.zone = true; a.followed = 'Added to ' + b.name + '\u2019s prep: south zone first.'; log(pt.block, 'task', b.name + ': south zone first on pick day, from the dripline check'); }
+  else if (k === 'bins'){ a.bins = true; a.followed = 'Added to ' + b.name + '\u2019s prep: the tagged vines into their own bins.'; log(pt.block, 'task', b.name + ': tagged vines picked into their own bins, from the leafroll check'); }
   else if (k === 'lab'){ a.followed = 'Lab result sent to the winemaker.'; log(pt.block, 'send', b.name + ': mite result sent to the winemaker'); }
   else { a.followed = 'Thanked ' + CREWS[pt.who].lead + '. Logged.'; log(pt.block, 'task', 'Thanked ' + CREWS[pt.who].lead + ' for ' + b.name); }
   refresh(); if (selId === pt.block) card(true); thread(id);
@@ -1105,8 +1207,9 @@ function bellPulse(){ const b = $('#bell'); if (!b || RM) return; b.classList.re
 function dismissPatch(id){ const a = ALERT[id]; a.state = 'dismissed'; log(PBY[id].block, 'undo', 'Set aside the drone\u2019s flag on ' + BY[PBY[id].block].name); refresh(); if (selId === PBY[id].block) card(true); }
 function alertCard(b){
   return PATCHES.filter(pt => pt.block === b.id && ALERT[pt.id].state !== 'dismissed').map(pt => { const a = ALERT[pt.id];
-    return '<div class="alert ' + a.state + '" id="alert-' + pt.id + '"><div class="ah">' + ico(pt.kind === 'water' ? 'drop' : 'flask') + '<b>' + (a.state === 'resolved' ? 'Checked' : a.state === 'sent' ? 'Someone is on the way' : a.state === 'question' ? CREWS[pt.who].lead + ' has a question' : 'Something looks off') + '</b><span class="mono">drone pass, Sat Oct 3 · ' + pt.acres + ' ac · ' + esc(pt.where) + '</span></div>' +
+    return '<div class="alert ' + a.state + '" id="alert-' + pt.id + '"><div class="ah">' + ico(KIND_ICO[pt.kind]) + '<b>' + (a.state === 'resolved' ? 'Checked' : a.state === 'sent' ? 'Someone is on the way' : a.state === 'question' ? CREWS[pt.who].lead + ' has a question' : 'Something looks off') + '</b><span class="mono">drone pass, ' + (pt.isNew ? 'this morning' : 'Sat Oct 3') + ' · ' + pt.acres + ' ac · ' + esc(pt.where) + '</span></div>' +
       '<p>' + esc(a.state === 'resolved' ? (a.replyText || pt.reply) : a.state === 'question' ? a.question.slice(a.question.indexOf(':') + 2) : pt.note) + '</p>' +
+      (pt.id === CU.p && (A.zoom || A.zoomFrames) ? '<button type="button" class="link cu-link" data-close="' + pt.id + '">' + ico('drone') + 'See it up close</button>' : '') +
       (a.state === 'open' ? '<div class="act tight"><button class="btn primary" type="button" data-thread="' + pt.id + '">Ask ' + esc(CREWS[pt.who].lead) + ' ' + ico('send') + '</button><button class="btn" type="button" data-dismiss="' + pt.id + '">Set aside</button></div>' :
        a.state === 'sent' ? '<div class="hint">Asked ' + esc(a.at) + ': ' + esc(a.answerText || a.askText || '') + ' <button type="button" class="link" data-thread="' + pt.id + '">Open the thread</button></div>' :
        a.state === 'question' ? '<div class="act tight"><button class="btn primary" type="button" data-thread="' + pt.id + '">Answer ' + esc(CREWS[pt.who].lead) + ' ' + ico('send') + '</button></div>' : '<div class="hint">Answered ' + esc(a.at) + '. ' + (a.followed ? esc(a.followed) + ' ' : '') + '<button type="button" class="link" data-thread="' + pt.id + '">Open the thread</button></div>') + '</div>'; }).join('');
@@ -1176,7 +1279,8 @@ document.addEventListener('keydown', e => {
   else if (e.key === '-' || e.key === '_') glideZoom(1/1.5);
 });
 function homeView(){ if (selId) select(null); else { const h = homeCam(); cam.tx = h.x; cam.ty = h.y; cam.tz = h.z; } }
-function placeZoom(){
+function placeZoomHud(){ placeHud(); }
+function placeZoom(){ placeZoomHud();
   const z = $('#zoomctl'); if (!z) return;
   if (!wide()){ z.style.left = ''; z.style.top = ''; return; }
   const g = uiGap(); z.style.left = (g.R - 44) + 'px'; z.style.top = (g.T + 2) + 'px';
@@ -1510,7 +1614,7 @@ document.addEventListener('keydown', e => {
   const c = e.target.closest && e.target.closest('.chip, #overlay .lab');
   if (c && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); select(c.dataset.b); }
   if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z' && !(e.target.closest && e.target.closest('input,textarea'))){ e.preventDefault(); undo(); }
-  if (e.key === 'Escape'){ if (TOPEN){ closeThread(); return; } if (selId) select(null); else if ($('#pv-blocks') && $('#pv-blocks').classList.contains('on')) showView('estate'); }
+  if (e.key === 'Escape'){ if (CU.open){ closeCloseUp(); return; } if (DRONE.state === 'flying' || DRONE.state === 'done'){ endDrone(); return; } if (TOPEN){ closeThread(); return; } if (selId) select(null); else if ($('#pv-blocks') && $('#pv-blocks').classList.contains('on')) showView('estate'); }
 });
 
 // ---------- a block, in the same panel: the value of every picking day ----------
@@ -1554,6 +1658,13 @@ const PATCHES = [
 ];
 const ALERT = {}; PATCHES.forEach(x => ALERT[x.id] = {state: 'open'});   // open, sent, resolved, dismissed
 const PBY = {}; PATCHES.forEach(x => PBY[x.id] = x);
+// what this morning's pass finds that Saturday's did not
+const FOUND_TODAY = {id: 'p3', n: 3, block: 'B5', kind: 'virus', acres: 0.3, where: 'west rows 3 to 5', isNew: true,
+  poly: [[0.1179,0.6858],[0.1420,0.6740],[0.1650,0.6880],[0.1690,0.7320],[0.1420,0.7440],[0.1210,0.7290]],
+  note: 'New this morning: leaves reddening between green veins on about fourteen vines, picked up by the multispectral camera at 6:12. Reads like leafroll virus, which has no cure and spreads by mealybug.',
+  ask: 'Walk rows 3 to 5 of Long Meadow and tag the vines with red leaves', who: 'B',
+  reply: 'Tomas R.: tagged 14 vines on rows 3 to 5, red leaves with green veins, classic leafroll. The fruit is sound but behind the rest on sugar. I would pick them into their own bins.'};
+const SEEN = {p1: 'canopy +4°C, vigor 0.38', p2: 'vigor 0.44, mottled', p3: 'red leaves, green veins, 14 vines'};
 // the estate clock: 6:00 AM when the page opened, and a second a minute, so a morning passes while Annu works. Said so in the About.
 const OPENED0 = performance.now();
 const clockMin = () => 6*60 + 4 + Math.floor((performance.now() - OPENED0)/1000);
@@ -1583,7 +1694,9 @@ function crewFor(b, sid){
 function shiftOf(sid){ const s = SL[sid]; return sid === 'thu' ? 'Thu 8, 4 AM to noon' : sLabel(s) + ', 10 PM to 6 AM'; }
 function tasksFor(b){
   const sid = plan[b.id], s = SL[sid], c = crewFor(b, sid), last = b.samples[b.samples.length - 1];
-  const zone = PATCHES.filter(pt => pt.block === b.id && ALERT[pt.id].zone).map(pt => ({k: 'zone', i: 'drop', t: 'Tell the crew: ' + pt.where.split(',')[0] + ' first, it is a day ahead', done: () => 'On the pick sheet.'}));
+  const zone = PATCHES.filter(pt => pt.block === b.id && ALERT[pt.id].zone).map(pt => ({k: 'zone', i: 'drop', t: 'Tell the crew: ' + pt.where.split(',')[0] + ' first, it is a day ahead', done: () => 'On the pick sheet.'}))
+    .concat(PATCHES.filter(pt => pt.block === b.id && ALERT[pt.id].bins).map(pt => ({k: 'bins', i: 'bin', t: 'Bin the tagged vines on ' + pt.where.split(',')[0] + ' on their own', done: () => 'Orange flagging on the rows; the bins are marked.'})))
+    .concat(PATCHES.filter(pt => pt.block === b.id && ALERT[pt.id].dusted).map(pt => ({k: 'h2s', i: 'tank', t: 'Tell the cellar: sulfur on ' + b.name + ' ' + daysTo(SL[plan[b.id]]) + ' days before the pick', done: () => 'The winemaker will watch its ferment for hydrogen sulfide.'})));
   if (isDry(sid)) return [
     {k: 'sample', i: 'flask', t: 'Pull a final berry sample at first light', done: () => { const x = brixAt(b, TODAY); return 'Lab back: ' + x.toFixed(1) + ' Brix, TA ' + last.ta.toFixed(1) + ', pH ' + last.ph.toFixed(2) + ', seeds ' + last.seeds + '% brown. ' + (x >= b.window[0] ? 'In its window.' : (b.window[0] - x).toFixed(1) + ' Brix shy of the window, still worth more than the rain.'); }},
     {k: 'crew', i: 'crew', t: 'Book ' + c.label + ' for ' + shiftOf(sid), done: () => c.leads + ' confirmed by text.'},
@@ -1766,6 +1879,7 @@ function wireCard(b){
   c.querySelectorAll('[data-home]').forEach(t => t.onclick = () => select(null));
   c.querySelectorAll('[data-sendnow]').forEach(t => t.onclick = () => sendPlan());
   c.querySelectorAll('[data-thread]').forEach(t => t.onclick = () => thread(t.dataset.thread));
+  c.querySelectorAll('[data-close]').forEach(t => t.onclick = () => closeUp(t.dataset.close));
   c.querySelectorAll('[data-dismiss]').forEach(t => t.onclick = () => dismissPatch(t.dataset.dismiss));
 }
 function decide(id, sid){
@@ -1828,7 +1942,7 @@ function morning(){
 }
 function morningGo(k){
   if (k === 'send'){ sendPlan(); return; }
-  if (k === 'flags'){ const nx = PATCHES.find(x => ALERT[x.id].state === 'question') || PATCHES.find(x => ALERT[x.id].state === 'open' || ALERT[x.id].state === 'sent'); if (nx) openPatch(nx.id); else toast('Both patches are answered.'); return; }
+  if (k === 'flags'){ const nx = PATCHES.find(x => ALERT[x.id].state === 'question') || PATCHES.find(x => ALERT[x.id].state === 'open' || ALERT[x.id].state === 'sent'); if (nx) openPatch(nx.id); else toast('Every patch is answered.'); return; }
   if (k === 'gap'){ setPlanAsk(D.best.plan, 'Moved to the best plan the crews allow'); return; }
   let pool = LIVE;
   if (k === 'read') pool = LIVE.filter(b => !DEC[b.id].seen);
@@ -1942,6 +2056,7 @@ function keyHTML(){
   return '<div class="kg"><b>Ripeness</b>' + ['green','near','ready','past'].map(st => '<span>' + halo(st) + stateGlyph(st) + esc(STATE_WORD[st]) + '</span>').join('') + '<span>' + halo('picked') + stateGlyph('picked') + 'Picked, in tank</span></div>' +
     '<div class="kg"><b>Its day</b><span>' + tag('open') + 'to decide</span><span>' + tag('decided') + 'decided</span><span>' + tag('ready') + 'ready</span><span><i class="sw warm"></i>before the rain</span><span><i class="sw cool"></i>after</span></div>';
 }
+document.addEventListener('click', e => { const d = e.target.closest && e.target.closest('#dronebtn'); if (d) flyDrone(); });
 document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('#bell'); if (!b) return;
   const nx = PATCHES.find(x => ALERT[x.id].state === 'question') || PATCHES.find(x => ALERT[x.id].state === 'open'); if (nx){ openPatch(nx.id); return; }
   if (SENT && SENT.issue && SENT.issue.state === 'open'){ if (selId) select(null); showView('summary'); setTimeout(() => { const c = $('#issue'); if (c) c.scrollIntoView({behavior: RM ? 'auto' : 'smooth', block: 'center'}); }, 400); return; }
@@ -2058,7 +2173,197 @@ $('#play').onclick = () => { if (playing){ stopPlay(); return; } playSeason(T0, 
 // ---------- boot ----------
 const USER = {name: 'Annu K.', initials: 'AK', first: 'Annu', role: 'Director of Winegrowing'};
 function alertsBadge(){ const n = PATCHES.filter(x => ALERT[x.id].state === 'open' || ALERT[x.id].state === 'question').length + (SENT && SENT.issue && SENT.issue.state === 'open' ? 1 : 0); const b = $('#bell'); if (b){ b.textContent = n ? n + (n > 1 ? ' alerts' : ' alert') : 'no alerts'; b.classList.toggle('on', n > 0); } }
-function when(){ $('#when').innerHTML = '<button type="button" class="bell" id="bell" title="Open the next alert"></button><div class="wt"><b>' + esc(dstr(TODAY)) + '</b> · ' + esc(D.estate.refresh) + ' refresh<br>' + esc(D.estate.place) + ' · ' + B.length + ' blocks · ' + B.reduce((s,b) => s + b.acres, 0).toFixed(1) + ' acres</div><div class="user"><i>' + USER.initials + '</i>' + esc(USER.name) + '</div>';  alertsBadge(); }
+
+const VINTAGE = [
+  {k: 'vine', t: 'Vineyard', d: 'Lab samples, weather, sensors and the drone: the season that leads here.'},
+  {k: 'harvest', t: 'Harvest', d: 'This app: which block is picked on which day, by which crew, into which tank.', on: true},
+  {k: 'crush', t: 'Crush', d: 'Next chapter. Weigh tags turn blocks into lots: tons in, juice out, the first numbers the cellar trusts.'},
+  {k: 'ferment', t: 'Ferment', d: 'Brix falling and temperature in every tank, twice a day, for two or three weeks.'},
+  {k: 'barrel', t: 'Barrel', d: 'Lots in oak for a year or two: topping, tasting notes, the blends taking shape.'},
+  {k: 'bottle', t: 'Bottle', d: 'Blends become SKUs: case counts, bottling dates, the cost of every bottle.'},
+  {k: 'club', t: 'Release', d: 'The tasting room, the online shop and the wine club: who buys which vintage, and who stays a member.'}
+];
+const KIND_ICO = {water: 'drop', pest: 'flask', virus: 'leaf'};
+
+// ---------- this morning's drone pass, flown on screen ----------
+function centroidP(pt){ return [pt.poly.reduce((a, q) => a + q[0], 0)/pt.poly.length, pt.poly.reduce((a, q) => a + q[1], 0)/pt.poly.length]; }
+function flyDrone(ms){
+  if (DRONE.state === 'flying') return;
+  closeThread(); patchTip(null); stopPlay(); if (Math.abs(T - TODAY) > .01) setT(TODAY);
+  if (selId) select(null);
+  const h = homeCam(); cam.tx = h.x; cam.ty = h.y; cam.tz = h.z;
+  DRONE.state = 'flying'; DRONE.t0 = performance.now(); DRONE.dur = RM ? 1 : (ms || 9000); DRONE.found = []; DRONE.scan = -.04; DRONE.vT = 1;
+  $('#stage').classList.add('droning');
+  let hud = $('#dhud'); if (!hud){ hud = document.createElement('div'); hud.id = 'dhud'; hud.className = 'dhud glass'; hud.setAttribute('role', 'status'); $('#stage').appendChild(hud); }
+  let dr = $('#dronebug'); if (!dr){ dr = document.createElement('div'); dr.id = 'dronebug'; dr.className = 'dronebug'; dr.innerHTML = ico('drone') + '<span class="cone"></span>'; $('#stage').appendChild(dr); }
+  dr.style.display = '';
+  droneHud(); log(null, 'send', 'Flew this morning’s drone pass over ' + B.reduce((t, b) => t + b.acres, 0).toFixed(0) + ' acres');
+}
+function droneTick(now){
+  if (DRONE.state === 'idle') return;
+  const dt = Math.min(.1, (now - (droneTick.last || now))/1000); droneTick.last = now;
+  DRONE.vigor += (DRONE.vT - DRONE.vigor)*(1 - Math.exp(-dt*5)); if (Math.abs(DRONE.vT - DRONE.vigor) < .005) DRONE.vigor = DRONE.vT;
+  if (DRONE.state === 'flying'){
+    const k = clamp((now - DRONE.t0)/DRONE.dur, 0, 1);
+    DRONE.scan = -.04 + k*1.08;
+    const all = PATCHES.concat(ALERT[FOUND_TODAY.id] ? [] : [FOUND_TODAY]);
+    all.forEach(pt => { if (DRONE.found.indexOf(pt.id) < 0 && centroidP(pt)[0] <= DRONE.scan){ DRONE.found.push(pt.id); if (pt === FOUND_TODAY) discover(); droneMarks(); droneHud(); } });
+    const dr = $('#dronebug');
+    if (dr){ const yy = .5 + .44*Math.sin(k*Math.PI*7); const [x, y] = toScreen(clamp(DRONE.scan, 0, 1), yy); dr.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)'; }
+    if (k >= 1){ DRONE.state = 'done'; DRONE.scan = 1.1; if (dr) dr.style.display = 'none'; droneHud(); droneMarks(); bellPulse(); }
+  }
+  if (DRONE.state === 'ending' && DRONE.vigor <= .02){ DRONE.state = 'idle'; DRONE.vigor = 0; DRONE.scan = -1; const m = $('#dmarks'); if (m) m.innerHTML = ''; drawOverlay(); }
+}
+function discover(){
+  const pt = FOUND_TODAY; if (ALERT[pt.id]) return;
+  PATCHES.push(pt); PBY[pt.id] = pt; ALERT[pt.id] = {state: 'open', isNew: true};
+  if (GLOK && maskTex){ gl.deleteTexture(maskTex); maskTex = mkTex(buildMask(), gl.NEAREST); }
+  log(pt.block, 'ack', 'Drone: new since Saturday on ' + BY[pt.block].name + ', ' + pt.where + ': ' + SEEN[pt.id]);
+  refresh();
+}
+function droneHud(){
+  const hud = $('#dhud'); if (!hud) return;
+  const n = DRONE.found.length, nw = DRONE.found.filter(id => id === FOUND_TODAY.id).length;
+  const ramp = '<div class="dramp"><span>Vigor</span><i></i><span>low</span><span>high</span></div>';
+  if (DRONE.state === 'flying'){
+    hud.innerHTML = '<div class="dh">' + ico('drone') + '<b>Drone pass, this morning</b><span class="mono">6:12 AM · multispectral and thermal · ' + B.reduce((t, b) => t + b.acres, 0).toFixed(0) + ' acres</span></div>' +
+      '<div class="dbar"><i style="width:' + Math.round(clamp(DRONE.scan, 0, 1)*100) + '%"></i></div><div class="dn">' + (n ? n + ' spot' + (n > 1 ? 's' : '') + ' flagged' + (nw ? ', <b>1 new since Saturday</b>' : '') : 'Scanning the canopy…') + '</div>' + ramp;
+  } else {
+    hud.innerHTML = '<div class="dh">' + ico('drone') + '<b>' + (n === 3 ? 'Three' : n) + ' spots flagged, one new since Saturday</b><span class="mono">the vigor map shows what the camera saw; warm is stressed canopy</span></div>' + ramp +
+      '<div class="act tight"><button class="btn primary" type="button" id="d-open">Open the new one ' + ico('arrow') + '</button><button class="btn" type="button" id="d-end">Back to true color</button></div>';
+    $('#d-open').onclick = () => { endDrone(); openPatch(FOUND_TODAY.id); };
+    $('#d-end').onclick = () => endDrone();
+  }
+  placeHud();
+}
+function placeHud(){ const hud = $('#dhud'); if (!hud) return; const g = uiGap(); hud.style.left = ((g.L + g.R)/2) + 'px'; hud.style.top = (g.T + 8) + 'px'; }
+function droneMarks(){
+  let m = $('#dmarks'); if (!m){ m = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); m.id = 'dmarks'; $('.mapbox').appendChild(m); }
+  if (DRONE.state === 'idle' || DRONE.state === 'ending'){ m.innerHTML = ''; return; }
+  m.innerHTML = DRONE.found.map(id => { const pt = PBY[id] || FOUND_TODAY; const [cx, cy] = centroidP(pt); const [x, y] = toScreen(cx, cy); const nw = id === FOUND_TODAY.id;
+    const lab = (nw ? 'NEW · ' : 'SEEN SAT · ') + BY[pt.block].name.toUpperCase(), sub = SEEN[id];
+    const w = Math.max(lab.length*7.5, sub.length*6.3) + 24, left = x > VW - w - 40;
+    return '<g class="dmark' + (nw ? ' new' : '') + '" data-p="' + id + '" transform="translate(' + x.toFixed(1) + ',' + y.toFixed(1) + ')"><circle r="22" class="dr1"/><circle r="11" class="dr2"/>' +
+      '<g transform="translate(' + (left ? -w - 26 : 26) + ',-18)"><rect width="' + w.toFixed(0) + '" height="36" rx="2"/><text x="11" y="15" class="dl1">' + esc(lab) + '</text><text x="11" y="29" class="dl2">' + esc(sub) + '</text></g></g>'; }).join('');
+  m.querySelectorAll('.dmark').forEach(g => g.onclick = () => { const id = g.dataset.p; endDrone(); if (id === CU.p && (A.zoom || A.zoomFrames)) closeUp(id); else openPatch(id); });
+}
+function endDrone(){ if (DRONE.state === 'idle') return; DRONE.state = 'ending'; DRONE.vT = 0; $('#stage').classList.remove('droning'); DRONE.scan = 1.1; const hud = $('#dhud'); if (hud) hud.remove(); const dr = $('#dronebug'); if (dr) dr.style.display = 'none'; droneMarks(); if (RM){ DRONE.vigor = 0; droneTick(performance.now()); } }
+
+// ---------- the second alert, up close: a dive from the drone into the leaves, then a choice ----------
+const CU = {p: 'p2', open: false, done: false, raf: 0};
+function pickDayOf(bid){ return SL[plan[bid]]; }
+function daysTo(slot){ return Math.max(0, Math.round(slot.t - TODAY)); }
+// the earliest the model can bring a block in: a free day, or a swap with a block already on that day, best for the week
+function earlierMove(bid){
+  const b = BY[bid], cur = plan[bid], tc = SL[cur].t, u = used(plan); let best = null;
+  SLOTS.forEach(sl => { if (sl.t >= tc - .01) return;
+    if (u[sl.id] + b.tons <= sl.cap + 1e-6){ const dv = b.value[sl.id] - b.value[cur]; if (!best || dv > best.dv) best = {to: sl.id, dv}; return; }
+    LIVE.forEach(k => { if (k.id === bid || plan[k.id] !== sl.id) return;
+      if (u[sl.id] - k.tons + b.tons <= sl.cap + 1e-6 && u[cur] - b.tons + k.tons <= SL[cur].cap + 1e-6){
+        const dv = b.value[sl.id] - b.value[cur] + k.value[cur] - k.value[sl.id]; if (!best || dv > best.dv) best = {to: sl.id, dv, swap: k.id}; } }); });
+  return best;
+}
+function closeUp(id, opts){
+  opts = opts || {}; const pt = PBY[id || 'p2'] || PBY.p2; if (!pt || !A.zoom && !A.zoomFrames) return;
+  closeThread(); patchTip(null); if (DRONE.state === 'flying' || DRONE.state === 'done') endDrone();
+  CU.open = true; CU.done = false; CU.p = pt.id;
+  let el = $('#closeup'); if (!el){ el = document.createElement('section'); el.id = 'closeup'; el.className = 'closeup'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Big Bench East, up close'); $('#stage').appendChild(el); }
+  const b = BY[pt.block];
+  el.innerHTML = '<div class="cu-top"><span class="mono">Drone · 6:12 AM · ' + esc(b.name) + ' · ' + esc(pt.where) + '</span><span class="cu-alt mono" id="cu-alt">120 m</span><button type="button" class="cu-x" id="cu-x" aria-label="Close">×</button></div>' +
+    '<div class="cu-body"><div class="cu-media" id="cu-media"><canvas id="cu-cv" width="1280" height="720" aria-hidden="true"></canvas><video id="cu-v" muted playsinline preload="auto"></video>' +
+      '<div class="cu-tag t1"><i></i><b>Stippling</b>mites feeding on the leaf</div><div class="cu-tag t2"><i></i><b>Webbing</b>the colony is still building</div>' +
+      '<button type="button" class="cu-skip" id="cu-skip">Skip to the leaf</button></div>' +
+    '<aside class="cu-side glass" id="cu-side"></aside></div>';
+  el.classList.add('on'); $('#stage').classList.add('closing');
+  $('#cu-x').onclick = closeCloseUp; $('#cu-skip').onclick = () => cuEnd();
+  cuSide(); cuPlay(opts.skip);
+  log(pt.block, 'send', 'Sent the drone down to ' + b.name + ', ' + pt.where);
+}
+function cuPlay(skip){
+  const v = $('#cu-v'), cv = $('#cu-cv'), alt = $('#cu-alt'), t0 = performance.now();
+  const altAt = k => { const m = 120*Math.pow(1 - Math.min(1, k), 2.2) + .3; return m >= 10 ? Math.round(m) + ' m' : m >= 1 ? m.toFixed(1) + ' m' : Math.round(m*100) + ' cm'; };
+  if (skip || RM){ cuStill(); cuEnd(); return; }
+  if (A.zoomFrames && (HOSTED || !A.zoom)){ // the frame sequence: Omni has no media-src, so the shot plays as images
+    v.style.display = 'none'; const F = A.zoomFrames, imgsF = [], ctx = cv.getContext('2d'); let loaded = 0;
+    for (let i = 1; i <= F.n; i++){ const im = new Image(); im.decoding = 'async'; im.onload = () => loaded++; im.src = F.base + String(i).padStart(3, '0') + '.jpg'; imgsF.push(im); }
+    const dur = F.n/F.fps*1000; let started = 0;
+    const step = now => { if (!CU.open) return;
+      if (!started){ if (loaded < Math.min(F.n, 24) && now - t0 < 6000){ alt.textContent = 'loading the shot…'; CU.raf = requestAnimationFrame(step); return; } if (!loaded){ cuStill(); cuEnd(); return; } started = now; }
+      const k = (now - started)/dur, i = Math.min(F.n - 1, Math.floor(k*F.n)), im = imgsF[i];
+      if (im && im.complete && im.naturalWidth) ctx.drawImage(im, 0, 0, cv.width, cv.height);
+      alt.textContent = altAt(k);
+      if (k < 1) CU.raf = requestAnimationFrame(step); else cuEnd(); };
+    CU.raf = requestAnimationFrame(step); return;
+  }
+  cv.style.display = 'none';
+  const src = (A.zoomWebm && v.canPlayType('video/webm; codecs="vp9"')) ? A.zoomWebm : A.zoom;
+  if (/^https?:/.test(src)) v.crossOrigin = 'anonymous'; v.src = src;
+  const tick = () => { if (!CU.open || CU.done) return; if (v.duration) alt.textContent = altAt(v.currentTime/v.duration); CU.raf = requestAnimationFrame(tick); };
+  v.onended = () => cuEnd(); v.onerror = () => { cuStill(); cuEnd(); };
+  v.play().then(tick).catch(() => { cuStill(); cuEnd(); });
+}
+function cuStill(){ // the leaf, held: the shot's last frame
+  const cv = $('#cu-cv'), v = $('#cu-v'); if (!cv) return; v.style.display = 'none'; cv.style.display = '';
+  if (A.zoomEnd){ const im = new Image(); if (/^https?:/.test(A.zoomEnd)) im.crossOrigin = 'anonymous'; im.onload = () => cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height); im.src = A.zoomEnd; }
+}
+function cuEnd(){
+  if (!CU.open || CU.done) return; CU.done = true; cancelAnimationFrame(CU.raf);
+  const v = $('#cu-v'); if (v && v.style.display !== 'none' && v.duration && !v.ended){ v.pause(); }
+  if (v && (v.style.display === 'none' || !v.duration)) cuStill();
+  const el = $('#closeup'); if (el) el.classList.add('landed'); const alt = $('#cu-alt'); if (alt) alt.textContent = '30 cm';
+  const sk = $('#cu-skip'); if (sk) sk.remove();
+  cuSide();
+}
+function cuSide(){
+  const side = $('#cu-side'); if (!side) return;
+  const pt = PBY[CU.p], a = ALERT[CU.p], b = BY[pt.block], day = pickDayOf(b.id), n = daysTo(day), mv = earlierMove(b.id);
+  if (!CU.done){ side.innerHTML = '<div class="lbl2">Big Bench East, the creek corner</div><p class="cu-p">' + esc(pt.note) + '</p><p class="cu-p dim">Descending on the drone’s camera…</p>'; return; }
+  if (a.decision){ side.innerHTML = '<div class="lbl2">Decided ' + esc(a.decidedAt || '') + '</div><p class="cu-p">' + esc(a.decisionText) + '</p><div class="act tight"><button class="btn primary" type="button" id="cu-back">Back to the estate</button></div>'; $('#cu-back').onclick = closeCloseUp; return; }
+  const mvDay = mv ? SL[mv.to] : null, sw = mv && mv.swap ? BY[mv.swap] : null;
+  side.innerHTML = '<div class="lbl2">Spider mites, about ' + pt.acres + ' acres</div>' +
+    '<p class="cu-p">Pale stippling where they feed and fresh webbing: a colony still building. ' + esc(b.name) + ' is picked <b>' + esc(sLabel(day)) + '</b>, ' + n + ' day' + (n === 1 ? '' : 's') + ' from now.</p>' +
+    '<div class="cu-ch"><button type="button" class="cu-opt" id="cu-dust"><b>Dust sulfur tonight</b><span>Keeps ' + esc(sLabel(day)) + '. But sulfur on the fruit can turn into hydrogen sulfide in the ferment; the usual guidance is 30 days between sulfur and harvest; this pick would be ' + n + ' days out.</span></button>' +
+    (mv ? '<button type="button" class="cu-opt" id="cu-move"><b>Move the pick to ' + esc(sLabel(mvDay)) + '</b><span>No sulfur: the fruit comes off before the colony spreads' + (sw ? ', and ' + esc(sw.name) + ' takes ' + esc(sLabel(day)) : '') + '. The model prices it at <em class="' + (mv.dv >= 0 ? 'up' : 'down') + '">' + (mv.dv >= 0 ? '+' : '−') + fmt$(Math.abs(mv.dv)) + '</em> for the week.</span></button>'
+        : '<div class="cu-opt off"><b>Move the pick</b><span>No earlier day has room for ' + b.tons.toFixed(1) + ' t, even by swapping a block.</span></div>') +
+    '</div><button type="button" class="link" id="cu-eggs">Not yet: ask ' + esc(CREWS[pt.who].lead) + ' to check the leaves for eggs first</button>';
+  $('#cu-dust').onclick = () => cuDecide('dust');
+  if (mv) $('#cu-move').onclick = () => cuDecide('move', mv);
+  $('#cu-eggs').onclick = () => { closeCloseUp(); thread(CU.p); if (ALERT[CU.p].state === 'open') investigate(CU.p, 'sample'); };
+}
+function cuDecide(k, mv){
+  const pt = PBY[CU.p], a = ALERT[CU.p], b = BY[pt.block], lead = CREWS[pt.who].lead, day = pickDayOf(b.id), n = daysTo(day);
+  a.msgs = a.msgs || []; a.decidedAt = clockNow(); a.decision = k; clearTimeout(PATCHT[CU.p]);
+  if (k === 'dust'){
+    a.dusted = true; a.state = 'resolved'; a.at = a.decidedAt;
+    a.replyText = lead + ': sulfur going on at dusk on the creek corner. I told the cellar too: ' + b.name + ' comes in ' + n + ' days after, so they will watch its ferment for hydrogen sulfide.';
+    a.msgs.push({who: 'You', text: 'Dust the creek corner with sulfur tonight', at: a.at, cls: 'you'}, {who: lead, text: a.replyText.slice(a.replyText.indexOf(':') + 2), at: a.at, cls: 'them'});
+    a.decisionText = 'Sulfur tonight on the creek corner. ' + b.name + ' keeps ' + sLabel(day) + ', ' + n + ' days after the sulfur; the cellar is told to watch its ferment.';
+    log(b.id, 'send', b.name + ': sulfur dust tonight on ' + pt.where + ', ' + n + ' days before the pick');
+    toast(lead + ' dusts tonight. The cellar is told: ' + n + ' days between sulfur and the pick.', {});
+    refresh(); cuSide(); return;
+  }
+  const np = Object.assign({}, plan); np[b.id] = mv.to; if (mv.swap) np[mv.swap] = plan[b.id];
+  a.state = 'resolved'; a.at = a.decidedAt;
+  a.replyText = lead + ': ' + b.name + ' moves to ' + sLabel(SL[mv.to]) + '. No sulfur; the mites go out with the fruit, and I will strip the worst leaves by the creek.';
+  a.msgs.push({who: 'You', text: 'Move ' + b.name + '’s pick to ' + sLabel(SL[mv.to]), at: a.at, cls: 'you'}, {who: lead, text: a.replyText.slice(a.replyText.indexOf(':') + 2), at: a.at, cls: 'them'});
+  a.decisionText = b.name + ' moves to ' + sLabel(SL[mv.to]) + (mv.swap ? ' and ' + BY[mv.swap].name + ' to ' + sLabel(day) : '') + ', no sulfur: ' + (mv.dv >= 0 ? '+' : '−') + fmt$(Math.abs(mv.dv)) + ' for the week by the model.';
+  log(b.id, 'send', b.name + ': pick moved to ' + sLabel(SL[mv.to]) + ' ahead of the mites, no sulfur');
+  setPlanAsk(np, b.name + ' moved ahead of the mites');
+  refresh(); cuSide();
+}
+function closeCloseUp(){ CU.open = false; cancelAnimationFrame(CU.raf); const el = $('#closeup'); if (el){ const v = $('#cu-v'); if (v) v.pause(); el.remove(); } $('#stage').classList.remove('closing'); }
+function vintageRail(){
+  const el = $('#vrail'); if (!el) return;
+  let tip = $('#vtipbox'); if (!tip){ tip = document.createElement('div'); tip.id = 'vtipbox'; tip.className = 'vtipbox glass'; tip.setAttribute('role', 'tooltip'); $('#stage').appendChild(tip); }
+  const show = b => { if (!b){ tip.classList.remove('on'); return; } const v = VINTAGE.find(x => x.k === b.dataset.v), r = b.getBoundingClientRect(), sr = $('#stage').getBoundingClientRect();
+    tip.innerHTML = '<b>' + esc(v.t) + (v.on ? ' \u00b7 this app' : v.k === 'vine' ? ' \u00b7 before' : ' \u00b7 after') + '</b>' + esc(v.d); tip.style.left = (r.left - sr.left) + 'px'; tip.style.top = (r.bottom - sr.top + 6) + 'px'; tip.classList.add('on'); };
+  el.onmouseover = e => show(e.target.closest('.vst')); el.onmouseleave = () => show(null);
+  el.onfocusin = e => show(e.target.closest('.vst')); el.onfocusout = () => show(null);
+  if (!vintageRail.wired){ vintageRail.wired = true; document.addEventListener('click', e => { if (!(e.target.closest && e.target.closest('#vrail'))) show(null); }); }
+  el.onclick = e => { const b = e.target.closest('.vst'); if (b) show(tip.classList.contains('on') && tip.dataset.k === b.dataset.v ? null : b); if (b) tip.dataset.k = b.dataset.v; };
+  el.innerHTML = VINTAGE.map((v, i) => (i ? '<i aria-hidden="true"></i>' : '') + '<button type="button" class="vst' + (v.on ? ' on' : '') + '"' + (v.on ? ' aria-current="step"' : '') + ' data-v="' + v.k + '">' + esc(v.t) + '<span class="vtip glass" role="tooltip">' + esc(v.d) + '</span></button>').join('');
+}
+function when(){ $('#when').innerHTML = '<button type="button" class="dronebtn" id="dronebtn" title="Fly this morning\u2019s drone pass">' + ico('drone') + '<span>Drone pass</span></button><button type="button" class="bell" id="bell" title="Open the next alert"></button><div class="wt"><b>' + esc(dstr(TODAY)) + '</b> · ' + esc(D.estate.refresh) + ' refresh<br>' + esc(D.estate.place) + ' · ' + B.length + ' blocks · ' + B.reduce((s,b) => s + b.acres, 0).toFixed(1) + ' acres</div><div class="user"><i>' + USER.initials + '</i>' + esc(USER.name) + '</div>';  alertsBadge(); vintageRail(); }
 function revealUI(){ $$('.reveal').forEach((el, i) => setTimeout(() => el.classList.add('in'), RM ? 0 : i*140)); }
 async function boot(){
   if (GLOK) initGL();
@@ -2087,6 +2392,8 @@ function welcome(){
   const words = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve'];
   const cap = n => { const x = words[n] || String(n); return x.charAt(0).toUpperCase() + x.slice(1); };
   const big = LIVE.slice().sort((a, b) => b.tons*b.price - a.tons*a.price)[0];
+  const fullDay = Math.max.apply(null, PRE.map(x => x.cap)), dd = preCap / fullDay;
+  const dryDays = (Math.floor(dd) ? (words[Math.floor(dd)] || Math.floor(dd)) : '') + (dd % 1 >= .5 ? (Math.floor(dd) ? ' and a half' : 'half a') : '');
   const WAYS = [
     {k:'block', i:'barrel', t:'Start with ' + big.name, d:'The most valuable block still hanging: ' + big.tons.toFixed(1) + ' t of ' + big.short + '. Read it, decide its day, get it ready.'},
     {k:'season', i:'grapes', t:'Watch the season ripen', d:'Bud break to this morning in nine seconds, every block coloring as it sugars.'},
@@ -2097,8 +2404,9 @@ function welcome(){
     '<div class="who"><div class="av" aria-hidden="true">' + USER.initials + '</div><div class="nm">' + esc(USER.name) + '<small>' + esc(USER.role) + ' · ' + esc(D.estate.name) + ' · ' + B.reduce((t, b) => t + b.acres, 0).toFixed(0) + ' acres, ' + B.length + ' blocks, two crews</small></div></div>' +
     '<div class="eyebrow">' + esc(dstr(TODAY)) + ' · ' + esc(D.estate.refresh) + ' · ' + esc(D.estate.place) + '</div>' +
     '<h1 id="w-h">Good morning, ' + esc(USER.first) + '.</h1>' +
+    '<p class="core"><span class="lbl3">The problem</span>Every block peaks on a different day, and two crews with ' + dryDays + ' dry days cannot pick them all at their best. Someone has to decide which fruit gets its day.</p>' +
     '<p class="p">' + cap(LIVE.length) + ' blocks are still on the vine and ' + words[ready] + ' of them are in their window. Rain arrives <b>' + DOWL[rainDay.getUTCDay()] + ' at 2 PM</b>. ' +
-      'Before the crews go out tonight you have to decide which blocks come in before the storm, and which can ride it out. It is the decision that sets the vintage: every block at its best, with two crews and the tanks you have, before the weather takes it.</p>' +
+      'Before the crews go out tonight you decide which blocks come in before the storm and which ride it out: the decision that sets the vintage.</p>' +
     '<div class="wstakes"><div><div class="n">' + fmtM(D.naive.value) + '</div><div class="l">the week as the board has it, picking by ripeness</div></div><div><div class="n warm">' + fmtM(D.best.value) + '</div><div class="l">the same week, the same crews, picked in the right order</div></div><div><div class="n">' + fmtK(D.best.value - D.naive.value) + '</div><div class="l">the difference, decided before 7 AM</div></div></div>' +
     '<p class="until">Until now this morning took a lab sheet, a whiteboard, the forecast on a phone and forty texts. Today it is one screen, and the crews answer on it.</p>' +
     '<div class="datum"></div>' +
@@ -2148,7 +2456,7 @@ function intro(opts){
   skip.onclick = () => { v.pause(); ov.style.transition = 'opacity .5s'; ov.style.opacity = 1; finish(); };
   v.play().catch(() => { clearTimeout(fail); ov.style.opacity = 1; finish(); });
 }
-window.__harvest = {flagAt, hover: () => hoverId, state: () => ({T, plan: Object.assign({}, plan), value: planValue(plan), selId, ready, gl: GLOK, cam: {x: cam.x, y: cam.y, z: cam.z}, camT: {x: cam.tx, y: cam.ty, z: cam.tz}, dec: JSON.parse(JSON.stringify(DEC)), sent: SENT, morning: morningState().frac}), setPlan, assign, select, setT, decide, tick, sendPlan, tasksFor: id => tasksFor(BY[id]).map(t => t.k), stateCol: () => [STATE_COL.green, STATE_COL.near, STATE_COL.ready, STATE_COL.past], switchScenario, scenario: () => SC.k, slots: () => SLOTS.map(x => x.id), undo, history: () => HIST.length, alerts: () => JSON.parse(JSON.stringify(ALERT)), investigate, answer, revised: () => JSON.parse(JSON.stringify(REVISED)), thread, openPatch, askForHands, issue: () => SENT && SENT.issue ? {state: SENT.issue.state, cap: SL[SENT.issue.sid].cap} : null, blocksTable: () => { blocksTable(); showView('blocks'); }, BY, D};
+window.__harvest = {flagAt, hover: () => hoverId, state: () => ({T, plan: Object.assign({}, plan), value: planValue(plan), selId, ready, gl: GLOK, cam: {x: cam.x, y: cam.y, z: cam.z}, camT: {x: cam.tx, y: cam.ty, z: cam.tz}, dec: JSON.parse(JSON.stringify(DEC)), sent: SENT, morning: morningState().frac}), setPlan, assign, select, setT, decide, tick, sendPlan, tasksFor: id => tasksFor(BY[id]).map(t => t.k), stateCol: () => [STATE_COL.green, STATE_COL.near, STATE_COL.ready, STATE_COL.past], switchScenario, scenario: () => SC.k, slots: () => SLOTS.map(x => x.id), undo, history: () => HIST.length, alerts: () => JSON.parse(JSON.stringify(ALERT)), fly: flyDrone, endDrone, closeUp, closeCloseUp, earlierMove: id => earlierMove(id), cu: () => ({open: CU.open, done: CU.done}), drone: () => ({state: DRONE.state, found: DRONE.found.slice(), vigor: DRONE.vigor, scan: DRONE.scan}), patches: () => PATCHES.map(x => x.id), investigate, answer, revised: () => JSON.parse(JSON.stringify(REVISED)), thread, openPatch, askForHands, issue: () => SENT && SENT.issue ? {state: SENT.issue.state, cap: SL[SENT.issue.sid].cap} : null, blocksTable: () => { blocksTable(); showView('blocks'); }, BY, D};
 boot();
 })();
 </script>
