@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Harvest · Kristi Ridge</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%230E1117%22/%3E%3Cpath%20d%3D%22M8.5%204h15l-.9%208.6a6.7%206.7%200%200%201-13.2%200z%22%20fill%3D%22none%22%20stroke%3D%22%23EDF0F2%22%20stroke-width%3D%221.3%22/%3E%3Cpath%20d%3D%22M16%2019.4V27M11.5%2028h9%22%20stroke%3D%22%23EDF0F2%22%20stroke-width%3D%221.3%22%20fill%3D%22none%22/%3E%3Cg%20fill%3D%22%23E3976F%22%3E%3Ccircle%20cx%3D%2213%22%20cy%3D%228.4%22%20r%3D%221.6%22/%3E%3Ccircle%20cx%3D%2216.2%22%20cy%3D%228.4%22%20r%3D%221.6%22/%3E%3Ccircle%20cx%3D%2219.4%22%20cy%3D%228.4%22%20r%3D%221.6%22/%3E%3Ccircle%20cx%3D%2214.6%22%20cy%3D%2211.3%22%20r%3D%221.6%22/%3E%3Ccircle%20cx%3D%2217.8%22%20cy%3D%2211.3%22%20r%3D%221.6%22/%3E%3Ccircle%20cx%3D%2216.2%22%20cy%3D%2214.2%22%20r%3D%221.6%22/%3E%3C/g%3E%3Cpath%20d%3D%22M16.2%206.6V4.9c.8-1%202.2-1.2%203.2-.5%22%20fill%3D%22none%22%20stroke%3D%22%23E3976F%22%20stroke-width%3D%221%22/%3E%3C/svg%3E">
-<meta name="description" content="Which vineyard blocks to pick before Thursday's storm, on one living aerial of the estate.">
+<meta name="description" content="Which vineyard blocks to pick before this week's storm, on one living aerial of the estate.">
 <meta property="og:title" content="Harvest · Kristi Ridge">
-<meta property="og:description" content="Which vineyard blocks to pick before Thursday's storm, on one living aerial of an invented Napa estate. An Astrodata demo.">
+<meta property="og:description" content="Which vineyard blocks to pick before this week's storm, on one living aerial of an invented Napa estate. An Astrodata demo.">
 <meta property="og:image" content="https://astrodataus.github.io/harvest/og.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -203,7 +203,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .welcome .av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:var(--font-dm-mono);font-size:14px;letter-spacing:.06em;background:var(--basalt-sea);box-shadow:0 0 0 1px rgba(237,240,242,.18),0 0 0 4px rgba(196,114,79,.35)}
 .welcome .nm{font-size:15px}
 .welcome .nm small{display:block;font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(237,240,242,.72);margin-top:3px}
-.welcome h1{font-weight:200;font-size:clamp(36px,4.6vw,60px);line-height:1.02;letter-spacing:-.02em;margin:8px 0 14px}
+.welcome h1{font-weight:200;font-size:clamp(36px,4.6vw,60px);line-height:1.02;letter-spacing:-.02em;margin:8px 0 4px;padding-bottom:.18em}
 .welcome .core{font-size:19px;line-height:1.45;font-weight:300;color:var(--spindrift);margin:0 0 12px;max-width:52ch}
 .welcome .core .lbl3{display:block;font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--anemone-lit);margin-bottom:4px}
 .welcome .p{font-size:16px;line-height:1.55;color:rgba(237,240,242,.88);margin:0 0 14px;max-width:58ch}
@@ -707,7 +707,14 @@ const $ = s => document.querySelector(s), $$ = s => Array.from(document.querySel
 const RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 let STILL = false; try { STILL = localStorage.getItem('qr-still') === '1'; } catch(e){}
 const DAY = 864e5;
-const day = s => Date.UTC(+s.slice(0,4), +s.slice(5,7)-1, +s.slice(8,10)) / DAY;
+const day0 = s => Date.UTC(+s.slice(0,4), +s.slice(5,7)-1, +s.slice(8,10)) / DAY;
+// the data's morning is Mon Oct 5; the page shows it as the viewer's own today (or ?asof=YYYY-MM-DD)
+const SHIFT = (() => {
+  let pin = null; try { pin = new URLSearchParams(location.search).get('asof'); } catch(e){}
+  const n = new Date(), real = pin && /^\d{4}-\d{2}-\d{2}$/.test(pin) ? day0(pin) : Date.UTC(n.getFullYear(), n.getMonth(), n.getDate()) / DAY;
+  return Math.round(real - day0(D.estate.asOf));
+})();
+const day = s => day0(s) + SHIFT;
 const TODAY = day(D.estate.asOf);
 const fmt$ = v => (v < 0 ? '−$' : '$') + Math.round(Math.abs(v)).toLocaleString('en-US');
 const fmtM = v => '$' + (v/1e6).toFixed(2) + 'M';
@@ -716,6 +723,15 @@ const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','
 const DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const dstr = t => { const d = new Date(t*DAY); return DOW[d.getUTCDay()] + ' ' + MON[d.getUTCMonth()] + ' ' + d.getUTCDate(); };
 const dshort = t => { const d = new Date(t*DAY); return MON[d.getUTCMonth()] + ' ' + d.getUTCDate(); };
+const DOWL = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const wday = n => DOWL[new Date((TODAY + n)*DAY).getUTCDay()];            // the weekday n days from this morning
+const wds = n => DOW[new Date((TODAY + n)*DAY).getUTCDay()];
+const nth = d => d + (d % 10 === 1 && d !== 11 ? 'st' : d % 10 === 2 && d !== 12 ? 'nd' : d % 10 === 3 && d !== 13 ? 'rd' : 'th');
+// labels written into the data ("Mon 5", "Thu 8, until noon", "Rain Thu 2 PM to Sat") follow the shifted dates
+D.scenarios.forEach(sc => {
+  sc.slots.forEach(x => { const d = new Date(day(x.day)*DAY); x.label = DOW[d.getUTCDay()] + ' ' + d.getUTCDate() + x.label.replace(/^[A-Za-z]{3} \d{1,2}/, ''); });
+  if (sc.stormEnd) sc.sub = 'Rain ' + DOW[new Date((TODAY + Math.floor(sc.stormIn))*DAY).getUTCDay()] + ' 2 PM to ' + DOW[new Date((day(sc.stormEnd) - 1)*DAY).getUTCDay()];
+});
 const clamp = (x,a,b) => Math.max(a, Math.min(b, x));
 const lerp = (a,b,t) => a + (b-a)*t;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -1102,7 +1118,7 @@ const ASKS = {
   water: [
     {k: 'walk', t: 'Walk rows 12 to 16 and fix what you find', who: 'A'},
     {k: 'sample', t: 'Pull a leaf and soil sample first, then call me', who: 'A'},
-    {k: 'zone', t: 'Pick that zone first on Wednesday, no need to walk it', who: 'A'}
+    {k: 'zone', t: 'Pick that zone first on ' + wday(2) + ', no need to walk it', who: 'A'}
   ],
   pest: [
     {k: 'walk', t: 'Check under the leaves by the creek and treat if it is mites', who: 'B'},
@@ -1112,7 +1128,7 @@ const ASKS = {
 };
 const REPLY2 = {
   virus: {walk: null, sample: null, zone: 'Tomas R.: will do. Fourteen vines tagged on rows 3 to 5, red leaves with green veins, classic leafroll. Their fruit goes to the press on its own.'},
-  water: {walk: null, sample: null, zone: 'Rosa M.: noted. South zone first on Wednesday. I walked it anyway: cracked dripline on row 14, fixed. Cluster count says 12.4 t for the block, not 12.8.'},
+  water: {walk: null, sample: null, zone: 'Rosa M.: noted. South zone first on ' + wday(2) + '. I walked it anyway: cracked dripline on row 14, fixed. Cluster count says 12.4 t for the block, not 12.8.'},
   pest: {walk: null, sample: null, zone: 'Tomas R.: fine, creek corner last. It is spider mites, about twenty vines, nothing on the fruit yet.'}
 };
 // some asks come back as a question; the answer is one tap
@@ -1120,12 +1136,12 @@ const QUESTIONS = {
   p3: {sample: {q: 'Tomas R.: I can pull petioles, but the virus panel takes about ten days and Long Meadow is picked before then. Tag the vines now, pick them on their own, and test after harvest?',
     answers: [{k: 'tag', t: 'Yes: tag them, pick them on their own, test after', reply: 'Tomas R.: done. Fourteen vines tagged with orange flagging on rows 3 to 5; their fruit goes in its own bins, and the petioles go to the lab after the pick.'},
               {k: 'wait', t: 'Hold those vines until the lab answers', reply: 'Tomas R.: holding them. The rest of Long Meadow goes on its day; the tagged vines wait for the lab, which may leave them hanging into the rain.'}]}},
-  p1: {sample: {q: 'Rosa M.: I can pull the samples, but the lab is crushing all week and will not read soil before Thursday, so Wednesday would be a pick without an answer. I can walk it now and fix what I find, or hold off until after the rain. Your call.',
+  p1: {sample: {q: 'Rosa M.: I can pull the samples, but the lab is crushing all week and will not read soil before ' + wday(3) + ', so ' + wday(2) + ' would be a pick without an answer. I can walk it now and fix what I find, or hold off until after the rain. Your call.',
     answers: [{k: 'walk', t: 'Walk it now and fix what you find', reply: null, tons: 12.4},
-              {k: 'hold', t: 'Hold off. Pick that zone first Wednesday', reply: 'Rosa M.: holding. South zone first on Wednesday, and I will check the dripline once the canopy dries.'}]}},
-  p2: {sample: {q: 'Tomas R.: twenty leaves bagged, but the lab is buried in juice panels and will not look before Friday. If it is mites they are on the fruit by then. I would rather dust sulfur at dusk and let the lab confirm after. Say the word.',
+              {k: 'hold', t: 'Hold off. Pick that zone first ' + wday(2) + '', reply: 'Rosa M.: holding. South zone first on ' + wday(2) + ', and I will check the dripline once the canopy dries.'}]}},
+  p2: {sample: {q: 'Tomas R.: twenty leaves bagged, but the lab is buried in juice panels and will not look before ' + wday(4) + '. If it is mites they are on the fruit by then. I would rather dust sulfur at dusk and let the lab confirm after. Say the word.',
     answers: [{k: 'dust', t: 'Dust it tonight, the lab confirms after', reply: 'Tomas R.: sulfur going on at dusk. It is spider mites, about twenty vines by the creek, nothing on the fruit. Not a reason to move the pick.'},
-              {k: 'wait', t: 'Hold the sulfur, wait for the lab', reply: 'Tomas R.: holding the sulfur. Lab Friday; creek corner last on pick day either way.'}]}}
+              {k: 'wait', t: 'Hold the sulfur, wait for the lab', reply: 'Tomas R.: holding the sulfur. Lab ' + wday(4) + '; creek corner last on pick day either way.'}]}}
 };
 // a walk through Golden Slope ends with a cluster count: the block's tons move
 const COUNTS = {p1: {walk: 12.4, zone: 12.4}};
@@ -1144,7 +1160,7 @@ function thread(id){
   let m = $('#pmodal'); if (!m){ m = document.createElement('div'); m.id = 'pmodal'; m.className = 'pmodal glass'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'false'); $('#stage').appendChild(m); }
   const msg = (who, text, at, cls) => '<div class="msg ' + (cls || '') + '"><div class="mw">' + esc(who) + (at ? ' <span>' + esc(at) + '</span>' : '') + '</div><div class="mt">' + esc(text) + '</div></div>';
   let h = '<div class="pmh">' + ico(KIND_ICO[pt.kind]) + '<div><b>' + esc(b.name) + '</b> · ' + pt.acres + ' ac · ' + esc(pt.where) + '</div><button type="button" class="pmx" id="pm-x" aria-label="Close">\u00d7</button></div><div class="pmthread">';
-  h += msg(pt.isNew ? 'Drone pass, this morning 6:12 AM' : 'Drone pass, Sat Oct 3', pt.note, '', 'drone');
+  h += msg(pt.isNew ? 'Drone pass, this morning 6:12 AM' : 'Drone pass, ' + dstr(TODAY - 2), pt.note, '', 'drone');
   if (id === CU.p && (A.zoom || A.zoomFrames)) h += '<button type="button" class="cu-open" id="pm-close">' + ico('drone') + '<span><b>See it up close</b>send the drone down to the leaves' + (a.decision ? ' \u00b7 decided' : '') + '</span>' + ico('arrow') + '</button>';
   if (a.state === 'open'){
     h += '<div class="pmask"><div class="lbl2">Ask ' + esc(lead) + '</div>' + ASKS[pt.kind].map(x => '<button type="button" class="askbtn" data-ask="' + x.k + '">' + esc(x.t) + ico('send') + '</button>').join('') + '<button type="button" class="link" id="pm-aside">Set aside for now</button></div>';
@@ -1155,7 +1171,7 @@ function thread(id){
     if (a.state === 'resolved'){ const rv = REVISED[pt.block]; if (rv && rv.who === lead) h += '<div class="numchip">' + ico('bin') + '<div><b>' + esc(b.name) + ' ' + rv.from.toFixed(1) + ' t \u2192 ' + rv.to.toFixed(1) + ' t</b><span>its day on the board, the best plan and this week moved with it: ' + (rv.dv < 0 ? '\u2212' : '+') + fmt$(Math.abs(rv.dv)) + '</span></div></div>';
       h += '<div class="pmask"><div class="lbl2">Reply</div>' + (a.followed ? '<div class="hint">' + esc(a.followed) + '</div>' :
         '<button type="button" class="askbtn" data-follow="thanks">Thanks. Logged, and the crew knows.' + ico('send') + '</button>' +
-        (pt.kind === 'water' ? '<button type="button" class="askbtn" data-follow="zone">Add to Wednesday\u2019s pick: south zone first' + ico('send') + '</button>' :
+        (pt.kind === 'water' ? '<button type="button" class="askbtn" data-follow="zone">Add to ' + wday(2) + '\u2019s pick: south zone first' + ico('send') + '</button>' :
          pt.kind === 'virus' ? '<button type="button" class="askbtn" data-follow="bins">Add to the pick: the tagged vines into their own bins' + ico('send') + '</button>' : '<button type="button" class="askbtn" data-follow="lab">Send the lab result to the winemaker' + ico('send') + '</button>')) + '</div>'; }
   }
   h += '</div>';
@@ -1213,7 +1229,7 @@ function bellPulse(){ const b = $('#bell'); if (!b || RM) return; b.classList.re
 function dismissPatch(id){ const a = ALERT[id]; a.state = 'dismissed'; log(PBY[id].block, 'undo', 'Set aside the drone\u2019s flag on ' + BY[PBY[id].block].name); refresh(); if (selId === PBY[id].block) card(true); }
 function alertCard(b){
   return PATCHES.filter(pt => pt.block === b.id && ALERT[pt.id].state !== 'dismissed').map(pt => { const a = ALERT[pt.id];
-    return '<div class="alert ' + a.state + '" id="alert-' + pt.id + '"><div class="ah">' + ico(KIND_ICO[pt.kind]) + '<b>' + (a.state === 'resolved' ? 'Checked' : a.state === 'sent' ? 'Someone is on the way' : a.state === 'question' ? CREWS[pt.who].lead + ' has a question' : 'Something looks off') + '</b><span class="mono">drone pass, ' + (pt.isNew ? 'this morning' : 'Sat Oct 3') + ' · ' + pt.acres + ' ac · ' + esc(pt.where) + '</span></div>' +
+    return '<div class="alert ' + a.state + '" id="alert-' + pt.id + '"><div class="ah">' + ico(KIND_ICO[pt.kind]) + '<b>' + (a.state === 'resolved' ? 'Checked' : a.state === 'sent' ? 'Someone is on the way' : a.state === 'question' ? CREWS[pt.who].lead + ' has a question' : 'Something looks off') + '</b><span class="mono">drone pass, ' + (pt.isNew ? 'this morning' : dstr(TODAY - 2)) + ' · ' + pt.acres + ' ac · ' + esc(pt.where) + '</span></div>' +
       '<p>' + esc(a.state === 'resolved' ? (a.replyText || pt.reply) : a.state === 'question' ? a.question.slice(a.question.indexOf(':') + 2) : pt.note) + '</p>' +
       (pt.id === CU.p && (A.zoom || A.zoomFrames) ? '<button type="button" class="link cu-link" data-close="' + pt.id + '">' + ico('drone') + 'See it up close</button>' : '') +
       (a.state === 'open' ? '<div class="act tight"><button class="btn primary" type="button" data-thread="' + pt.id + '">Ask ' + esc(CREWS[pt.who].lead) + ' ' + ico('send') + '</button><button class="btn" type="button" data-dismiss="' + pt.id + '">Set aside</button></div>' :
@@ -1417,7 +1433,7 @@ function ripen(){
   if (T >= ta && T <= tb && Math.abs(T - TODAY) > .2) h += '<line x1="' + X(T) + '" x2="' + X(T) + '" y1="' + padT + '" y2="' + (H - padB) + '" stroke="rgba(237,240,242,.6)" stroke-dasharray="2 3"/>';
   svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.innerHTML = h;
   const t = $('#rip-t'); if (t) t.innerHTML = '<b>' + esc(focus.name) + '</b> · ' + esc(focus.short) + (s ? ' · picked ' + esc(s.label.split(',')[0]) : '');
-  describe(svg, focus.name + ' sugar: ' + brixShown(focus, TODAY).toFixed(1) + ' Brix this morning, window ' + focus.window[0] + ' to ' + focus.window[1] + ', projected ' + brixAt(focus, TODAY + 3).toFixed(1) + ' by Thursday' + (STORM0 != null ? ', storm from ' + dstr(Math.floor(STORM0)) + ' to ' + dstr(Math.floor(STORM1)) : '') + (s ? ', planned ' + sLabel(s) : '') + '. The other blocks are drawn faint behind it.');
+  describe(svg, focus.name + ' sugar: ' + brixShown(focus, TODAY).toFixed(1) + ' Brix this morning, window ' + focus.window[0] + ' to ' + focus.window[1] + ', projected ' + brixAt(focus, TODAY + 3).toFixed(1) + ' by ' + wday(3) + (STORM0 != null ? ', storm from ' + dstr(Math.floor(STORM0)) + ' to ' + dstr(Math.floor(STORM1)) : '') + (s ? ', planned ' + sLabel(s) : '') + '. The other blocks are drawn faint behind it.');
 }
 
 // ---------- the board ----------
@@ -1653,9 +1669,9 @@ let SENT = null;
 const PATCHES = [
   {id: 'p1', n: 1, block: 'B7', kind: 'water', acres: 0.4, where: 'south edge, rows 12 to 16',
    poly: [[0.6054,0.5281],[0.6262,0.5067],[0.6567,0.4773],[0.6708,0.5203],[0.6327,0.577],[0.6054,0.5438]],
-   note: 'Canopy 4\u00b0C warmer than the rest of the block on Saturday\u2019s thermal pass, vigor 0.38 against 0.61. Reads like a dry zone: a dripline, or a valve.',
+   note: 'Canopy 4\u00b0C warmer than the rest of the block on ' + wday(-2) + '\u2019s thermal pass, vigor 0.38 against 0.61. Reads like a dry zone: a dripline, or a valve.',
    ask: 'Walk the south edge of Golden Slope: check the dripline on rows 12 to 16', who: 'A',
-   reply: 'Rosa M.: cracked dripline on row 14, water pooling at the valve. Fixed by noon; the vines will hold. I counted clusters on the way out: that zone is light, call Golden Slope 12.4 t, not 12.8. Pick it first Wednesday, it is a day ahead.'},
+   reply: 'Rosa M.: cracked dripline on row 14, water pooling at the valve. Fixed by noon; the vines will hold. I counted clusters on the way out: that zone is light, call Golden Slope 12.4 t, not 12.8. Pick it first ' + wday(2) + ', it is a day ahead.'},
   {id: 'p2', n: 2, block: 'B13', kind: 'pest', acres: 0.3, where: 'north corner, by the creek',
    poly: [[0.6394,0.8733],[0.6765,0.9175],[0.6813,0.9714],[0.6241,0.9714]],
    note: 'Mottled canopy on the RGB pass, vigor 0.44 against 0.66 for the block, the same corner that had leafhoppers in August. Could be mites, could be mildew after the fog.',
@@ -1697,7 +1713,7 @@ function crewFor(b, sid){
   const k = on.indexOf(b) === 0 ? 'A' : 'B';
   return {key: k, label: 'Crew ' + k + ' (' + CREWS[k].lead + ')', leads: CREWS[k].lead};
 }
-function shiftOf(sid){ const s = SL[sid]; return sid === 'thu' ? 'Thu 8, 4 AM to noon' : sLabel(s) + ', 10 PM to 6 AM'; }
+function shiftOf(sid){ const s = SL[sid]; return sid === 'thu' ? sLabel(s) + ', 4 AM to noon' : sLabel(s) + ', 10 PM to 6 AM'; }
 function tasksFor(b){
   const sid = plan[b.id], s = SL[sid], c = crewFor(b, sid), last = b.samples[b.samples.length - 1];
   const zone = PATCHES.filter(pt => pt.block === b.id && ALERT[pt.id].zone).map(pt => ({k: 'zone', i: 'drop', t: 'Tell the crew: ' + pt.where.split(',')[0] + ' first, it is a day ahead', done: () => 'On the pick sheet.'}))
@@ -1712,7 +1728,7 @@ function tasksFor(b){
   const risk = Math.max(0, bestDry(b) - b.value[sid]);
   return [
     {k: 'risk', i: 'drop', t: 'Accept the rain risk: about ' + fmt$(risk) + ' against its best dry day', done: () => 'Signed off. ' + b.name + ' rides out the storm.'},
-    {k: 'resample', i: 'flask', t: 'Re-sample Mon Oct 12 once the canopy dries', done: () => 'On the lab calendar for 7 AM.'},
+    {k: 'resample', i: 'flask', t: 'Re-sample ' + dstr(TODAY + 7) + ' once the canopy dries', done: () => 'On the lab calendar for 7 AM.'},
     {k: 'crew', i: 'crew', t: 'Pencil ' + c.label + ' for ' + shiftOf(sid), done: () => 'In pencil, to confirm after the re-sample.'}
   ].concat(zone);
 }
@@ -1839,7 +1855,7 @@ function stepBody(b){
   if (d.state === 'ready'){
     const nx = nextOpen(b.id);
     h += '<div class="readyseal">' + ico('seal', 'sealring') + ico('grapes', 'sealmark') + '<div><b>' + esc(b.name) + ' is ' + (isDry(plan[b.id]) ? 'ready to pick.' : 'set to ride it out.') + '</b> ' +
-      (isDry(plan[b.id]) ? esc(crewFor(b, plan[b.id]).label) + ' picks ' + esc(shiftOf(plan[b.id])) + '. ' + binsOf(b) + ' bins at the gate, ' + tankOf(b) + ' waiting: about ' + fmtN(b.tons*PER_TON.barrels) + ' barrels of ' + esc(b.short) + ' in before the rain.' : 'Re-sampled Monday, picked ' + esc(sLabel(s)) + ' if the numbers hold.') + '</div></div>' +
+      (isDry(plan[b.id]) ? esc(crewFor(b, plan[b.id]).label) + ' picks ' + esc(shiftOf(plan[b.id])) + '. ' + binsOf(b) + ' bins at the gate, ' + tankOf(b) + ' waiting: about ' + fmtN(b.tons*PER_TON.barrels) + ' barrels of ' + esc(b.short) + ' in before the rain.' : 'Re-sampled ' + wday(7) + ', picked ' + esc(sLabel(s)) + ' if the numbers hold.') + '</div></div>' +
       '<div class="act">' + (nx ? '<button class="btn primary" type="button" data-open="' + nx.id + '">Next: ' + esc(nx.name) + ' ' + ico('arrow') + '</button>' : '<button class="btn primary" type="button" data-sendnow="1">Send the plan to the crew leads ' + ico('send') + '</button>') + '<button class="btn" type="button" data-home="1">Back to the estate</button></div>';
   }
   return h;
@@ -1961,7 +1977,9 @@ function morningGo(k){
 // ---------- sending the plan, and what the week looks like once it is set ----------
 const OPENED = performance.now();
 let ACKT = [], CAPX = {};
-// Tomas has a complication: half of Crew B is at a wedding on Sat 17. If anything on that day no longer fits, it is Annu's problem now.
+function issueDay(){ const s = SL.sat2, t = s ? day(s.day) : TODAY + 12, d = new Date(t*DAY), wd = d.getUTCDay();
+  return {long: DOWL[wd] + ' the ' + nth(d.getUTCDate()), short: sLabel(s), why: wd === 0 || wd === 5 || wd === 6 ? 'is at the Delgado wedding' : 'is in Lodi helping my cousin finish his pick'}; }
+// Tomas has a complication: half of Crew B is away on the sat2 day (a wedding on a weekend, a cousin's pick otherwise). If anything on that day no longer fits, it is Annu's problem now.
 function issueFor(){
   const sid = 'sat2', s = SL[sid]; if (!s) return null;
   const onDay = LIVE.filter(b => plan[b.id] === sid), tons = onDay.reduce((t, b) => t + b.tons, 0);
@@ -1991,7 +2009,7 @@ function issueCard(){
   const is = SENT && SENT.issue; if (!is) return '';
   const day = sLabel(SL[is.sid]);
   return '<div class="alert issue ' + is.state + '" id="issue"><div class="ah">' + ico('crew') + '<b>' + (is.state === 'resolved' ? 'Hands found for ' + esc(day) : is.state === 'moved' ? 'Moved off ' + esc(day) : is.state === 'asked' ? 'Asked for hands' : 'Crew B is short on ' + esc(day)) + '</b><span class="mono">' + esc(CREWS.B.lead) + ' · ' + esc(is.replyAt || '') + '</span></div>' +
-    '<p>' + esc(CREWS.B.lead) + ': \u201cConfirmed, except Saturday the 17th: half my crew is at the Delgado wedding. Call it 11 t that day, not 22.\u201d' + (is.bites ? ' ' + esc(listing2(is.onDay.map(b => b.name + ' (' + b.tons.toFixed(1) + ' t)'))) + (is.onDay.length > 1 ? ' are' : ' is') + ' on that day: ' + is.tons.toFixed(1) + ' t no longer fit' + (is.onDay.length > 1 ? '' : 's') + '.' : ' Nothing heavy sits on that day, so the plan holds.') + '</p>' +
+    '<p>' + esc(CREWS.B.lead) + ': \u201cConfirmed, except ' + issueDay().long + ': half my crew ' + issueDay().why + '. Call it 11 t that day, not 22.\u201d' + (is.bites ? ' ' + esc(listing2(is.onDay.map(b => b.name + ' (' + b.tons.toFixed(1) + ' t)'))) + (is.onDay.length > 1 ? ' are' : ' is') + ' on that day: ' + is.tons.toFixed(1) + ' t no longer fit' + (is.onDay.length > 1 ? '' : 's') + '.' : ' Nothing heavy sits on that day, so the plan holds.') + '</p>' +
     (is.state === 'open' && is.bites ? '<div class="act tight"><button class="btn primary" type="button" id="issue-ask">Ask Tomas for hands ' + ico('arrow') + '</button><button class="btn" type="button" id="issue-move">Move ' + esc(is.onDay.slice().sort((a, b) => b.tons - a.tons)[0].name) + ' to another day</button></div>' :
      is.state === 'asked' ? '<div class="hint">Asked ' + esc(is.askedAt) + '. Tomas is on the phone (simulated).</div>' :
      is.state === 'resolved' ? '<div class="hint">' + esc(CREWS.B.lead) + ' found six from the Delgado crew for after the ceremony: ' + esc(day) + ' is 22 t again. ' + esc(is.at) + '.</div>' :
@@ -2014,7 +2032,7 @@ function sendPlan(){
     if (k === 'B'){ // Tomas confirms, with a problem
       const is = issueFor(); if (is){ is.state = is.bites ? 'open' : 'noted'; is.replyAt = SENT.ackAt.B; SENT.issue = is; applyIssue();
         log(null, 'ack', CREWS.B.lead + ' confirmed, except ' + sLabel(SL[is.sid]) + ': half of Crew B at the Delgado wedding, 11 t that day' + (is.bites ? '. ' + listing2(is.onDay.map(b => b.name)) + ' no longer fit' + (is.onDay.length > 1 ? '' : 's') : '') + ' (simulated reply)');
-        toast(CREWS.B.lead + ': \u201cConfirmed, except Sat 17: half my crew is at a wedding. Call it 11 t.\u201d' + (is.bites ? ' That needs an answer.' : '') + ' Simulated reply.', {}); refresh(); return; } }
+        toast(CREWS.B.lead + ': \u201cConfirmed, except ' + issueDay().short + ': half my crew ' + issueDay().why + '. Call it 11 t.\u201d' + (is.bites ? ' That needs an answer.' : '') + ' Simulated reply.', {}); refresh(); return; } }
     log(null, 'ack', CREWS[k].lead + ' confirmed ' + mine.length + ' days: ' + listing2(mine.slice(0, 3).map(b => b.name + ' ' + sLabel(SL[plan[b.id]]))) + (mine.length > 3 ? ' and ' + (mine.length - 3) + ' more' : '') + (ALERT.p1.state === 'resolved' ? '. The dripline on Golden Slope is holding' : '') + ' (simulated reply)');
     toast(CREWS[k].lead + ' confirmed the plan, ' + SENT.ackAt[k] + '. Simulated reply.'); summary(); board(); morning(); if (selId) card(true);
   }, ms)));
@@ -2045,7 +2063,7 @@ function summary(){
     (wet.length ? '<div class="lbl2">After the storm<span class="cnt">status</span></div><ul class="sched">' + wet.map(b => statusRow(b)).join('') + '</ul>' : '') +
     '<div id="log"></div>' +
     (open.length ? '<div class="why">Still open: ' + esc(open.map(b => b.name).join(', ')) + '. The crews have the days; the prep is not ticked off yet.</div>' : '') +
-    '<div class="why closing">' + (cab.length ? 'Thursday’s rain will find ' + esc(cab.map(b => b.name).join(' and ')) + ' already in tank.' : 'The dry days are spoken for.') + ' Good harvest, ' + esc(USER.first) + '.</div>' +
+    '<div class="why closing">' + (cab.length ? (STORM0 != null ? wday(Math.floor(STORM0) - TODAY) : wday(3)) + '’s rain will find ' + esc(cab.map(b => b.name).join(' and ')) + ' already in tank.' : 'The dry days are spoken for.') + ' Good harvest, ' + esc(USER.first) + '.</div>' +
     '<div class="act">' + (open.length ? '<button class="btn primary" type="button" data-open="' + open[0].id + '">Finish ' + esc(open[0].name) + ' ' + ico('arrow') + '</button>' : '') + '<button class="btn" type="button" id="sm-undo">Unsend</button></div>' +
     '<div class="hint">The clock runs fast in this demo: a second a minute.</div>';
   el.querySelector('#sm-back').onclick = () => showView('estate');
@@ -2058,7 +2076,7 @@ $('#zoomout').onclick = () => select(null);
 // the key: drawn with the real marks, open on first landing, remembered
 function keyHTML(){
   const halo = st => '<svg viewBox="0 0 26 12" class="kh"><line x1="2" x2="24" y1="6" y2="6" stroke="' + STATE_COL[st] + '" stroke-width="' + (st === 'ready' ? 4 : 3) + '"' + (STATE_DASH[st] ? ' stroke-dasharray="' + STATE_DASH[st] + '"' : '') + '/></svg>';
-  const tag = k => '<span class="kt ' + k + '">' + (k === 'ready' ? 'Thu 8 \u2713' : 'Thu 8') + '</span>';
+  const tag = k => '<span class="kt ' + k + '">' + (k === 'ready' ? sLabel(SL.thu || SLOTS[3]) + ' \u2713' : sLabel(SL.thu || SLOTS[3])) + '</span>';
   return '<div class="kg"><b>Ripeness</b>' + ['green','near','ready','past'].map(st => '<span>' + halo(st) + stateGlyph(st) + esc(STATE_WORD[st]) + '</span>').join('') + '<span>' + halo('picked') + stateGlyph('picked') + 'Picked, in tank</span></div>' +
     '<div class="kg"><b>Its day</b><span>' + tag('open') + 'to decide</span><span>' + tag('decided') + 'decided</span><span>' + tag('ready') + 'ready</span><span><i class="sw warm"></i>before the rain</span><span><i class="sw cool"></i>after</span></div>';
 }
@@ -2143,7 +2161,7 @@ function dateView(){
   strip.innerHTML = '<div class="dl">' + (ahead ? 'The model\u2019s ' : '') + esc(dstr(Math.floor(T))) + (ahead ? '' : ', as it was') + '<button type="button" class="link" id="ds-home">Back to this morning</button></div><div class="stakes ds">' + tiles + '</div>';
   const h = $('#ds-home'); if (h) h.onclick = () => { stopPlay(); setT(TODAY); };
   let bs = $('#boardstrip'); if (!bs){ bs = document.createElement('div'); bs.id = 'boardstrip'; bs.className = 'boardstrip'; bd.prepend(bs); }
-  bs.textContent = 'The plan is for Oct 5 to ' + (SLOTS[SLOTS.length - 1].label.split(',')[0].split(' ')[1]) + '. You are viewing ' + dstr(Math.floor(T)) + '.';
+  bs.textContent = 'The plan is for ' + dshort(TODAY) + ' to ' + (SLOTS[SLOTS.length - 1].label.split(',')[0].split(' ')[1]) + '. You are viewing ' + dstr(Math.floor(T)) + '.';
 }
 function setT(t, quiet){
   T = clamp(t, T0, T1);
@@ -2224,7 +2242,7 @@ function discover(){
   const pt = FOUND_TODAY; if (ALERT[pt.id]) return;
   PATCHES.push(pt); PBY[pt.id] = pt; ALERT[pt.id] = {state: 'open', isNew: true};
   if (GLOK && maskTex){ gl.deleteTexture(maskTex); maskTex = mkTex(buildMask(), gl.NEAREST); }
-  log(pt.block, 'ack', 'Drone: new since Saturday on ' + BY[pt.block].name + ', ' + pt.where + ': ' + SEEN[pt.id]);
+  log(pt.block, 'ack', 'Drone: new since ' + wday(-2) + ' on ' + BY[pt.block].name + ', ' + pt.where + ': ' + SEEN[pt.id]);
   refresh();
 }
 function droneHud(){
@@ -2233,9 +2251,9 @@ function droneHud(){
   const ramp = '<div class="dramp"><span>Vigor</span><i></i><span>low</span><span>high</span></div>';
   if (DRONE.state === 'flying'){
     hud.innerHTML = '<div class="dh">' + ico('drone') + '<b>Drone pass, this morning</b><span class="mono">6:12 AM · multispectral and thermal · ' + B.reduce((t, b) => t + b.acres, 0).toFixed(0) + ' acres</span></div>' +
-      '<div class="dbar"><i style="width:' + Math.round(clamp(DRONE.scan, 0, 1)*100) + '%"></i></div><div class="dn">' + (n ? n + ' spot' + (n > 1 ? 's' : '') + ' flagged' + (nw ? ', <b>1 new since Saturday</b>' : '') : 'Scanning the canopy…') + '</div>' + ramp;
+      '<div class="dbar"><i style="width:' + Math.round(clamp(DRONE.scan, 0, 1)*100) + '%"></i></div><div class="dn">' + (n ? n + ' spot' + (n > 1 ? 's' : '') + ' flagged' + (nw ? ', <b>1 new since ' + wday(-2) + '</b>' : '') : 'Scanning the canopy…') + '</div>' + ramp;
   } else {
-    hud.innerHTML = '<div class="dh">' + ico('drone') + '<b>' + (n === 3 ? 'Three' : n) + ' spots flagged, one new since Saturday</b><span class="mono">the vigor map shows what the camera saw; warm is stressed canopy</span></div>' + ramp +
+    hud.innerHTML = '<div class="dh">' + ico('drone') + '<b>' + (n === 3 ? 'Three' : n) + ' spots flagged, one new since ' + wday(-2) + '</b><span class="mono">the vigor map shows what the camera saw; warm is stressed canopy</span></div>' + ramp +
       '<div class="act tight"><button class="btn primary" type="button" id="d-open">Open the new one ' + ico('arrow') + '</button><button class="btn" type="button" id="d-end">Back to true color</button></div>';
     $('#d-open').onclick = () => { endDrone(); openPatch(FOUND_TODAY.id); };
     $('#d-end').onclick = () => endDrone();
@@ -2405,7 +2423,6 @@ function welcome(){
   const q = new URLSearchParams(location.search);
   if (q.has('nointro')){ $('#welcome').style.display = 'none'; intro({then: window.__restore && window.__restore.block ? 'open:' + window.__restore.block : undefined}); return; }
   const w = $('#welcome'), rainDay = new Date(STORM0*DAY), preCap = PRE.reduce((s,x) => s + x.cap, 0);
-  const DOWL = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   ov.style.opacity = 0; $('#stage').classList.add('welcoming');
   const ready = LIVE.filter(b => ['ready','past'].indexOf(ripeState(b, TODAY)) >= 0).length;
   const words = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve'];
@@ -2416,7 +2433,7 @@ function welcome(){
   const WAYS = [
     {k:'block', i:'barrel', t:'Start with ' + big.name, d:'The most valuable block still hanging: ' + big.tons.toFixed(1) + ' t of ' + big.short + '. Read it, decide its day, get it ready.'},
     {k:'season', i:'grapes', t:'Watch the season ripen', d:'Bud break to this morning in nine seconds, every block coloring as it sugars.'},
-    {k:'storm', i:'drop', t:'Step into Thursday', d:'The storm arrives at 2 PM. See what is still on the vine when it does.'},
+    {k:'storm', i:'drop', t:'Step into ' + DOWL[rainDay.getUTCDay()], d:'The storm arrives at 2 PM. See what is still on the vine when it does.'},
     {k:'best', i:'glass', t:'Compare with the best plan', d:fmt$(D.best.value - D.naive.value) + ' more than the plan on the board, with the same crews.'}
   ];
   $('#welcome-w').innerHTML =
