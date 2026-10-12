@@ -179,7 +179,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .fort .fplay:hover{border-color:var(--anemone-lit)}
 .scrub .readout .ev{display:inline-block;margin-top:2px;color:rgba(237,240,242,.85)} .scrub .readout .ev.in{color:var(--spindrift)} .scrub .readout .ev.out{color:#C98BD6} .scrub .readout .ev.rain{color:#9DB5C9}
 .fort .flbl{position:absolute;right:112px;top:2px;font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(237,240,242,.72)}
-@media (max-width:980px){.fortrow{display:none}}
+@media (max-width:980px){.season .fortrow{display:none}}
 .scrub .datum{position:absolute;left:-48px;right:-48px;bottom:22px;height:1px;background:rgba(237,240,242,.55)}
 .scrub .tick{position:absolute;bottom:22px;width:1px;height:6px;background:rgba(237,240,242,.55)}
 .scrub .mo{position:absolute;bottom:4px;transform:translateX(-50%);font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(237,240,242,.7)}
@@ -416,7 +416,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .alert .ah .mono{font-family:var(--font-dm-mono);font-size:11px;color:rgba(237,240,242,.6)}
 .alert p{margin:6px 0 0;font-size:12.5px;line-height:1.5;color:rgba(237,240,242,.88)}
 .alert .act.tight{margin-top:10px} .pv-block .alert .act{position:static;background:none;padding:0;margin:10px 0 0} .alert .hint{margin-top:6px}
-.bell{font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(237,240,242,.55);padding:4px 9px;border:1px solid var(--marine-line);border-radius:2px;margin-right:14px;align-self:center}
+.actbar{position:absolute;right:32px;top:calc(100% - 200px);z-index:6;display:flex;gap:8px;justify-content:flex-end;pointer-events:none}
+.actbar>*{pointer-events:auto}
+.bell{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-dm-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(237,240,242,.82);background:var(--slate);padding:8px 16px 8px 13px;border:0;border-radius:2px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.bell .ico{width:16px;height:16px}
 .closeup{position:absolute;inset:0;z-index:35;display:flex;flex-direction:column;padding:22px 32px 26px;background:rgba(10,12,16,.97);opacity:0;animation:cu-in .5s var(--ease-enter) forwards}
 @keyframes cu-in{to{opacity:1}}
 .cu-top{display:flex;align-items:center;gap:16px;margin-bottom:14px} .cu-top .mono{font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(237,240,242,.72)}
@@ -443,12 +446,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 @media (max-width:980px){.closeup{position:fixed;z-index:80;overflow-y:auto;padding:14px 16px 20px} .cu-body{flex:none;flex-direction:column;align-items:stretch;gap:14px} .cu-side{width:auto;max-height:none;overflow:visible;padding:14px} .cu-media{max-width:none;flex:none;width:100%} .cu-top{flex-wrap:wrap;gap:6px 12px} .cu-top .mono{font-size:10.5px}}
 @media (max-width:600px){.cu-tag{padding:5px 8px 5px 22px;font-size:0;gap:0} .cu-tag b{font-size:10px} .cu-tag i{left:8px;top:9px;width:7px;height:7px} .cu-tag.t1{left:6%;top:24%} .cu-tag.t2{left:52%;top:72%} .cu-skip{font-size:10px;padding:5px 8px}}
 @media (prefers-reduced-motion:reduce){.closeup{animation:none;opacity:1} .cu-tag{transition:none}}
-.dronebtn{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-dm-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(237,240,242,.8);padding:4px 9px;border:1px solid var(--marine-line);border-radius:2px;margin-right:8px;align-self:center}
-.dronebtn .ico{width:14px;height:14px} .dronebtn:hover{color:var(--spindrift);border-color:rgba(143,214,200,.6)}
+.dronebtn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-dm-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--kelp);padding:8px 16px 8px 13px;border:0;border-radius:2px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.dronebtn .ico{width:16px;height:16px} .dronebtn:hover{background:#358b7e}
+.dronebtn:focus-visible,.bell:focus-visible{outline:2px solid var(--spindrift);outline-offset:2px}
 #stage.droning .story,#stage.droning .board,#stage.droning .key,#stage.droning .season,#stage.droning #zoomout,#stage.droning #overlay,#stage.droning .toast{filter:opacity(.03);pointer-events:none}
 #stage .story,#stage .board,#stage .key,#stage .season,#overlay{transition:filter .6s}
 .dronebtn,.bell{white-space:nowrap}
-@media (max-width:980px){.dronebtn span{display:none} .dronebtn{padding:5px 7px;margin-right:6px} .dronebtn .ico{width:15px;height:15px}}
+@media (max-width:980px){.actbar{position:relative;right:auto;top:auto!important;margin:0 14px 12px;justify-content:stretch}.actbar>button{flex:1;justify-content:center}}
 .dhud{position:absolute;z-index:16;transform:translateX(-50%);width:min(420px,calc(100% - 40px));padding:12px 14px}
 .dhud .dh{display:grid;grid-template-columns:18px 1fr;column-gap:8px;align-items:center} .dhud .dh .ico{width:16px;height:16px;color:#8FD6C8;grid-row:span 2}
 .dhud .dh b{font-weight:500;font-size:14px} .dhud .mono{grid-column:2;font-family:var(--font-dm-mono);font-size:10.5px;letter-spacing:.06em;color:rgba(237,240,242,.7)}
@@ -473,7 +477,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 #dmarks .dmark{animation:wag-register .5s var(--ease-enter) both}
 @keyframes dspin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.dronebug .cone,#dmarks .dr1,#dmarks .dmark{animation:none}}
-.bell.on{color:var(--anemone-lit);border-color:rgba(227,151,111,.6);background:rgba(196,114,79,.12)}
+.bell.on{color:#fff;background:var(--ember)} .bell.on:hover{background:#bd5040} .bell:not(.on):hover{color:var(--spindrift)}
 @keyframes bellpulse{0%,100%{transform:none;box-shadow:0 0 0 0 rgba(227,151,111,0)}18%{transform:scale(1.1);box-shadow:0 0 0 6px rgba(227,151,111,.22)}40%{transform:none;box-shadow:0 0 0 0 rgba(227,151,111,0)}58%{transform:scale(1.06);box-shadow:0 0 0 4px rgba(227,151,111,.16)}}
 .bell.pulse{animation:bellpulse 1.4s var(--ease-enter) 1}
 .numchip{display:flex;gap:9px;align-items:flex-start;margin:2px 0 4px;padding:8px 10px;border:1px solid rgba(227,151,111,.45);border-radius:2px;background:rgba(196,114,79,.12);font-size:12px;line-height:1.45}
@@ -672,6 +676,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
   <section class="story glass reveal" id="story" aria-live="polite"></section>
   <aside class="board glass reveal" id="board" aria-label="The crew board"></aside>
+  <div class="actbar reveal" id="actbar" role="group" aria-label="This morning’s drone pass and alerts"></div>
   <div class="key glass" id="key"><button type="button" id="key-t" aria-expanded="true">Key</button><div class="kb" id="keyb"></div><button type="button" id="still" class="still" aria-pressed="false" title="Stop the clouds and the rain moving">Still land</button></div>
   <div class="zoomctl glass" id="zoomctl" role="group" aria-label="Zoom"><button type="button" id="z-in" aria-label="Zoom in" title="Zoom in (+)"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button><button type="button" id="z-out" aria-label="Zoom out" title="Zoom out (-)"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><button type="button" id="z-home" aria-label="The whole estate" title="The whole estate"><svg viewBox="0 0 24 24"><path d="M5 9V5h4M15 5h4v4M19 15v4h-4M9 19H5v-4"/></svg></button></div>
   <button class="glass" id="zoomout" type="button" aria-label="Zoom back out to the whole estate"><svg viewBox="0 0 14 14"><path d="M5 1H1v4M9 1h4v4M5 13H1V9M9 13h4V9"/></svg>The whole estate</button>
@@ -732,6 +737,7 @@ const ICON = {
   home: '<path d="M5 9V5h4M15 5h4v4M19 15v4h-4M9 19H5v-4"/>',
   send: '<path d="M4 12 20 4l-4 16-4-7z"/><path d="M12 13l8-9"/>',
   leaf: '<path d="M5 19c0-8 5-13.5 14-14-.3 9-5.8 14-14 14z"/><path d="M5 19c3.2-4.2 6.4-7 10-9.4"/>',
+  bell: '<path d="M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.5 1.8H5z"/><path d="M10.2 20.2a1.9 1.9 0 0 0 3.6 0"/>',
   drone: '<circle cx="5.5" cy="6" r="2.6"/><circle cx="18.5" cy="6" r="2.6"/><circle cx="5.5" cy="18" r="2.6"/><circle cx="18.5" cy="18" r="2.6"/><path d="M7.4 7.9l2.8 2.8M16.6 7.9l-2.8 2.8M7.4 16.1l2.8-2.8M16.6 16.1l-2.8-2.8"/><rect x="9.8" y="9.8" width="4.4" height="4.4" rx="1"/>',
   seal: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5.6" stroke-dasharray="1.6 1.8"/>'
 };
@@ -2172,7 +2178,7 @@ $('#play').onclick = () => { if (playing){ stopPlay(); return; } playSeason(T0, 
 
 // ---------- boot ----------
 const USER = {name: 'Annu K.', initials: 'AK', first: 'Annu', role: 'Director of Winegrowing'};
-function alertsBadge(){ const n = PATCHES.filter(x => ALERT[x.id].state === 'open' || ALERT[x.id].state === 'question').length + (SENT && SENT.issue && SENT.issue.state === 'open' ? 1 : 0); const b = $('#bell'); if (b){ b.textContent = n ? n + (n > 1 ? ' alerts' : ' alert') : 'no alerts'; b.classList.toggle('on', n > 0); } }
+function alertsBadge(){ const n = PATCHES.filter(x => ALERT[x.id].state === 'open' || ALERT[x.id].state === 'question').length + (SENT && SENT.issue && SENT.issue.state === 'open' ? 1 : 0); const b = $('#bell'), t = $('#bell-t'); if (b){ (t || b).textContent = n ? n + (n > 1 ? ' alerts' : ' alert') : 'No alerts'; b.classList.toggle('on', n > 0); b.setAttribute('aria-label', n ? n + ' open ' + (n > 1 ? 'alerts' : 'alert') + ': open the next one' : 'No open alerts'); } }
 
 const VINTAGE = [
   {k: 'vine', t: 'Vineyard', d: 'Lab samples, weather, sensors and the drone: the season that leads here.'},
@@ -2363,7 +2369,20 @@ function vintageRail(){
   el.onclick = e => { const b = e.target.closest('.vst'); if (b) show(tip.classList.contains('on') && tip.dataset.k === b.dataset.v ? null : b); if (b) tip.dataset.k = b.dataset.v; };
   el.innerHTML = VINTAGE.map((v, i) => (i ? '<i aria-hidden="true"></i>' : '') + '<button type="button" class="vst' + (v.on ? ' on' : '') + '"' + (v.on ? ' aria-current="step"' : '') + ' data-v="' + v.k + '">' + esc(v.t) + '<span class="vtip glass" role="tooltip">' + esc(v.d) + '</span></button>').join('');
 }
-function when(){ $('#when').innerHTML = '<button type="button" class="dronebtn" id="dronebtn" title="Fly this morning\u2019s drone pass">' + ico('drone') + '<span>Drone pass</span></button><button type="button" class="bell" id="bell" title="Open the next alert"></button><div class="wt"><b>' + esc(dstr(TODAY)) + '</b> · ' + esc(D.estate.refresh) + ' refresh<br>' + esc(D.estate.place) + ' · ' + B.length + ' blocks · ' + B.reduce((s,b) => s + b.acres, 0).toFixed(1) + ' acres</div><div class="user"><i>' + USER.initials + '</i>' + esc(USER.name) + '</div>';  alertsBadge(); vintageRail(); }
+function when(){ $('#actbar').innerHTML = '<button type="button" class="dronebtn" id="dronebtn" title="Fly this morning\u2019s drone pass">' + ico('drone') + '<span>Drone pass</span></button><button type="button" class="bell" id="bell" title="Open the next alert">' + ico('bell') + '<span id="bell-t"></span></button>'; placeActbar(); $('#when').innerHTML = '<div class="wt"><b>' + esc(dstr(TODAY)) + '</b> · ' + esc(D.estate.refresh) + ' refresh<br>' + esc(D.estate.place) + ' · ' + B.length + ' blocks · ' + B.reduce((s,b) => s + b.acres, 0).toFixed(1) + ' acres</div><div class="user"><i>' + USER.initials + '</i>' + esc(USER.name) + '</div>';  alertsBadge(); vintageRail(); }
+function placeActbar(){
+  const bar = $('#actbar'), bd = $('#board'), st = $('#stage'); if (!bar || !bd || !st) return;
+  if (innerWidth <= 980){ bar.style.top = ''; bd.style.maxHeight = ''; return; }
+  const sr = st.getBoundingClientRect(), r = bd.getBoundingClientRect(), h = bar.offsetHeight || 34;
+  const lane = $('#fort'), lr = lane && lane.offsetParent ? lane.getBoundingClientRect() : null, se = $('#season').getBoundingClientRect();
+  const floor = lr && lr.height ? lr.top : se.top + 16;      // the fortnight lane, or the season bar when the lane is hidden
+  const room = floor - 8 - h - 8;                            // the lowest the board may reach and still leave the bar its row
+  const cap = Math.max(160, room - r.top) + 'px'; if (bd.style.maxHeight !== cap) bd.style.maxHeight = cap;
+  const b2 = bd.getBoundingClientRect().bottom;
+  bar.style.top = (Math.min(b2 + 8, floor - 8 - h) - sr.top) + 'px';
+}
+window.addEventListener('resize', placeActbar);
+if (window.ResizeObserver) new ResizeObserver(placeActbar).observe(document.getElementById('board'));
 function revealUI(){ $$('.reveal').forEach((el, i) => setTimeout(() => el.classList.add('in'), RM ? 0 : i*140)); }
 async function boot(){
   if (GLOK) initGL();
