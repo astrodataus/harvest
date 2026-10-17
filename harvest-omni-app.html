@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Harvest · Kristi Ridge</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%230E1117%22/%3E%3Cpath%20d%3D%22M8.5%204h15l-.9%208.6a6.7%206.7%200%200%201-13.2%200z%22%20fill%3D%22none%22%20stroke%3D%22%23EDF0F2%22%20stroke-width%3D%221.3%22/%3E%3Cpath%20d%3D%22M16%2019.4V27M11.5%2028h9%22%20stroke%3D%22%23EDF0F2%22%20stroke-width%3D%221.3%22%20fill%3D%22none%22/%3E%3Cg%20fill%3D%22%23E3976F%22%3E%3Ccircle%20cx%3D%2213%22%20cy%3D%228.4%22%20r%3D%221.6%22/%3E%3Ccircle%20cx%3D%2216.2%22%20cy%3D%228.4%22%20r%3D%221.6%22/%3E%3Ccircle%20cx%3D%2219.4%22%20cy%3D%228.4%22%20r%3D%221.6%22/%3E%3Ccircle%20cx%3D%2214.6%22%20cy%3D%2211.3%22%20r%3D%221.6%22/%3E%3Ccircle%20cx%3D%2217.8%22%20cy%3D%2211.3%22%20r%3D%221.6%22/%3E%3Ccircle%20cx%3D%2216.2%22%20cy%3D%2214.2%22%20r%3D%221.6%22/%3E%3C/g%3E%3Cpath%20d%3D%22M16.2%206.6V4.9c.8-1%202.2-1.2%203.2-.5%22%20fill%3D%22none%22%20stroke%3D%22%23E3976F%22%20stroke-width%3D%221%22/%3E%3C/svg%3E">
-<meta name="description" content="Which vineyard blocks to pick before this week's storm, on one living aerial of the estate.">
+<meta name="description" content="Which vineyard blocks to pick before this week's storm, shown on an aerial view of the estate.">
 <meta property="og:title" content="Harvest · Kristi Ridge">
-<meta property="og:description" content="Which vineyard blocks to pick before this week's storm, on one living aerial of an invented Napa estate. An Astrodata demo.">
+<meta property="og:description" content="Which vineyard blocks to pick before this week's storm, shown on an aerial view of an invented Napa estate. An Astrodata demo.">
 <meta property="og:image" content="https://astrodataus.github.io/harvest/og.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -677,12 +677,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   <section class="story glass reveal" id="story" aria-live="polite"></section>
   <aside class="board glass reveal" id="board" aria-label="The crew board"></aside>
   <div class="actbar reveal" id="actbar" role="group" aria-label="This morning’s drone pass and alerts"></div>
-  <div class="key glass" id="key"><button type="button" id="key-t" aria-expanded="true">Key</button><div class="kb" id="keyb"></div><button type="button" id="still" class="still" aria-pressed="false" title="Stop the clouds and the rain moving">Still land</button></div>
+  <div class="key glass" id="key"><button type="button" id="key-t" aria-expanded="true">Key</button><div class="kb" id="keyb"></div><button type="button" id="still" class="still" aria-pressed="false" title="Stop the clouds and rain from moving">Pause motion</button></div>
   <div class="zoomctl glass" id="zoomctl" role="group" aria-label="Zoom"><button type="button" id="z-in" aria-label="Zoom in" title="Zoom in (+)"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button><button type="button" id="z-out" aria-label="Zoom out" title="Zoom out (-)"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><button type="button" id="z-home" aria-label="The whole estate" title="The whole estate"><svg viewBox="0 0 24 24"><path d="M5 9V5h4M15 5h4v4M19 15v4h-4M9 19H5v-4"/></svg></button></div>
   <button class="glass" id="zoomout" type="button" aria-label="Zoom back out to the whole estate"><svg viewBox="0 0 14 14"><path d="M5 1H1v4M9 1h4v4M5 13H1V9M9 13h4V9"/></svg>The whole estate</button>
 
   <footer class="season reveal" id="season">
-    <div class="row fortrow"><div class="fortpad"></div><div class="fort" id="fort" aria-label="The fortnight the decision is about"></div></div>
+    <div class="row fortrow"><div class="fortpad"></div><div class="fort" id="fort" aria-label="The two weeks the decision is about"></div></div>
     <div class="row">
       <button class="play" id="play" aria-label="Play the season"><svg viewBox="0 0 14 14"><path d="M3 1.5v11l9-5.5z"/></svg></button>
       <div class="scrub" id="scrub" role="slider" tabindex="0" aria-label="Date in the season"></div>
@@ -1103,7 +1103,7 @@ function patchTip(id, e){
   let t = $('#ptip'); if (!id){ if (t) t.classList.remove('on'); return; }
   const pt = PBY[id], a = ALERT[id], st = a.state;
   if (!t){ t = document.createElement('div'); t.id = 'ptip'; t.className = 'ptip glass'; $('#stage').appendChild(t); }
-  t.innerHTML = '<div class="pth">' + ico(KIND_ICO[pt.kind]) + '<b>' + esc(BY[pt.block].name) + '</b> · ' + pt.acres + ' ac · ' + esc(pt.where) + '</div><div class="ptb">' + esc(st === 'resolved' ? (a.replyText || pt.reply) : st === 'question' ? a.question : pt.note) + '</div><div class="ptf">' + (st === 'open' ? 'Click to ask ' + CREWS[pt.who].lead : st === 'sent' ? 'Asked; word comes back in a few minutes' : st === 'question' ? CREWS[pt.who].lead + ' has a question. Click to answer' : 'Checked and answered. Click for the thread') + '</div>';
+  t.innerHTML = '<div class="pth">' + ico(KIND_ICO[pt.kind]) + '<b>' + esc(BY[pt.block].name) + '</b> · ' + pt.acres + ' ac · ' + esc(pt.where) + '</div><div class="ptb">' + esc(st === 'resolved' ? (a.replyText || pt.reply) : st === 'question' ? a.question : pt.note) + '</div><div class="ptf">' + (st === 'open' ? 'Click to ask ' + CREWS[pt.who].lead : st === 'sent' ? 'Asked. A reply comes in a few minutes' : st === 'question' ? CREWS[pt.who].lead + ' has a question. Click to answer' : 'Checked and answered. Click for the thread') + '</div>';
   const r = mapEl.getBoundingClientRect(); const x = Math.min(e.clientX - r.left + 18, VW - 320), y = Math.max(84, e.clientY - r.top - 20);
   t.style.left = x + 'px'; t.style.top = y + 'px'; t.classList.add('on');
 }
@@ -1201,7 +1201,7 @@ function investigate(id, ask){
   a.state = 'sent'; a.at = clockNow(); a.ask = req.k; a.askText = req.t; a.replyText = REPLY2[pt.kind][req.k] || pt.reply; a.tons = COUNTS[id] ? COUNTS[id][req.k] : null;
   a.msgs = [{who: 'You', text: req.t, at: a.at, cls: 'you'}];
   log(pt.block, 'send', 'Asked ' + lead + ' about ' + BY[pt.block].name + ': ' + req.t);
-  toast(lead + ' has it. Word comes back in a few minutes (simulated).');
+  toast(lead + ' has it. A reply comes in a few minutes (simulated).');
   refresh(); if (selId === pt.block) card(true); if (TOPEN === id) thread(id);
   const q = QUESTIONS[id] && QUESTIONS[id][req.k];
   if (q) PATCHT[id] = setTimeout(() => { a.state = 'question'; a.at = clockNow(); a.question = q.q; a.answers = q.answers; a.msgs.push({who: lead, text: q.q.slice(q.q.indexOf(':') + 2), at: a.at, cls: 'them'});
@@ -1330,8 +1330,8 @@ function story(){
     (comesIn.length ? 'The board leaves ' + names(comesIn) + ' in the rain; bringing ' + (comesIn.length > 1 ? 'them' : 'it') + ' in early is worth ' + fmtK(best - naive) + ' more.' : POST.length ? 'The board already has the dry days right.' : 'With no rain coming, picking by ripeness is the best plan.');
   const more = (POST.length ? 'The board picks by ripeness, which fills the dry days with the ' + shorts(dryNaive) + (goesOut.length ? ' and leaves ' + names(comesIn) + ' (' + comesIn.reduce((t, b) => t + b.tons, 0).toFixed(1) + ' t of ' + shorts(comesIn) + ') in the rain. ' : '. ') : '') +
     (comesIn.length ? 'Picking ' + (comesIn.length > 1 ? 'them' : 'it') + ' a few days early, and letting ' + names(goesOut) + ' take the rain instead, is worth ' + fmtK(best - naive) + ' more. ' : '') +
-    (thick.length ? 'The thick-skinned ' + shorts(thick) + ' can ride out the storm; ' + (thin.length ? 'the ' + shorts(thin) + ' cannot.' : 'the thin skins cannot.') : '') +
-    ' Values are tons times the contract price, adjusted for how far each block is from its best day and, after the storm, for what the rain takes. Odds are the forecaster\u2019s; every figure here is synthetic. The clock runs fast (a second a minute) and the crew leads\u2019 replies are simulated, so the morning plays out while you work.';
+    (thick.length ? 'The thick-skinned ' + shorts(thick) + ' can wait through the storm; ' + (thin.length ? 'the ' + shorts(thin) + ' cannot.' : 'the thin skins cannot.') : '') +
+    ' Values are tons times the contract price, adjusted for how far each block is from its best day and, after the storm, for what the rain takes. Odds are the forecaster\u2019s; every figure here is synthetic. The clock runs fast (one second per minute) and the crew leads\u2019 replies are simulated.';
   $('#story').innerHTML = '<div class="pv pv-estate on" id="pv-estate">' +
     '<div class="eyebrow">' + esc(dstr(TODAY)) + (rainDay ? ' · rain ' + DOW[rainDay.getUTCDay()] + ' from 2 PM' : ' · no rain this week') + (SC.k !== 'thu' ? ' · <b>if the storm ' + esc(SC.label.toLowerCase()) + '</b>' : '') + '</div>' +
     '<h1>' + head + '</h1>' +
@@ -1381,7 +1381,7 @@ function blocksTable(){
 // F1: what the rain takes, block by block. One row per hanging block, its best wet day to its best dry day, sorted by the gap.
 function dumbbell(){
   const el = $('#dumb'); if (!el) return;
-  if (!POST.length){ el.innerHTML = '<div class="lbl2">What the rain takes<span class="cnt">nothing, in this future</span></div><div class="hint">No rain this fortnight: every picking day is dry, and the only question is ripeness.</div>'; return; }
+  if (!POST.length){ el.innerHTML = '<div class="lbl2">What the rain takes<span class="cnt">nothing, in this future</span></div><div class="hint">No rain in the next two weeks: every picking day is dry, and the only question is ripeness.</div>'; return; }
   const rows = LIVE.map(b => ({b, wet: bestWet(b), dry: bestDry(b), inDry: !SL[plan[b.id]].wet, best: !SL[D.best.plan[b.id]].wet})).sort((a, c) => (c.dry - c.wet) - (a.dry - a.wet));
   const mx = Math.max.apply(null, rows.map(r => Math.max(r.dry, r.wet)));
   const W = 344, L = 104, R = 54, RH = 22, H = rows.length*RH + 24;
@@ -1487,7 +1487,7 @@ function scenDrawer(){
   if (!SCNOTE) return '';
   const dryB = LIVE.filter(b => !SL[D.best.plan[b.id]].wet).length;
   return '<div class="scdrawer" role="status"><div class="sdh"><b>If the storm ' + esc(SC.label.toLowerCase()) + '</b><span class="mono">odds ' + Math.round(SC.odds*100) + '%</span><button type="button" class="sdx" id="sd-x" aria-label="Close">\u00d7</button></div>' +
-    '<p>' + esc(SC.sub) + '. ' + (STORM0 == null ? 'Every day this fortnight is a picking day; no fruit takes a loss. ' : PRE.length + ' dry picking days' + (PRE.some(x => x.label.indexOf('until noon') >= 0) ? ', the last a half day' : '') + ', then ' + POST.length + ' after the rain. ') +
+    '<p>' + esc(SC.sub) + '. ' + (STORM0 == null ? 'Every day in the next two weeks is a picking day; no fruit takes a loss. ' : PRE.length + ' dry picking days' + (PRE.some(x => x.label.indexOf('until noon') >= 0) ? ', the last a half day' : '') + ', then ' + POST.length + ' after the rain. ') +
     'The best plan brings in ' + dryB + ' block' + (dryB === 1 ? '' : 's') + ' before the rain and is worth ' + fmt$(D.best.value) + '; the board\u2019s plan ' + fmt$(D.naive.value) + '.' +
     (SCNOTE.moved ? ' ' + SCNOTE.moved + ' block' + (SCNOTE.moved > 1 ? 's' : '') + ' lost ' + (SCNOTE.moved > 1 ? 'their day' : 'its day') + ' in this future and took the nearest day with room.' : ' Every block kept its day.') + '</p></div>';
 }
@@ -1669,7 +1669,7 @@ let SENT = null;
 const PATCHES = [
   {id: 'p1', n: 1, block: 'B7', kind: 'water', acres: 0.4, where: 'south edge, rows 12 to 16',
    poly: [[0.6054,0.5281],[0.6262,0.5067],[0.6567,0.4773],[0.6708,0.5203],[0.6327,0.577],[0.6054,0.5438]],
-   note: 'Canopy 4\u00b0C warmer than the rest of the block on ' + wday(-2) + '\u2019s thermal pass, vigor 0.38 against 0.61. Reads like a dry zone: a dripline, or a valve.',
+   note: 'Canopy 4\u00b0C warmer than the rest of the block on ' + wday(-2) + '\u2019s thermal pass, vigor 0.38 against 0.61. Looks like a dry zone from a dripline or a valve.',
    ask: 'Walk the south edge of Golden Slope: check the dripline on rows 12 to 16', who: 'A',
    reply: 'Rosa M.: cracked dripline on row 14, water pooling at the valve. Fixed by noon; the vines will hold. I counted clusters on the way out: that zone is light, call Golden Slope 12.4 t, not 12.8. Pick it first ' + wday(2) + ', it is a day ahead.'},
   {id: 'p2', n: 2, block: 'B13', kind: 'pest', acres: 0.3, where: 'north corner, by the creek',
@@ -1683,7 +1683,7 @@ const PBY = {}; PATCHES.forEach(x => PBY[x.id] = x);
 // what this morning's pass finds that Saturday's did not
 const FOUND_TODAY = {id: 'p3', n: 3, block: 'B5', kind: 'virus', acres: 0.3, where: 'west rows 3 to 5', isNew: true,
   poly: [[0.1179,0.6858],[0.1420,0.6740],[0.1650,0.6880],[0.1690,0.7320],[0.1420,0.7440],[0.1210,0.7290]],
-  note: 'New this morning: leaves reddening between green veins on about fourteen vines, picked up by the multispectral camera at 6:12. Reads like leafroll virus, which has no cure and spreads by mealybug.',
+  note: 'New this morning: leaves reddening between green veins on about fourteen vines, picked up by the multispectral camera at 6:12. Looks like leafroll virus, which has no cure and spreads by mealybug.',
   ask: 'Walk rows 3 to 5 of Long Meadow and tag the vines with red leaves', who: 'B',
   reply: 'Tomas R.: tagged 14 vines on rows 3 to 5, red leaves with green veins, classic leafroll. The fruit is sound but behind the rest on sugar. I would pick them into their own bins.'};
 const SEEN = {p1: 'canopy +4°C, vigor 0.38', p2: 'vigor 0.44, mottled', p3: 'red leaves, green veins, 14 vines'};
@@ -1727,7 +1727,7 @@ function tasksFor(b){
   ].concat(zone);
   const risk = Math.max(0, bestDry(b) - b.value[sid]);
   return [
-    {k: 'risk', i: 'drop', t: 'Accept the rain risk: about ' + fmt$(risk) + ' against its best dry day', done: () => 'Signed off. ' + b.name + ' rides out the storm.'},
+    {k: 'risk', i: 'drop', t: 'Accept the rain risk: about ' + fmt$(risk) + ' against its best dry day', done: () => 'Signed off. ' + b.name + ' is picked after the storm.'},
     {k: 'resample', i: 'flask', t: 'Re-sample ' + dstr(TODAY + 7) + ' once the canopy dries', done: () => 'On the lab calendar for 7 AM.'},
     {k: 'crew', i: 'crew', t: 'Pencil ' + c.label + ' for ' + shiftOf(sid), done: () => 'In pencil, to confirm after the re-sample.'}
   ].concat(zone);
@@ -1848,13 +1848,13 @@ function stepBody(b){
   }
   // prepare, and the ready state
   const TK = tasksFor(b), done = TK.filter(t => d.tasks[t.k]).length, s = SL[plan[b.id]];
-  let h = '<div class="receipt">' + ico('seal') + '<div><b>Decided' + (d.at ? ' ' + esc(d.at) : '') + '</b> · ' + esc(sLabel(s)) + (isDry(plan[b.id]) ? ', ' + esc(shiftOf(plan[b.id]).split(', ')[1]) + ' · ' + esc(crewFor(b, plan[b.id]).label) : ' · rides out the storm') + ' · ' + fmt$(b.value[plan[b.id]]) +
+  let h = '<div class="receipt">' + ico('seal') + '<div><b>Decided' + (d.at ? ' ' + esc(d.at) : '') + '</b> · ' + esc(sLabel(s)) + (isDry(plan[b.id]) ? ', ' + esc(shiftOf(plan[b.id]).split(', ')[1]) + ' · ' + esc(crewFor(b, plan[b.id]).label) : ' · picked after the storm') + ' · ' + fmt$(b.value[plan[b.id]]) +
       (SENT && SENT.plan[b.id] === plan[b.id] ? '<br><span class="rs">Sent ' + esc(SENT.at) + (ackFor(b) ? ' · confirmed by ' + esc(ackFor(b)) : ' · awaiting ' + esc(crewFor(b, plan[b.id]).leads)) + '</span>' : '') + '</div></div>' +
-    '<div class="lbl2">' + (isDry(plan[b.id]) ? 'Before the crews go out' : 'Riding out the storm') + ' <span class="cnt">' + done + ' of ' + TK.length + '</span></div><ul class="tasks">' +
+    '<div class="lbl2">' + (isDry(plan[b.id]) ? 'Before the crews go out' : 'Picking after the storm') + ' <span class="cnt">' + done + ' of ' + TK.length + '</span></div><ul class="tasks">' +
     TK.map(t => '<li class="task' + (d.tasks[t.k] ? ' done' : '') + '"><button type="button" data-task="' + t.k + '" role="checkbox" aria-checked="' + !!d.tasks[t.k] + '"><span class="box">' + ico('check') + '</span>' + ico(t.i, 'ti') + '<span class="tt">' + esc(t.t) + (d.tasks[t.k] ? '<small>' + esc(t.done()) + (d.taskAt && d.taskAt[t.k] ? ' <i>' + esc(d.taskAt[t.k]) + '</i>' : '') + '</small>' : '') + '</span></button></li>').join('') + '</ul>';
   if (d.state === 'ready'){
     const nx = nextOpen(b.id);
-    h += '<div class="readyseal">' + ico('seal', 'sealring') + ico('grapes', 'sealmark') + '<div><b>' + esc(b.name) + ' is ' + (isDry(plan[b.id]) ? 'ready to pick.' : 'set to ride it out.') + '</b> ' +
+    h += '<div class="readyseal">' + ico('seal', 'sealring') + ico('grapes', 'sealmark') + '<div><b>' + esc(b.name) + ' is ' + (isDry(plan[b.id]) ? 'ready to pick.' : 'set to pick after the storm.') + '</b> ' +
       (isDry(plan[b.id]) ? esc(crewFor(b, plan[b.id]).label) + ' picks ' + esc(shiftOf(plan[b.id])) + '. ' + binsOf(b) + ' bins at the gate, ' + tankOf(b) + ' waiting: about ' + fmtN(b.tons*PER_TON.barrels) + ' barrels of ' + esc(b.short) + ' in before the rain.' : 'Re-sampled ' + wday(7) + ', picked ' + esc(sLabel(s)) + ' if the numbers hold.') + '</div></div>' +
       '<div class="act">' + (nx ? '<button class="btn primary" type="button" data-open="' + nx.id + '">Next: ' + esc(nx.name) + ' ' + ico('arrow') + '</button>' : '<button class="btn primary" type="button" data-sendnow="1">Send the plan to the crew leads ' + ico('send') + '</button>') + '<button class="btn" type="button" data-home="1">Back to the estate</button></div>';
   }
@@ -1909,7 +1909,7 @@ function decide(id, sid){
   snapshot();
   if (plan[id] !== sid && !assign(id, sid, null, true)) { HIST.pop(); card(); return; }
   d.state = 'decided'; d.step = 'prep'; d.tasks = {}; d.pick = null; d.at = clockNow(); d.taskAt = {};
-  log(id, 'decide', b.name + ' decided: ' + sLabel(SL[sid]) + ', ' + (isDry(sid) ? crewFor(b, sid).label + ', ' + shiftOf(sid).split(', ')[1] : 'rides out the storm') + ', worth ' + fmt$(b.value[sid]));
+  log(id, 'decide', b.name + ' decided: ' + sLabel(SL[sid]) + ', ' + (isDry(sid) ? crewFor(b, sid).label + ', ' + shiftOf(sid).split(', ')[1] : 'picked after the storm') + ', worth ' + fmt$(b.value[sid]));
   toast(b.name + ': picking ' + sLabel(SL[sid]) + ', worth ' + fmt$(b.value[sid]) + '. Logged ' + d.at + '.');
   refresh(); morning();
 }
@@ -1917,13 +1917,13 @@ function tick(id, k){
   const b = BY[id], d = DEC[id]; snapshot(); d.tasks[k] = !d.tasks[k]; d.taskAt = d.taskAt || {}; if (d.tasks[k]) d.taskAt[k] = clockNow(); else delete d.taskAt[k];
   const TK = tasksFor(b), all = TK.every(t => d.tasks[t.k]); const tk = TK.find(t => t.k === k);
   if (tk) log(id, d.tasks[k] ? 'task' : 'undo', b.name + ': ' + (d.tasks[k] ? tk.t : 'unticked: ' + tk.t));
-  if (all && d.state !== 'ready') log(id, 'ready', b.name + ' is ready: ' + (isDry(plan[id]) ? crewFor(b, plan[id]).label + ', ' + shiftOf(plan[id]) : 'set to ride out the storm'));
+  if (all && d.state !== 'ready') log(id, 'ready', b.name + ' is ready: ' + (isDry(plan[id]) ? crewFor(b, plan[id]).label + ', ' + shiftOf(plan[id]) : 'set to pick after the storm'));
   const was = d.state; d.state = all ? 'ready' : 'decided';
   card(); writeBlockTex(); drawOverlay(); board(); morning();
   if (all && was !== 'ready'){
     const sealEl = $('#pv-block .readyseal'); if (sealEl && !RM) sealEl.classList.add('pop');
     const left = LIVE.filter(x => !isReady(x.id)).length;
-    toast(b.name + (isDry(plan[id]) ? ' is ready to pick.' : ' is set to ride out the storm.') + (left ? ' ' + left + ' to go.' : ' Every block is settled.'));
+    toast(b.name + (isDry(plan[id]) ? ' is ready to pick.' : ' is set to pick after the storm.') + (left ? ' ' + left + ' to go.' : ' Every block is settled.'));
   }
 }
 
@@ -1938,7 +1938,7 @@ function morningState(){
     {k: 'flags', t: 'Look into the ' + PATCHES.length + ' patches the drone flagged', n: PATCHES.filter(x => ALERT[x.id].state === 'resolved' || ALERT[x.id].state === 'dismissed').length, of: PATCHES.length},
     {k: 'read', t: 'Read where every hanging block is', n: read, of: LIVE.length},
     {k: 'dry', t: 'Give the dry days to the right blocks, and prepare them', n: dryReady, of: dryB.length},
-    {k: 'wet', t: 'Settle which blocks ride out the storm', n: wetReady, of: wetB.length},
+    {k: 'wet', t: 'Settle which blocks wait until after the storm', n: wetReady, of: wetB.length},
     {k: 'gap', t: gap < 1 ? 'The plan matches the best the crews allow' : 'Close the ' + fmt$(gap) + ' gap to the best plan', n: gap < 1 ? 1 : 0, of: 1},
     {k: 'send', t: SENT ? 'Sent ' + SENT.at + ' · ' + ['A', 'B'].map(k => CREWS[k].lead.split(' ')[0] + (SENT.acks[k] ? ' confirmed' : ' awaiting')).join(', ') : 'Send the plan to the crew leads', n: SENT ? (1 + (SENT.acks.A ? 1 : 0) + (SENT.acks.B ? 1 : 0)) : 0, of: 3}
   ];
@@ -2063,9 +2063,9 @@ function summary(){
     (wet.length ? '<div class="lbl2">After the storm<span class="cnt">status</span></div><ul class="sched">' + wet.map(b => statusRow(b)).join('') + '</ul>' : '') +
     '<div id="log"></div>' +
     (open.length ? '<div class="why">Still open: ' + esc(open.map(b => b.name).join(', ')) + '. The crews have the days; the prep is not ticked off yet.</div>' : '') +
-    '<div class="why closing">' + (cab.length ? (STORM0 != null ? wday(Math.floor(STORM0) - TODAY) : wday(3)) + '’s rain will find ' + esc(cab.map(b => b.name).join(' and ')) + ' already in tank.' : 'The dry days are spoken for.') + ' Good harvest, ' + esc(USER.first) + '.</div>' +
+    '<div class="why closing">' + (cab.length ? esc(cab.map(b => b.name).join(' and ')) + ' will be in tank before ' + (STORM0 != null ? wday(Math.floor(STORM0) - TODAY) : wday(3)) + '’s rain.' : 'Every dry day is assigned.') + ' Good harvest, ' + esc(USER.first) + '.</div>' +
     '<div class="act">' + (open.length ? '<button class="btn primary" type="button" data-open="' + open[0].id + '">Finish ' + esc(open[0].name) + ' ' + ico('arrow') + '</button>' : '') + '<button class="btn" type="button" id="sm-undo">Unsend</button></div>' +
-    '<div class="hint">The clock runs fast in this demo: a second a minute.</div>';
+    '<div class="hint">The clock runs fast in this demo: one second per minute.</div>';
   el.querySelector('#sm-back').onclick = () => showView('estate');
   el.querySelector('#sm-undo').onclick = () => { ACKT.forEach(clearTimeout); liftIssue(); log(null, 'unsend', 'Plan unsent'); SENT = null; showView('estate'); morning(); board(); alertsBadge(); toast('Unsent. The crew leads see nothing yet.'); };
   const ia = $('#issue-ask'); if (ia) ia.onclick = askForHands; const im = $('#issue-move'); if (im) im.onclick = moveForIssue;
@@ -2085,8 +2085,8 @@ document.addEventListener('click', e => { const b = e.target.closest && e.target
   const nx = PATCHES.find(x => ALERT[x.id].state === 'question') || PATCHES.find(x => ALERT[x.id].state === 'open'); if (nx){ openPatch(nx.id); return; }
   if (SENT && SENT.issue && SENT.issue.state === 'open'){ if (selId) select(null); showView('summary'); setTimeout(() => { const c = $('#issue'); if (c) c.scrollIntoView({behavior: RM ? 'auto' : 'smooth', block: 'center'}); }, 400); return; }
   toast('Nothing needs an answer right now.'); });
-(function(){ const sb = $('#still'); const paint = () => { sb.setAttribute('aria-pressed', STILL); sb.textContent = STILL ? 'Land moves' : 'Still land'; sb.title = STILL ? 'Let the clouds and the rain move again' : 'Stop the clouds and the rain moving'; };
-  paint(); sb.onclick = () => { STILL = !STILL; try { localStorage.setItem('qr-still', STILL ? '1' : '0'); } catch(e){} paint(); toast(STILL ? 'The land holds still.' : 'The land moves again.'); }; })();
+(function(){ const sb = $('#still'); const paint = () => { sb.setAttribute('aria-pressed', STILL); sb.textContent = STILL ? 'Resume motion' : 'Pause motion'; sb.title = STILL ? 'Let the clouds and rain move again' : 'Stop the clouds and rain from moving'; };
+  paint(); sb.onclick = () => { STILL = !STILL; try { localStorage.setItem('qr-still', STILL ? '1' : '0'); } catch(e){} paint(); toast(STILL ? 'Motion paused.' : 'Motion resumed.'); }; })();
 (function(){ const k = $('#key'), t = $('#key-t'); let open = innerHeight >= 720; try { const kv = localStorage.getItem('qr-key'); if (kv) open = kv !== 'closed'; } catch(e){}
   $('#keyb').innerHTML = keyHTML(); k.classList.toggle('open', open); t.setAttribute('aria-expanded', open);
   t.onclick = () => { open = !open; k.classList.toggle('open', open); t.setAttribute('aria-expanded', open); try { localStorage.setItem('qr-key', open ? 'open' : 'closed'); } catch(e){} }; })();
@@ -2117,7 +2117,7 @@ function daysAhead(){
 }
 function playAhead(){
   const ev = daysAhead(); let shown = 0; const r = $('#readout');
-  playSeason(TODAY, F1, RM ? 1 : 9000, () => { toast('That is the fortnight the model expects. Drag the lane or press Home to come back to this morning.'); });
+  playSeason(TODAY, F1, RM ? 1 : 9000, () => { toast('That is the next two weeks as the model projects them. Drag the timeline or press Home to return to this morning.'); });
   // the readout lists the day's events as the knob passes them
   const tick = () => { if (!playing) return; const due = ev.filter(e => e.t <= T); if (due.length !== shown){ shown = due.length; const last = due.slice(-2); r.innerHTML = esc(dstr(Math.floor(T))) + '<br>' + last.map(e => '<span class="ev ' + e.kind + '">' + esc(e.text) + '</span>').join('<br>'); r.style.display = ''; } requestAnimationFrame(tick); };
   requestAnimationFrame(tick);
@@ -2125,7 +2125,7 @@ function playAhead(){
 function fortnight(){
   const el = $('#fort'); if (!el) return;
   const u = used(plan), focus = BY[selId || hoverId] || null;
-  let h = '<div class="flbl">This fortnight · ' + esc(SC.label) + '</div>';
+  let h = '<div class="flbl">Next two weeks · ' + esc(SC.label) + '</div>';
   if (STORM0 != null) h += '<div class="fstorm" style="left:' + fx(STORM0) + '%;width:' + (fx(STORM1) - fx(STORM0)) + '%"></div>';
   for (let t = Math.ceil(F0); t <= F1; t++){ const dd = new Date(t*DAY); h += '<div class="fd" style="left:' + fx(t) + '%"></div>'; }
   D.forecast.forEach(f => { const t = day(f.d); if (f.pop >= 50 && t >= F0 && t <= F1) h += '<div class="fr" style="left:' + fx(t + .5) + '%;height:' + (4 + f.rain*12) + 'px"></div><div class="fp" style="left:' + fx(t + .5) + '%">' + f.pop + '%</div>'; });
@@ -2136,7 +2136,7 @@ function fortnight(){
       '<div class="fn' + (n > 0 ? ' pick' : '') + (x.wet ? ' wet' : '') + '" style="left:' + fx(x.t + (half ? .25 : .5)) + '%">' + x.label.split(' ')[1].replace(',', '') + '</div>'; });
   daysAhead().forEach(e => { if (e.kind === 'rain') return; h += '<div class="fev ' + e.kind + (e.id === selId ? ' on' : '') + '" style="left:' + fx(e.t) + '%" title="' + esc(dstr(e.t) + ': ' + e.text) + '">' + (e.kind === 'in' ? '\u25B2' : e.kind === 'out' ? '\u25BC' : '\u00B7') + '</div>'; });
   h += '<div class="ftoday" style="left:' + fx(TODAY) + '%"></div><div class="fknob" id="fknob"></div>' +
-    '<button type="button" class="fplay" id="fplay" title="Play the fortnight ahead on the model">' + ico('arrow') + ' Play ahead</button>';
+    '<button type="button" class="fplay" id="fplay" title="Play the next two weeks as the model projects them">' + ico('arrow') + ' Play ahead</button>';
   el.innerHTML = h;
   const fp = $('#fplay'); if (fp) fp.onclick = e => { e.stopPropagation(); playAhead(); }; if (fp) fp.onpointerdown = e => e.stopPropagation(); const k = $('#fknob'); if (k){ k.style.left = fx(clamp(T, F0, F1)) + '%'; k.style.display = T < F0 || T > F1 ? 'none' : ''; }
 }
@@ -2199,11 +2199,11 @@ const USER = {name: 'Annu K.', initials: 'AK', first: 'Annu', role: 'Director of
 function alertsBadge(){ const n = PATCHES.filter(x => ALERT[x.id].state === 'open' || ALERT[x.id].state === 'question').length + (SENT && SENT.issue && SENT.issue.state === 'open' ? 1 : 0); const b = $('#bell'), t = $('#bell-t'); if (b){ (t || b).textContent = n ? n + (n > 1 ? ' alerts' : ' alert') : 'No alerts'; b.classList.toggle('on', n > 0); b.setAttribute('aria-label', n ? n + ' open ' + (n > 1 ? 'alerts' : 'alert') + ': open the next one' : 'No open alerts'); } }
 
 const VINTAGE = [
-  {k: 'vine', t: 'Vineyard', d: 'Lab samples, weather, sensors and the drone: the season that leads here.'},
+  {k: 'vine', t: 'Vineyard', d: 'Lab samples, weather, sensors and drone passes from the season so far.'},
   {k: 'harvest', t: 'Harvest', d: 'This app: which block is picked on which day, by which crew, into which tank.', on: true},
-  {k: 'crush', t: 'Crush', d: 'Next chapter. Weigh tags turn blocks into lots: tons in, juice out, the first numbers the cellar trusts.'},
+  {k: 'crush', t: 'Crush', d: 'The next step: weigh tags turn blocks into lots, with tons in and juice out.'},
   {k: 'ferment', t: 'Ferment', d: 'Brix falling and temperature in every tank, twice a day, for two or three weeks.'},
-  {k: 'barrel', t: 'Barrel', d: 'Lots in oak for a year or two: topping, tasting notes, the blends taking shape.'},
+  {k: 'barrel', t: 'Barrel', d: 'Lots in oak for a year or two: topping, tasting notes and blending.'},
   {k: 'bottle', t: 'Bottle', d: 'Blends become SKUs: case counts, bottling dates, the cost of every bottle.'},
   {k: 'club', t: 'Release', d: 'The tasting room, the online shop and the wine club: who buys which vintage, and who stays a member.'}
 ];
@@ -2295,7 +2295,7 @@ function closeUp(id, opts){
   const b = BY[pt.block];
   el.innerHTML = '<div class="cu-top"><span class="mono">Drone · 6:12 AM · ' + esc(b.name) + ' · ' + esc(pt.where) + '</span><span class="cu-alt mono" id="cu-alt">120 m</span><button type="button" class="cu-x" id="cu-x" aria-label="Close">×</button></div>' +
     '<div class="cu-body"><div class="cu-media" id="cu-media"><canvas id="cu-cv" width="1280" height="720" aria-hidden="true"></canvas><video id="cu-v" muted playsinline preload="auto"></video>' +
-      '<div class="cu-tag t1"><i></i><b>Stippling</b>mites feeding on the leaf</div><div class="cu-tag t2"><i></i><b>Webbing</b>the colony is still building</div>' +
+      '<div class="cu-tag t1"><i></i><b>Stippling</b>mites feeding on the leaf</div><div class="cu-tag t2"><i></i><b>Webbing</b>the colony is still growing</div>' +
       '<button type="button" class="cu-skip" id="cu-skip">Skip to the leaf</button></div>' +
     '<aside class="cu-side glass" id="cu-side"></aside></div>';
   el.classList.add('on'); $('#stage').classList.add('closing');
@@ -2345,7 +2345,7 @@ function cuSide(){
   if (a.decision){ side.innerHTML = '<div class="lbl2">Decided ' + esc(a.decidedAt || '') + '</div><p class="cu-p">' + esc(a.decisionText) + '</p><div class="act tight"><button class="btn primary" type="button" id="cu-back">Back to the estate</button></div>'; $('#cu-back').onclick = closeCloseUp; return; }
   const mvDay = mv ? SL[mv.to] : null, sw = mv && mv.swap ? BY[mv.swap] : null;
   side.innerHTML = '<div class="lbl2">Spider mites, about ' + pt.acres + ' acres</div>' +
-    '<p class="cu-p">Pale stippling where they feed and fresh webbing: a colony still building. ' + esc(b.name) + ' is picked <b>' + esc(sLabel(day)) + '</b>, ' + n + ' day' + (n === 1 ? '' : 's') + ' from now.</p>' +
+    '<p class="cu-p">Pale stippling where they feed and fresh webbing: the colony is still growing. ' + esc(b.name) + ' is picked <b>' + esc(sLabel(day)) + '</b>, ' + n + ' day' + (n === 1 ? '' : 's') + ' from now.</p>' +
     '<div class="cu-ch"><button type="button" class="cu-opt" id="cu-dust"><b>Dust sulfur tonight</b><span>Keeps ' + esc(sLabel(day)) + '. But sulfur on the fruit can turn into hydrogen sulfide in the ferment; the usual guidance is 30 days between sulfur and harvest; this pick would be ' + n + ' days out.</span></button>' +
     (mv ? '<button type="button" class="cu-opt" id="cu-move"><b>Move the pick to ' + esc(sLabel(mvDay)) + '</b><span>No sulfur: the fruit comes off before the colony spreads' + (sw ? ', and ' + esc(sw.name) + ' takes ' + esc(sLabel(day)) : '') + '. The model prices it at <em class="' + (mv.dv >= 0 ? 'up' : 'down') + '">' + (mv.dv >= 0 ? '+' : '−') + fmt$(Math.abs(mv.dv)) + '</em> for the week.</span></button>'
         : '<div class="cu-opt off"><b>Move the pick</b><span>No earlier day has room for ' + b.tons.toFixed(1) + ' t, even by swapping a block.</span></div>') +
@@ -2432,25 +2432,25 @@ function welcome(){
   const dryDays = (Math.floor(dd) ? (words[Math.floor(dd)] || Math.floor(dd)) : '') + (dd % 1 >= .5 ? (Math.floor(dd) ? ' and a half' : 'half a') : '');
   const WAYS = [
     {k:'block', i:'barrel', t:'Start with ' + big.name, d:'The most valuable block still hanging: ' + big.tons.toFixed(1) + ' t of ' + big.short + '. Read it, decide its day, get it ready.'},
-    {k:'season', i:'grapes', t:'Watch the season ripen', d:'Bud break to this morning in nine seconds, every block coloring as it sugars.'},
-    {k:'storm', i:'drop', t:'Step into ' + DOWL[rainDay.getUTCDay()], d:'The storm arrives at 2 PM. See what is still on the vine when it does.'},
+    {k:'season', i:'grapes', t:'Watch the season ripen', d:'Bud break to this morning in nine seconds. Each block changes color as its sugar rises.'},
+    {k:'storm', i:'drop', t:'Jump to ' + DOWL[rainDay.getUTCDay()], d:'The storm arrives at 2 PM. See what is still on the vine when it does.'},
     {k:'best', i:'glass', t:'Compare with the best plan', d:fmt$(D.best.value - D.naive.value) + ' more than the plan on the board, with the same crews.'}
   ];
   $('#welcome-w').innerHTML =
     '<div class="who"><div class="av" aria-hidden="true">' + USER.initials + '</div><div class="nm">' + esc(USER.name) + '<small>' + esc(USER.role) + ' · ' + esc(D.estate.name) + ' · ' + B.reduce((t, b) => t + b.acres, 0).toFixed(0) + ' acres, ' + B.length + ' blocks, two crews</small></div></div>' +
     '<div class="eyebrow">' + esc(dstr(TODAY)) + ' · ' + esc(D.estate.refresh) + ' · ' + esc(D.estate.place) + '</div>' +
     '<h1 id="w-h">Good morning, ' + esc(USER.first) + '.</h1>' +
-    '<p class="core"><span class="lbl3">The problem</span>Every block peaks on a different day, and two crews with ' + dryDays + ' dry days cannot pick them all at their best. Someone has to decide which fruit gets its day.</p>' +
+    '<p class="core"><span class="lbl3">The problem</span>Every block peaks on a different day, and two crews with ' + dryDays + ' dry days cannot pick them all at their best. Someone has to decide which blocks are picked on which day.</p>' +
     '<p class="p">' + cap(LIVE.length) + ' blocks are still on the vine and ' + words[ready] + ' of them are in their window. Rain arrives <b>' + DOWL[rainDay.getUTCDay()] + ' at 2 PM</b>. ' +
-      'Before the crews go out tonight you decide which blocks come in before the storm and which ride it out: the decision that sets the vintage.</p>' +
+      'Before the crews go out tonight, you decide which blocks come in before the storm and which wait until after it.</p>' +
     '<div class="wstakes"><div><div class="n">' + fmtM(D.naive.value) + '</div><div class="l">the week as the board has it, picking by ripeness</div></div><div><div class="n warm">' + fmtM(D.best.value) + '</div><div class="l">the same week, the same crews, picked in the right order</div></div><div><div class="n">' + fmtK(D.best.value - D.naive.value) + '</div><div class="l">the difference, decided before 7 AM</div></div></div>' +
-    '<p class="until">Until now this morning took a lab sheet, a whiteboard, the forecast on a phone and forty texts. Today it is one screen, and the crews answer on it.</p>' +
+    '<p class="until">This used to take a lab sheet, a whiteboard, the forecast on a phone and forty texts. Here it is one screen, and the crews reply on it.</p>' +
     '<div class="datum"></div>' +
     '<div class="lbl">What this morning has to answer</div>' +
     '<ol class="qs">' +
       '<li>Which blocks are in their window today, and which are still days away?</li>' +
       '<li>What does the rain take from each block left hanging?</li>' +
-      '<li>With ' + preCap + ' tons of crew time before the storm, which blocks earn it?</li>' +
+      '<li>With ' + preCap + ' tons of crew time before the storm, which blocks should get it?</li>' +
       '<li>How far is the plan on the board from the best one?</li>' +
     '</ol>' +
     '<div class="go"><button class="btn primary" id="w-go">Walk the estate ' + ico('arrow') + '</button><button class="skipflight" id="w-skip" type="button">Skip the flight</button></div>' +
